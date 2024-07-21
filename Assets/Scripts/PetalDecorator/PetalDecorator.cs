@@ -23,6 +23,7 @@ namespace PetalDecorator
         public class DamageDecorator : PetalDecorator
         {
             public DamageDecorator(int value) : base(value) {}
+            
         }
         
         public class UtilityDecorator : PetalDecorator

@@ -1,59 +1,119 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using DefaultNamespace;
 using UnityEngine;
 
 namespace Command
 {
     public abstract class PlayerCommand : ICommand
     {
-        public IEntity player;
-        public PlayerCommand(IEntity player)
+        protected IFightingEntity player;
+        public List<Entity> targets = new();
+        protected PetalDecorator.PetalDecorator decorator;
+        
+        public PlayerCommand(IFightingEntity player)
         {
             this.player = player;
         }
+
+        public void SetDecorator(PetalDecorator.PetalDecorator decorator)
+        {
+            this.decorator = decorator;
+            this.targets = new List<Entity>();
+        }
+        
+        public void AddTarget(Entity target)
+        {
+            targets.Add(target);
+        }
+        
+        public void ClearTargets()
+        {
+            targets.Clear();
+        }
+
         public abstract Task Execute();
         
-        public static T Create<T>(IEntity player) where T : PlayerCommand
+        public static T Create<T>(IFightingEntity player, Entity[] targets) where T : PlayerCommand
         {
-            return (T) System.Activator.CreateInstance(typeof(T), player);
+            var command = (T)System.Activator.CreateInstance(typeof(T), player);
+            foreach (Entity target in targets)
+            {
+                command.AddTarget(target);
+            }
+            return command;
         }
     }
-    
+
     public class AttackCommand : PlayerCommand
     {
-        public AttackCommand(IEntity player) : base(player)
+        public AttackCommand(IFightingEntity player) : base(player)
         {
         }
 
         public override Task Execute()
         {
-            player.Attack();
-            // await Awaitable.
+            int value = decorator?.Play() ?? 0;
+            if (targets.Count > 0)
+            {
+                foreach (var target in targets)
+                {
+                    Debug.Log("Attack Command " + " " + target);
+                    player.Attack(target);
+                }
+            }
+            else
+            {
+                Debug.LogError("No target found");
+            }
             return Task.CompletedTask;
         }
     }
+
     public class DefenseCommand : PlayerCommand
     {
-        public DefenseCommand(IEntity player) : base(player)
+        public DefenseCommand(IFightingEntity player) : base(player)
         {
         }
 
         public override Task Execute()
         {
-            player.Defense();
-            // await Awaitable.
+            int value = decorator?.Play() ?? 0;
+            if (targets.Count > 0)
+            {
+                foreach (var target in targets)
+                {
+                    player.Defense(target);
+                }
+            }
+            else
+            {
+                Debug.LogError("No target found");
+            }
             return Task.CompletedTask;
         }
     }
+
     public class UtilityCommand : PlayerCommand
     {
-        public UtilityCommand(IEntity player) : base(player)
+        public UtilityCommand(IFightingEntity player) : base(player)
         {
         }
 
         public override Task Execute()
         {
-            player.Utility();
-            // await Awaitable.
+            int value = decorator?.Play() ?? 0;
+            if (targets.Count > 0)
+            {
+                foreach (var target in targets)
+                {
+                    player.Utility(target);
+                }
+            }
+            else
+            {
+                Debug.LogError("No target found");
+            }
             return Task.CompletedTask;
         }
     }

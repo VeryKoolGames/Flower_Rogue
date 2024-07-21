@@ -1,20 +1,11 @@
-using System.Collections.Generic;using Command;
+using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class PlayerAttacks : MonoBehaviour, IEntity
-{
-    public void Attack()
+public class Player : Entity
+{ 
+    private void Start()
     {
-        Debug.Log("Player Attack");
-    }
-
-    public void Defense()
-    {
-        Debug.Log("Player Defense");
-    }
-
-    public void Utility()
-    {
-        Debug.Log("Player Utility");
+        _attributes = new EntityAttribute(entitySo.Attribute.Name, entitySo.Attribute.Health);
     }
 }
