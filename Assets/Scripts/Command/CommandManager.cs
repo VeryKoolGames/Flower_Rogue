@@ -110,12 +110,12 @@ namespace Command
 
     public class CommandInvoker
     {
-        public void ExecuteCommands(List<ICommand> commands)
+        public async void ExecuteCommands(List<ICommand> commands)
         {
             foreach (var command in commands)
             {
                 Debug.Log("Executing command: " + command);
-                command.Execute();
+                await command.Execute();
             }
         }
 

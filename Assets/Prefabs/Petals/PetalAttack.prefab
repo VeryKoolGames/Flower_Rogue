@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1027984503441265875}
   - component: {fileID: 8791730815159992194}
   - component: {fileID: 2958779966298436813}
+  - component: {fileID: 3838006239001059058}
   m_Layer: 0
   m_Name: PetalAttack
   m_TagString: Untagged
@@ -191,4 +192,20 @@ MonoBehaviour:
   passiveDefense: 3
   activeDefense: 5
   onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
+    type: 2}
+--- !u!114 &3838006239001059058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d341ca7d983346fc88f8ab0228fb87d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPetalSelectionEvent: {fileID: 11400000, guid: 9998d2ba20a95453badbcc5996fe5194,
+    type: 2}
+  onPetalUnSelectionEvent: {fileID: 11400000, guid: cab62844f3c5744e6aa5850ec832bd4e,
     type: 2}

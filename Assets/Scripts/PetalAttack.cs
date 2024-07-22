@@ -16,7 +16,7 @@ public class PetalAttack : MonoBehaviour, IFightingEntity
         target.loseHP(damage);
     }
     
-    public void SetActive()
+    public void ActivatePetal()
     {
         _isPassive = !_isPassive;
     }

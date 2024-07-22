@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 3330935639859290403}
   - component: {fileID: 1027984503441265875}
   - component: {fileID: 8791730815159992194}
-  - component: {fileID: 5487604177495178482}
+  - component: {fileID: 7350959291933243489}
+  - component: {fileID: 4502158041975472073}
+  - component: {fileID: -6991566407716270835}
   m_Layer: 0
-  m_Name: PetalUtility
+  m_Name: PetalDefense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +83,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
-  m_Color: {r: 0, g: 1, b: 0.0408051, a: 1}
+  m_Color: {r: 0, g: 0.21097231, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -176,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a448930cc1f724b5fa25f7029ab4a9b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5487604177495178482
+--- !u!114 &7350959291933243489
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,6 +187,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 4867423013394408186}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 939e7fea3b5e4965b19a674e51ab3320, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fe1da8cc8cac430aa99c9f47ac74a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onTargetUpdateEvent: {fileID: 11400000, guid: 3a55d8c228f1f486e865e07303266291,
+    type: 2}
+--- !u!114 &4502158041975472073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4028d1c6f38eb4501b4784733b6f6a34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passiveDamage: 3
+  activeDamage: 5
+  onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
+    type: 2}
+--- !u!114 &-6991566407716270835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d341ca7d983346fc88f8ab0228fb87d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPetalSelectionEvent: {fileID: 11400000, guid: 9998d2ba20a95453badbcc5996fe5194,
+    type: 2}
+  onPetalUnSelectionEvent: {fileID: 11400000, guid: cab62844f3c5744e6aa5850ec832bd4e,
+    type: 2}

@@ -44,7 +44,7 @@ namespace Command
         {
         }
 
-        public override Task Execute()
+        public override async Task Execute()
         {
             if (targets.Count > 0)
             {
@@ -58,7 +58,7 @@ namespace Command
             {
                 Debug.LogError("No target found");
             }
-            return Task.CompletedTask;
+            await Awaitable.WaitForSecondsAsync(2f);
         }
     }
 
@@ -68,7 +68,7 @@ namespace Command
         {
         }
 
-        public override Task Execute()
+        public override async Task Execute()
         {
             if (targets.Count > 0)
             {
@@ -81,7 +81,7 @@ namespace Command
             {
                 Debug.LogError("No target found");
             }
-            return Task.CompletedTask;
+            await Awaitable.WaitForSecondsAsync(2f);
         }
     }
 
@@ -91,7 +91,7 @@ namespace Command
         {
         }
 
-        public override Task Execute()
+        public override async Task Execute()
         {
             if (targets.Count > 0)
             {
@@ -104,7 +104,7 @@ namespace Command
             {
                 Debug.LogError("No target found");
             }
-            return Task.CompletedTask;
+            await Awaitable.WaitForSecondsAsync(2f);
         }
     }
 

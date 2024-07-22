@@ -22,4 +22,9 @@ public class PetalDefense : MonoBehaviour, IFightingEntity
         onCommandCreationEvent.Raise(command);
     }
     
+    public void ActivatePetal()
+    {
+        _isPassive = !_isPassive;
+    }
+    
 }

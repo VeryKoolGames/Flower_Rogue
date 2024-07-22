@@ -31,7 +31,7 @@ public class DragNDrop : MonoBehaviour
         mousePosition.z = 0;
         offset = transform.position - mousePosition;
     }
-
+    
     void OnMouseUp()
     {
         isDragging = false;
