@@ -14,5 +14,11 @@ namespace DefaultNamespace
             _attributes.Health -= amount;
             Debug.Log("Health: " + _attributes.Health);
         }
+        
+        public void addArmor(int amount)
+        {
+            _attributes.armor += amount;
+            Debug.Log("Armor: " + _attributes.armor);
+        }
     }
 }

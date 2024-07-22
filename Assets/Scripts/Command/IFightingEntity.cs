@@ -1,12 +1,10 @@
 using DefaultNamespace;
-using Petals;
 
 namespace Command
 {
     public interface IFightingEntity
     {
-        void Attack(Entity target);
-        void Defense(Entity target);
-        void Utility(Entity target);
+        void Execute(Entity target);
+        void Initialize(Entity player);
     }
 }

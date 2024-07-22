@@ -9,17 +9,10 @@ namespace Command
     {
         protected IFightingEntity player;
         public List<Entity> targets = new();
-        protected PetalDecorator.PetalDecorator decorator;
         
         public PlayerCommand(IFightingEntity player)
         {
             this.player = player;
-        }
-
-        public void SetDecorator(PetalDecorator.PetalDecorator decorator)
-        {
-            this.decorator = decorator;
-            this.targets = new List<Entity>();
         }
         
         public void AddTarget(Entity target)
@@ -53,13 +46,12 @@ namespace Command
 
         public override Task Execute()
         {
-            int value = decorator?.Play() ?? 0;
             if (targets.Count > 0)
             {
                 foreach (var target in targets)
                 {
                     Debug.Log("Attack Command " + " " + target);
-                    player.Attack(target);
+                    player.Execute(target);
                 }
             }
             else
@@ -78,12 +70,11 @@ namespace Command
 
         public override Task Execute()
         {
-            int value = decorator?.Play() ?? 0;
             if (targets.Count > 0)
             {
                 foreach (var target in targets)
                 {
-                    player.Defense(target);
+                    player.Execute(target);
                 }
             }
             else
@@ -102,12 +93,11 @@ namespace Command
 
         public override Task Execute()
         {
-            int value = decorator?.Play() ?? 0;
             if (targets.Count > 0)
             {
                 foreach (var target in targets)
                 {
-                    player.Utility(target);
+                    player.Execute(target);
                 }
             }
             else
@@ -115,6 +105,28 @@ namespace Command
                 Debug.LogError("No target found");
             }
             return Task.CompletedTask;
+        }
+    }
+
+    public static class CommandFactory
+    {
+        public static PlayerCommand CreateCommand(IFightingEntity player, Entity[] targets)
+        {
+            PlayerCommand command = null;
+
+            if (player is PetalAttack)
+            {
+                command = PlayerCommand.Create<AttackCommand>(player, targets);
+            }
+            else if (player is PetalDefense)
+            {
+                command = PlayerCommand.Create<DefenseCommand>(player, targets);
+            }
+            else if (player is PetalUtility)
+            {
+                command = PlayerCommand.Create<UtilityCommand>(player, targets);
+            }
+            return command;
         }
     }
 }

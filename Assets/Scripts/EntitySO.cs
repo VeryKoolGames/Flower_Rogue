@@ -8,6 +8,7 @@ namespace DefaultNamespace
     {
         public string Name;
         public int Health;
+        public int armor;
 
         public EntityAttribute(string name, int health)
         {

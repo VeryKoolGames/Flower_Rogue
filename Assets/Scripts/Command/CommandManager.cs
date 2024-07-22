@@ -1,25 +1,33 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using DefaultNamespace;
 using DefaultNamespace.Events;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Command
 {
     public class CommandManager : MonoBehaviour
     {
         public IFightingEntity fightingEntity;
+        [SerializeField] private List<GameObject> petalPrefabs;
         public List<ICommand> commandList;
         [SerializeField] private OnCommandCreationListener onCommandCreationListener;
+        [SerializeField] private OnTargetUpdateListener onTargetUpdateListener;
         readonly CommandInvoker commandInvoker = new();
 
         private void Start()
         {
             onCommandCreationListener.Response.AddListener(AddCommand);
+            onTargetUpdateListener.Response.AddListener(UpdateTarget);
             fightingEntity = GetComponent<IFightingEntity>();
             commandList = new List<ICommand>();
+            for (int i = 0; i < petalPrefabs.Count; i++)
+            {
+                Vector3 position = new Vector3(transform.position.x + 2 * i, transform.position.y, transform.position.z);
+                GameObject obj = Instantiate(petalPrefabs[i], position, Quaternion.identity);
+                IFightingEntity petal = obj.GetComponent<IFightingEntity>();
+                petal.Initialize(GetComponent<Player>());
+            }
         }
 
         public void AddCommand(ICommand command)
@@ -29,17 +37,28 @@ namespace Command
                 Debug.Log("Command already exists");
                 commandList.Remove(command);
             }
-            Debug.Log("Adding command to list: " + command);
             commandList.Add(command);
-            Debug.Log("Command list count: " + commandList.Count);
         }
         
-        public void DecorateCommand<TDecorator>(PlayerCommand command, int decoratorValue)
-            where TDecorator : PetalDecorator.PetalDecorator
+        private void UpdateTarget(ICommand command, Entity[] targets)
         {
-            var decorator = (TDecorator)Activator.CreateInstance(typeof(TDecorator), decoratorValue);
-            command.SetDecorator(decorator);
+            Debug.Log("Updating target in CommandManager");
+            if (command is PlayerCommand playerCommand)
+            {
+                playerCommand.ClearTargets();
+                foreach (var target in targets)
+                {
+                    AddTargetToCommand(target, command);
+                }
+            }
         }
+        
+        // public void DecorateCommand<TDecorator>(PlayerCommand command, int decoratorValue)
+        //     where TDecorator : PetalDecorator.PetalDecorator
+        // {
+        //     var decorator = (TDecorator)Activator.CreateInstance(typeof(TDecorator), decoratorValue);
+        //     command.SetDecorator(decorator);
+        // }
         
         private void AddTargetToCommand(Entity target, ICommand command)
         {
@@ -77,16 +96,16 @@ namespace Command
             return true;
         }
         
-        private void DecorateAndAddCommand<TCommand, TDecorator>(int decoratorValue, Entity[] targets)
-            where TCommand : PlayerCommand
-            where TDecorator : PetalDecorator.PetalDecorator
-        {
-            Debug.Log("Decorating Command");
-            var command = PlayerCommand.Create<TCommand>(fightingEntity, targets);
-            var decorator = (TDecorator)Activator.CreateInstance(typeof(TDecorator), decoratorValue);
-            command.SetDecorator(decorator);
-            AddCommand(command);
-        }
+        // private void DecorateAndAddCommand<TCommand, TDecorator>(int decoratorValue, Entity[] targets)
+        //     where TCommand : PlayerCommand
+        //     where TDecorator : PetalDecorator.PetalDecorator
+        // {
+        //     Debug.Log("Decorating Command");
+        //     // var command = PlayerCommand.Create<TCommand>(fightingEntity, targets);
+        //     // var decorator = (TDecorator)Activator.CreateInstance(typeof(TDecorator), decoratorValue);
+        //     // command.SetDecorator(decorator);
+        //     // AddCommand(command);
+        // }
     }
 
     public class CommandInvoker
