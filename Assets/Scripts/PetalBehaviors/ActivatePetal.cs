@@ -26,7 +26,7 @@ public class ActivatePetal : MonoBehaviour
         {
             startTimer = true;
         }
-        if (isMouseOver && Input.GetMouseButtonUp(0))
+        if (isMouseOver && Input.GetMouseButtonUp(0) && startTimer)
         {
             if (timeBetweenClicks < 0.2f)
             {

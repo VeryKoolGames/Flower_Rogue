@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using DefaultNamespace;
 using DefaultNamespace.Events;
@@ -97,17 +96,6 @@ namespace Command
 
             return true;
         }
-        
-        // private void DecorateAndAddCommand<TCommand, TDecorator>(int decoratorValue, Entity[] targets)
-        //     where TCommand : PlayerCommand
-        //     where TDecorator : PetalDecorator.PetalDecorator
-        // {
-        //     Debug.Log("Decorating Command");
-        //     // var command = PlayerCommand.Create<TCommand>(fightingEntity, targets);
-        //     // var decorator = (TDecorator)Activator.CreateInstance(typeof(TDecorator), decoratorValue);
-        //     // command.SetDecorator(decorator);
-        //     // AddCommand(command);
-        // }
     }
 
     public class CommandInvoker
@@ -116,7 +104,7 @@ namespace Command
         {
             foreach (var command in commands)
             {
-                Debug.Log("Executing command: " + command);
+                Debug.Log("Executing player command: " + command);
                 await command.Execute();
             }
             onTurnEndEvent.Raise();
