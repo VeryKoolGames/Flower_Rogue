@@ -14,12 +14,14 @@ public class PetalDragManager : MonoBehaviour
     [SerializeField] private OnPetalSpawnListener onPetalSpawnListener;
     [SerializeField] private OnPetalStartDraggingListener onPetalStartDraggingListener;
     [SerializeField] private OnPetalStoptDraggingListener onPetalEndDraggingListener;
+    [SerializeField] private OnTurnEndListener onTurnEndListener;
     
     void Awake()
     {
         onPetalSpawnListener.Response.AddListener(AddPetal);
         onPetalStartDraggingListener.Response.AddListener(OnPetalStartDragging);
         onPetalEndDraggingListener.Response.AddListener(OnPetalEndDragging);
+        onTurnEndListener.Response.AddListener(ClearPetals);
     }
 
     private void OnDisable()
@@ -27,11 +29,18 @@ public class PetalDragManager : MonoBehaviour
         onPetalSpawnListener.Response.RemoveListener(AddPetal);
         onPetalStartDraggingListener.Response.RemoveListener(OnPetalStartDragging);
         onPetalEndDraggingListener.Response.RemoveListener(OnPetalEndDragging);
+        onTurnEndListener.Response.RemoveListener(ClearPetals);
     }
     
     private void OnPetalStartDragging(PetalDrag petal)
     {
         currentPetal = petal;
+    }
+    
+    private void ClearPetals()
+    {
+        petals.Clear();
+        commands.Clear();
     }
     
     private void OnPetalEndDragging()
@@ -63,6 +72,8 @@ public class PetalDragManager : MonoBehaviour
     {
         targetPetal.transform.SetParent(draggedPetal.originalParent);
         targetPetal.transform.DOMove(draggedPetal.originalParent.position, 0.2f).SetEase(Ease.OutQuad);
+        draggedPetal.targetRotation = targetPetal.originalParent.rotation.eulerAngles;
+        targetPetal.transform.DORotate(draggedPetal.originalParent.rotation.eulerAngles, 0.2f).SetEase(Ease.OutQuad);
         draggedPetal.originalParent = targetPetal.originalParent;
         draggedPetal.transform.SetParent(targetPetal.originalParent);
         targetPetal.originalParent = targetPetal.transform.parent;

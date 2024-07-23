@@ -6,17 +6,16 @@ using UnityEngine;
 
 public class PetalDrag : MonoBehaviour
 {
-    private Vector3 initialPosition;
     private bool isDragging = false;
     private Vector3 offset;
     public Transform originalParent;
     [SerializeField] private OnPetalSpawnEvent onPetalSpawnEvent;
     [SerializeField] private OnPetalStartDraggingEvent onPetalStartDraggingEvent;
     [SerializeField] private OnPetalStopDraggingEvent onPetalStopDraggingEvent;
+    public Vector3 targetRotation;
 
     void Start()
     {
-        initialPosition = transform.position;
         onPetalSpawnEvent.Raise(this);
         originalParent = transform.parent;
     }
@@ -45,15 +44,18 @@ public class PetalDrag : MonoBehaviour
         isDragging = false;
         onPetalStopDraggingEvent.Raise();
         transform.DOMove(transform.parent.position, 0.25f);
+        if (targetRotation != Vector3.zero)
+            transform.DORotate(targetRotation, 0.25f);
+        targetRotation = Vector3.zero;
     }
 
-    void OnMouseEnter()
-    {
-        Debug.Log("Mouse Enter");
-    }
-
-    void OnMouseExit()
-    {
-        Debug.Log("Mouse Exit");
-    }
+    // void OnMouseEnter()
+    // {
+    //     Debug.Log("Mouse Enter");
+    // }
+    //
+    // void OnMouseExit()
+    // {
+    //     Debug.Log("Mouse Exit");
+    // }
 }

@@ -9,11 +9,11 @@ namespace Command
     public class CommandManager : MonoBehaviour
     {
         public static CommandManager Instance;
-        public IFightingEntity fightingEntity;
         [SerializeField] private List<GameObject> petalPrefabs;
         public List<ICommand> commandList = new List<ICommand>();
         [SerializeField] private OnCommandCreationListener onCommandCreationListener;
         [SerializeField] private OnTargetUpdateListener onTargetUpdateListener;
+        [SerializeField] private OnTurnEndEvent onTurnEndEvent;
         readonly CommandInvoker commandInvoker = new();
         
         private void Awake()
@@ -30,14 +30,6 @@ namespace Command
         {
             onCommandCreationListener.Response.AddListener(AddCommand);
             onTargetUpdateListener.Response.AddListener(UpdateTarget);
-            fightingEntity = GetComponent<IFightingEntity>();
-            // for (int i = 0; i < petalPrefabs.Count; i++)
-            // {
-            //     Vector3 position = new Vector3(transform.position.x + 2 * i, transform.position.y, transform.position.z);
-            //     GameObject obj = Instantiate(petalPrefabs[i], position, Quaternion.identity);
-            //     IFightingEntity petal = obj.GetComponent<IFightingEntity>();
-            //     petal.Initialize(GetComponent<Player>());
-            // }
         }
 
         private void OnDisable()
@@ -48,11 +40,6 @@ namespace Command
 
         public void AddCommand(ICommand command)
         {
-            // if (commandList.Contains(command))
-            // {
-            //     Debug.Log("Command already exists");
-            //     commandList.Remove(command);
-            // }
             commandList.Add(command);
         }
         
@@ -92,8 +79,7 @@ namespace Command
                 Debug.Log("No targets selected");
                 return;
             }
-            Debug.Log("Executing command in CommandManager " + commandList.Count);
-            commandInvoker.ExecuteCommands(commandList);
+            commandInvoker.ExecuteCommands(commandList, onTurnEndEvent);
         }
         
         private bool CanExecuteCommand()
@@ -126,13 +112,14 @@ namespace Command
 
     public class CommandInvoker
     {
-        public async void ExecuteCommands(List<ICommand> commands)
+        public async void ExecuteCommands(List<ICommand> commands, OnTurnEndEvent onTurnEndEvent)
         {
             foreach (var command in commands)
             {
                 Debug.Log("Executing command: " + command);
                 await command.Execute();
             }
+            onTurnEndEvent.Raise();
         }
 
         public void ExecuteCommand(ICommand command)
