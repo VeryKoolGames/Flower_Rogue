@@ -50,7 +50,6 @@ namespace Command
             {
                 foreach (var target in targets)
                 {
-                    Debug.Log("Attack Command " + " " + target);
                     player.Execute(target);
                 }
             }

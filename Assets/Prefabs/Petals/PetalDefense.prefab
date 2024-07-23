@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 3330935639859290403}
   - component: {fileID: 1027984503441265875}
   - component: {fileID: 8791730815159992194}
-  - component: {fileID: 7350959291933243489}
-  - component: {fileID: 4502158041975472073}
-  - component: {fileID: -6991566407716270835}
+  - component: {fileID: 2958779966298436813}
+  - component: {fileID: 3838006239001059058}
   m_Layer: 0
   m_Name: PetalDefense
   m_TagString: Untagged
@@ -83,7 +82,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
-  m_Color: {r: 0, g: 0.21097231, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.21522045, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -178,21 +177,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a448930cc1f724b5fa25f7029ab4a9b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7350959291933243489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4867423013394408186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fe1da8cc8cac430aa99c9f47ac74a35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onTargetUpdateEvent: {fileID: 11400000, guid: 3a55d8c228f1f486e865e07303266291,
+  originalParent: {fileID: 0}
+  onPetalSpawnEvent: {fileID: 11400000, guid: 19fa3092d647c472093677849926e367, type: 2}
+  onPetalStartDraggingEvent: {fileID: 11400000, guid: 639d3e38be92a4e66993cae746f486fd,
     type: 2}
---- !u!114 &4502158041975472073
+  onPetalStopDraggingEvent: {fileID: 11400000, guid: b37a0d13579d74264a96cc98a689d577,
+    type: 2}
+--- !u!114 &2958779966298436813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,14 +192,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4867423013394408186}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4028d1c6f38eb4501b4784733b6f6a34, type: 3}
+  m_Script: {fileID: 11500000, guid: ebcd142dbe154d8aacd68e93c4729308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passiveDamage: 3
-  activeDamage: 5
+  passiveDefense: 3
+  activeDefense: 5
   onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
     type: 2}
---- !u!114 &-6991566407716270835
+--- !u!114 &3838006239001059058
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

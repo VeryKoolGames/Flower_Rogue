@@ -8,7 +8,6 @@ namespace DefaultNamespace
         private void Start()
         {
             _attributes = new EntityAttribute(entitySo.Attribute.Name, entitySo.Attribute.Health);
-            
         }
     }
 }

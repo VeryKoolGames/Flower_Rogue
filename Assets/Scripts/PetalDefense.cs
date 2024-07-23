@@ -20,11 +20,13 @@ public class PetalDefense : MonoBehaviour, IFightingEntity
     {
         ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
         onCommandCreationEvent.Raise(command);
+        commandPick = command;
     }
     
     public void ActivatePetal()
     {
         _isPassive = !_isPassive;
     }
-    
+
+    public ICommand commandPick { get; set; }
 }

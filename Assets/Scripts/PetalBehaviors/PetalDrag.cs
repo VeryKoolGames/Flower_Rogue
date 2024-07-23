@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace.Events;
 using DG.Tweening;
 using UnityEngine;
 
-public class DragNDrop : MonoBehaviour
+public class PetalDrag : MonoBehaviour
 {
     private Vector3 initialPosition;
     private bool isDragging = false;
     private Vector3 offset;
+    public Transform originalParent;
+    [SerializeField] private OnPetalSpawnEvent onPetalSpawnEvent;
+    [SerializeField] private OnPetalStartDraggingEvent onPetalStartDraggingEvent;
+    [SerializeField] private OnPetalStopDraggingEvent onPetalStopDraggingEvent;
 
     void Start()
     {
         initialPosition = transform.position;
+        onPetalSpawnEvent.Raise(this);
+        originalParent = transform.parent;
     }
 
     void Update()
@@ -27,6 +34,7 @@ public class DragNDrop : MonoBehaviour
     void OnMouseDown()
     {
         isDragging = true;
+        onPetalStartDraggingEvent.Raise(this);
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         offset = transform.position - mousePosition;
@@ -35,7 +43,8 @@ public class DragNDrop : MonoBehaviour
     void OnMouseUp()
     {
         isDragging = false;
-        transform.DOMove(initialPosition, 0.25f);
+        onPetalStopDraggingEvent.Raise();
+        transform.DOMove(transform.parent.position, 0.25f);
     }
 
     void OnMouseEnter()

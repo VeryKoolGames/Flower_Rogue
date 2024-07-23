@@ -7,5 +7,7 @@ namespace Command
         void Execute(Entity target);
         void Initialize(Entity player);
         void ActivatePetal();
+        
+        public ICommand commandPick { get; set; }
     }
 }

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b91e2a4bb43414788b965e0660eb8b5, type: 3}
+  m_Name: Deck
+  m_EditorClassIdentifier: 
+  attackPetals:
+  - {fileID: 4867423013394408186, guid: c0b1cb05f1446446e84107e135e6a3d7, type: 3}
+  defensePetals:
+  - {fileID: 4867423013394408186, guid: 6efdfed3ac2564b9dad9aa1b2c90ac79, type: 3}
+  utilityPetals:
+  - {fileID: 4867423013394408186, guid: caa98c74715234baf874c3007ab1392b, type: 3}

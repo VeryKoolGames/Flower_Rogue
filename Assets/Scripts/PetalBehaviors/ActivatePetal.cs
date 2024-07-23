@@ -62,6 +62,7 @@ public class ActivatePetal : MonoBehaviour
         {
             if (onPetalSelectionEvent.Raise(3))
             {
+                Debug.Log("Petal selected CUTTING COLOR IN HALF");
                 SetColorToHalf();
             }
         }

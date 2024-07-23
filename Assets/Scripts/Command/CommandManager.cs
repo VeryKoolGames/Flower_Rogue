@@ -8,35 +8,51 @@ namespace Command
 {
     public class CommandManager : MonoBehaviour
     {
+        public static CommandManager Instance;
         public IFightingEntity fightingEntity;
         [SerializeField] private List<GameObject> petalPrefabs;
-        public List<ICommand> commandList;
+        public List<ICommand> commandList = new List<ICommand>();
         [SerializeField] private OnCommandCreationListener onCommandCreationListener;
         [SerializeField] private OnTargetUpdateListener onTargetUpdateListener;
         readonly CommandInvoker commandInvoker = new();
+        
+        private void Awake()
+        {
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+        }
 
         private void Start()
         {
             onCommandCreationListener.Response.AddListener(AddCommand);
             onTargetUpdateListener.Response.AddListener(UpdateTarget);
             fightingEntity = GetComponent<IFightingEntity>();
-            commandList = new List<ICommand>();
-            for (int i = 0; i < petalPrefabs.Count; i++)
-            {
-                Vector3 position = new Vector3(transform.position.x + 2 * i, transform.position.y, transform.position.z);
-                GameObject obj = Instantiate(petalPrefabs[i], position, Quaternion.identity);
-                IFightingEntity petal = obj.GetComponent<IFightingEntity>();
-                petal.Initialize(GetComponent<Player>());
-            }
+            // for (int i = 0; i < petalPrefabs.Count; i++)
+            // {
+            //     Vector3 position = new Vector3(transform.position.x + 2 * i, transform.position.y, transform.position.z);
+            //     GameObject obj = Instantiate(petalPrefabs[i], position, Quaternion.identity);
+            //     IFightingEntity petal = obj.GetComponent<IFightingEntity>();
+            //     petal.Initialize(GetComponent<Player>());
+            // }
+        }
+
+        private void OnDisable()
+        {
+            onCommandCreationListener.Response.RemoveListener(AddCommand);
+            onTargetUpdateListener.Response.RemoveListener(UpdateTarget);
         }
 
         public void AddCommand(ICommand command)
         {
-            if (commandList.Contains(command))
-            {
-                Debug.Log("Command already exists");
-                commandList.Remove(command);
-            }
+            // if (commandList.Contains(command))
+            // {
+            //     Debug.Log("Command already exists");
+            //     commandList.Remove(command);
+            // }
             commandList.Add(command);
         }
         
