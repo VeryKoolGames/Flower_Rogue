@@ -42,6 +42,18 @@ public class Player : Entity
         playerUI.UpdateActionPoints(actionPoints);
     }
     
+    public override void addArmor(int amount)
+    {
+        _attributes.armor += amount;
+        playerUI.UpdateArmor(_attributes.armor);
+    }
+    
+    public override void loseHP(int amount)
+    {
+        _attributes.Health -= amount;
+        Debug.Log("Player health: " + _attributes.Health);
+    }
+    
     private void OnDisable()
     {
         onPetalSelectionListener.Response.RemoveListener(UseActionPoint);
