@@ -12,5 +12,10 @@ namespace DefaultNamespace
         public virtual void loseHP(int amount){}
 
         public virtual void addArmor(int amount){}
+        
+        public int GetHealth()
+        {
+            return _attributes.Health;
+        }
     }
 }

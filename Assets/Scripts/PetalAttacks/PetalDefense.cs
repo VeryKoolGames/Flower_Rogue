@@ -14,7 +14,7 @@ public class PetalDefense : MonoBehaviour, IFightingEntity
     public void Execute(Entity target)
     {
         int defense = _isPassive ? passiveDefense : activeDefense;
-        if (target is Player)
+        if (target is Player.Player)
             target.addArmor(defense);
         RemovePetal();
     }

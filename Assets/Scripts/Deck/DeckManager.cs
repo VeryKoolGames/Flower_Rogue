@@ -11,7 +11,7 @@ namespace DefaultNamespace.Deck
         public int maxPetals = 6;
         [SerializeField] private List<Transform> petalSpawnPoints;
         [SerializeField] private DeckSO deckSO;
-        [SerializeField] private Player player;
+        [SerializeField] private global::Player.Player player;
         private List<GameObject> petals = new List<GameObject>();
         [SerializeField] private OnTurnEndListener onTurnEndListener;
         

@@ -9,7 +9,7 @@ namespace Enemy
         [SerializeField] private List<GameObject> enemyPrefabs = new List<GameObject>();
         [SerializeField] private List<Transform> enemySpawnLocations = new List<Transform>();
         private List<IEnemyAttack> enemyAttacks = new List<IEnemyAttack>();
-        [SerializeField] private Player player;
+        [SerializeField] private Player.Player player;
         
         private void Start()
         {
