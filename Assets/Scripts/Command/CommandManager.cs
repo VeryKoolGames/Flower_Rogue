@@ -75,7 +75,6 @@ namespace Command
         {
             if (!CanExecuteCommand())
             {
-                Debug.Log("No targets selected");
                 return;
             }
             commandInvoker.ExecuteCommands(commandList, onTurnEndEvent);
@@ -89,6 +88,7 @@ namespace Command
                 {
                     if (playerCommand.targets.Count == 0)
                     {
+                        Debug.Log("No targets selected for : " + playerCommand);
                         return false;
                     }
                 }

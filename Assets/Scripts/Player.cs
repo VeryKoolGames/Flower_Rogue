@@ -8,6 +8,7 @@ public class Player : Entity
     private int actionPoints = 4;
     private int maxActionPoints;
     [SerializeField] private PlayerUI playerUI;
+    [SerializeField] private HealthUI healthUI;
     [Header("Events")]
     [SerializeField] private OnPetalSelectionListener onPetalSelectionListener;
     [SerializeField] private OnPetalUnSelectionListener onPetalUnSelectionListener;
@@ -50,8 +51,14 @@ public class Player : Entity
     
     public override void loseHP(int amount)
     {
+        if (_attributes.armor > 0)
+        {
+            _attributes.armor -= amount;
+            playerUI.UpdateArmor(_attributes.armor);
+            return;
+        }
         _attributes.Health -= amount;
-        Debug.Log("Player health: " + _attributes.Health);
+        healthUI.UpdateHealth(_attributes.Health, entitySo.Attribute.Health);
     }
     
     private void OnDisable()

@@ -11,10 +11,12 @@ namespace DefaultNamespace
         [SerializeField] private HealthUI enemyUI;
         [SerializeField] private OnEnemyDeathEvent onEnemyDeathEvent;
         [SerializeField] private OnEnemySpawnEvent onEnemySpawnEvent;
+        private EnemyUI EnemyUI;
         private void Start()
         {
             _attributes = new EntityAttribute(entitySo.Attribute.Name, entitySo.Attribute.Health);
             onEnemySpawnEvent.Raise(this);
+            EnemyUI = GetComponent<EnemyUI>();
         }
         
         public override void loseHP(int amount)
@@ -25,6 +27,12 @@ namespace DefaultNamespace
             {
                 Die();
             }
+        }
+        
+        public override void addArmor(int amount)
+        {
+            _attributes.armor += amount;
+            EnemyUI.UpdateArmor(_attributes.armor);
         }
 
         private void Die()

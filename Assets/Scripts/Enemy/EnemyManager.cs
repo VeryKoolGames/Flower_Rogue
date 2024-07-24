@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using DefaultNamespace;
-using DefaultNamespace.Events;
 using UnityEngine;
 
 namespace Enemy
@@ -9,10 +8,22 @@ namespace Enemy
     {
         [SerializeField] private List<GameObject> enemyPrefabs = new List<GameObject>();
         [SerializeField] private List<Transform> enemySpawnLocations = new List<Transform>();
+        private List<IEnemyAttack> enemyAttacks = new List<IEnemyAttack>();
+        [SerializeField] private Player player;
         
         private void Start()
         {
+            InitializeEnemyAttacks();
             SpawnEnemies();
+        }
+
+        private void InitializeEnemyAttacks()
+        {
+            enemyAttacks = new List<IEnemyAttack>
+            {
+                new EnemyAttack(),
+                new EnemyDefense(),
+            };
         }
         
         private void SpawnEnemies()
@@ -21,6 +32,8 @@ namespace Enemy
             {
                 var enemy = Instantiate(GetRandomEnemyPrefab(), enemySpawnLocations[i].position, Quaternion.identity);
                 enemy.transform.SetParent(enemySpawnLocations[i]);
+                enemy.GetComponent<EnemyController>().SetEnemyAttack(enemyAttacks[Random.Range(0, enemyAttacks.Count)],
+                    new Entity[] { player });
             }
         }
         
@@ -28,5 +41,6 @@ namespace Enemy
         {
             return enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
         }
+        
     }
 }

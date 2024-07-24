@@ -1,18 +1,19 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DefaultNamespace;
+using Enemy;
 using UnityEngine;
 
 namespace Command
 {
     public abstract class EnemyCommand : ICommand
     {
-        protected IFightingEntity player;
+        protected IEnemyAttack attack;
         public List<Entity> targets = new();
         
-        public EnemyCommand(IFightingEntity player)
+        public EnemyCommand(IEnemyAttack attack)
         {
-            this.player = player;
+            this.attack = attack;
         }
         
         public void AddTarget(Entity target)
@@ -22,7 +23,7 @@ namespace Command
 
         public abstract Task Execute();
         
-        public static T Create<T>(IFightingEntity player, Entity[] targets) where T : EnemyCommand
+        public static T Create<T>(IEnemyAttack player, Entity[] targets) where T : EnemyCommand
         {
             var command = (T)System.Activator.CreateInstance(typeof(T), player);
             foreach (Entity target in targets)
@@ -35,7 +36,7 @@ namespace Command
 
     public class EnemyAttackCommand : EnemyCommand
     {
-        public EnemyAttackCommand(IFightingEntity player) : base(player)
+        public EnemyAttackCommand(IEnemyAttack attack) : base(attack)
         {
         }
 
@@ -45,7 +46,7 @@ namespace Command
             {
                 foreach (var target in targets)
                 {
-                    player.Execute(target);
+                    attack.Execute(target);
                 }
             }
             else
@@ -58,7 +59,7 @@ namespace Command
 
     public class EnemyDefenseCommand : EnemyCommand
     {
-        public EnemyDefenseCommand(IFightingEntity player) : base(player)
+        public EnemyDefenseCommand(IEnemyAttack player) : base(player)
         {
         }
 
@@ -68,7 +69,7 @@ namespace Command
             {
                 foreach (var target in targets)
                 {
-                    player.Execute(target);
+                    attack.Execute(target);
                 }
             }
             else
@@ -81,15 +82,15 @@ namespace Command
 
     public static class EnemyCommandFactory
     {
-        public static EnemyCommand CreateCommand(IFightingEntity player, Entity[] targets)
+        public static EnemyCommand CreateCommand(IEnemyAttack player, Entity[] targets)
         {
             EnemyCommand command = null;
 
-            if (player is PetalAttack)
+            if (player is EnemyAttack)
             {
                 command = EnemyCommand.Create<EnemyAttackCommand>(player, targets);
             }
-            else if (player is PetalDefense)
+            else if (player is EnemyDefense)
             {
                 command = EnemyCommand.Create<EnemyDefenseCommand>(player, targets);
             }
