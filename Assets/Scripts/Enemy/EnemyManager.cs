@@ -1,25 +1,32 @@
 using System.Collections.Generic;
 using DefaultNamespace;
+using DefaultNamespace.Events;
 using UnityEngine;
 
 namespace Enemy
 {
     public class EnemyManager : MonoBehaviour
     {
-        private List<Entity> enemyList = new List<Entity>();
+        [SerializeField] private List<GameObject> enemyPrefabs = new List<GameObject>();
+        [SerializeField] private List<Transform> enemySpawnLocations = new List<Transform>();
         
-        public void AddEnemy(Entity enemy)
+        private void Start()
         {
-            enemyList.Add(enemy);
+            SpawnEnemies();
         }
         
-        public void RemoveEnemy(Entity enemy)
+        private void SpawnEnemies()
         {
-            enemyList.Remove(enemy);
-            if (enemyList.Count == 0)
+            for (int i = 0; i < enemySpawnLocations.Count; i++)
             {
-                Debug.Log("All enemies are dead");
+                var enemy = Instantiate(GetRandomEnemyPrefab(), enemySpawnLocations[i].position, Quaternion.identity);
+                enemy.transform.SetParent(enemySpawnLocations[i]);
             }
+        }
+        
+        private GameObject GetRandomEnemyPrefab()
+        {
+            return enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
         }
     }
 }
