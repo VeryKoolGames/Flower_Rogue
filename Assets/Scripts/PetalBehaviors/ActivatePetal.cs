@@ -1,87 +1,97 @@
 using Command;
 using DefaultNamespace.Events;
+using PetalAttacks;
 using UnityEngine;
 
-public class ActivatePetal : MonoBehaviour
+namespace PetalBehaviors
 {
-    private bool isMouseOver = false;
-    private bool startTimer = false;
-    private float timeBetweenClicks;
-    private Color baseColor;
-    private SpriteRenderer _spriteRenderer;
-    [SerializeField] private OnPetalSelectionEvent onPetalSelectionEvent;
-    [SerializeField] private OnPetalUnSelectionEvent onPetalUnSelectionEvent;
-    private IFightingEntity _petal;
+    public class ActivatePetal : MonoBehaviour
+    {
+        private bool _isMouseOver = false;
+        private bool _startTimer = false;
+        private float _timeBetweenClicks;
+        private Color _baseColor;
+        private SpriteRenderer _spriteRenderer;
+        [SerializeField] private OnPetalSelectionEvent onPetalSelectionEvent;
+        [SerializeField] private OnPetalUnSelectionEvent onPetalUnSelectionEvent;
+        private IFightingEntity _petal;
+        private int _cost;
+        private PlayerMove _playerMove;
     
-    void Start()
-    {
-        _petal = GetComponent<IFightingEntity>();
-        baseColor = GetComponent<SpriteRenderer>().color;
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    void Update()
-    {
-        if (isMouseOver && Input.GetMouseButtonDown(0))
+        void Start()
         {
-            startTimer = true;
+            _petal = GetComponent<IFightingEntity>();
+            _baseColor = GetComponent<SpriteRenderer>().color;
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _playerMove = GetComponent<PlayerMove>();
+            _cost = _playerMove.PetalSo.petalAttributes.cost;
         }
-        if (isMouseOver && Input.GetMouseButtonUp(0) && startTimer)
+
+        void Update()
         {
-            if (timeBetweenClicks < 0.2f)
+            if (_isMouseOver && Input.GetMouseButtonDown(0))
             {
-                OnClick();
+                _startTimer = true;
             }
-            startTimer = false;
-            timeBetweenClicks = 0;
-        }
-        if (startTimer)
-        {
-            timeBetweenClicks += Time.deltaTime;
-        }
-    }
-
-    void OnMouseEnter()
-    {
-        isMouseOver = true;
-    }
-
-    void OnMouseExit()
-    {
-        isMouseOver = false;
-    }
-
-    void OnClick()
-    {
-        UpdatePetalState();
-    }
-    
-    private void UpdatePetalState()
-    {
-        if (_spriteRenderer.color == baseColor)
-        {
-            if (onPetalSelectionEvent.Raise(3))
+            if (_isMouseOver && Input.GetMouseButtonUp(0) && _startTimer)
             {
-                SetColorToHalf();
+                if (_timeBetweenClicks < 0.2f)
+                {
+                    OnClick();
+                }
+                _startTimer = false;
+                _timeBetweenClicks = 0;
+            }
+            if (_startTimer)
+            {
+                _timeBetweenClicks += Time.deltaTime;
             }
         }
-        else
+
+        void OnMouseEnter()
         {
-            onPetalUnSelectionEvent.Raise(3);
-            SetColorToBase();
+            _isMouseOver = true;
         }
-        _petal.ActivatePetal();
-    }
 
-    private void SetColorToBase()
-    {
-        _spriteRenderer.color = baseColor;
-    }
+        void OnMouseExit()
+        {
+            _isMouseOver = false;
+        }
 
-    private void SetColorToHalf()
-    {
-        Color color = baseColor;
-        color.r = 0.5f;
-        _spriteRenderer.color = color;
+        private void OnClick()
+        {
+            if (_playerMove.shouldPlayOnSelect)
+            {
+                if (onPetalSelectionEvent.Raise(_cost))
+                {
+                    CommandManager.Instance.ExecuteCommand(_petal.commandPick);
+                }
+            }
+            else if (_spriteRenderer.color == _baseColor)
+            {
+                if (onPetalSelectionEvent.Raise(_cost))
+                {
+                    SetColorToHalf();
+                }
+            }
+            else
+            {
+                onPetalUnSelectionEvent.Raise(_cost);
+                SetColorToBase();
+            }
+            _petal.ActivatePetal();
+        }
+
+        private void SetColorToBase()
+        {
+            _spriteRenderer.color = _baseColor;
+        }
+
+        private void SetColorToHalf()
+        {
+            Color color = _baseColor;
+            color.r = 0.5f;
+            _spriteRenderer.color = color;
+        }
     }
 }

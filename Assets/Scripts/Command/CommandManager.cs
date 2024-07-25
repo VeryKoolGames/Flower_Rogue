@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DefaultNamespace;
 using DefaultNamespace.Events;
+using Events;
 using UnityEngine;
 
 namespace Command
@@ -13,6 +14,7 @@ namespace Command
         [SerializeField] private OnCommandCreationListener onCommandCreationListener;
         [SerializeField] private OnTargetUpdateListener onTargetUpdateListener;
         [SerializeField] private OnTurnEndEvent onTurnEndEvent;
+        [SerializeField] private OnPetalDeathListener onPetalDeathListener;
         readonly CommandInvoker commandInvoker = new();
         
         private void Awake()
@@ -27,6 +29,7 @@ namespace Command
 
         private void Start()
         {
+            onPetalDeathListener.Response.AddListener(RemoveCommand);
             onCommandCreationListener.Response.AddListener(AddCommand);
             onTargetUpdateListener.Response.AddListener(UpdateTarget);
         }
@@ -35,11 +38,18 @@ namespace Command
         {
             onCommandCreationListener.Response.RemoveListener(AddCommand);
             onTargetUpdateListener.Response.RemoveListener(UpdateTarget);
+            onPetalDeathListener.Response.RemoveListener(RemoveCommand);
         }
 
         public void AddCommand(ICommand command)
         {
             commandList.Add(command);
+        }
+        
+        public void RemoveCommand(GameObject petal)
+        {
+            var command = petal.GetComponent<IFightingEntity>().commandPick;
+            commandList.Remove(command);
         }
         
         private void UpdateTarget(ICommand command, Entity[] targets)
@@ -78,6 +88,11 @@ namespace Command
                 return;
             }
             commandInvoker.ExecuteCommands(commandList, onTurnEndEvent);
+        }
+        
+        public void ExecuteCommand(ICommand command)
+        {
+            commandInvoker.ExecuteCommand(command);
         }
         
         private bool CanExecuteCommand()

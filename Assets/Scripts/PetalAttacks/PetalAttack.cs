@@ -1,46 +1,49 @@
-using System;
-using System.Collections.Generic;using Command;
+using Command;
 using DefaultNamespace;
 using DefaultNamespace.Events;
 using DG.Tweening;
+using Events;
 using UnityEngine;
 
-public class PetalAttack : MonoBehaviour, IFightingEntity
+namespace PetalAttacks
 {
-    public int passiveDamage = 3;
-    public int activeDamage = 5;
-    private bool _isPassive = true;
-    [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
-
-    private void Awake()
+    public class PetalAttack : PlayerMove, IFightingEntity
     {
-        transform.localScale = Vector3.zero;
-        transform.DOScale(1, 0.25f);
-    }
+        [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
+        public ICommand commandPick { get; set; }
 
-    public void Execute(Entity target)
-    {
-        int damage = _isPassive ? passiveDamage : activeDamage;
-        target.loseHP(damage);
-        RemovePetal();
-    }
+        private void Awake()
+        {
+            passiveValue = 3;
+            activeValue = 5;
+            transform.localScale = Vector3.zero;
+            transform.DOScale(1, 0.25f);
+        }
+
+        public void Execute(Entity target)
+        {
+            int damage = _isPassive ? passiveValue : activeValue;
+            target.loseHP(damage);
+            RemovePetal();
+        }
     
-    public void ActivatePetal()
-    {
-        _isPassive = !_isPassive;
-    }
+        public void ActivatePetal()
+        {
+            _isPassive = !_isPassive;
+        }
 
-    public void RemovePetal()
-    {
-        transform.DOScale(0, 0.25f).OnComplete(() => Destroy(gameObject));
-    }
+        public void RemovePetal()
+        {
+            onPetalDeathEvent.Raise(gameObject);
+            transform.DOScale(0, 0.25f).OnComplete(() => Destroy(gameObject));
+        }
 
-    public ICommand commandPick { get; set; }
 
-    public void Initialize(Entity player)
-    {
-        ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{} );
-        commandPick = command;
-        onCommandCreationEvent.Raise(command);
+        public void Initialize(Entity player)
+        {
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{} );
+            commandPick = command;
+            onCommandCreationEvent.Raise(command);
+        }
     }
 }

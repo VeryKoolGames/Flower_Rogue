@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Command;
 using DefaultNamespace;
-using Enemy;
 using UnityEngine;
 
-namespace Command
+namespace Enemy
 {
     public abstract class EnemyCommand : ICommand
     {

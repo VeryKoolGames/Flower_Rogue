@@ -1,41 +1,51 @@
 using Command;
 using DefaultNamespace;
-using DefaultNamespace.Events;
 using DG.Tweening;
+using Events;
+using Events.PlayerMoveEvents;
 using UnityEngine;
 
-public class PetalUtility : MonoBehaviour, IFightingEntity
+namespace PetalAttacks
 {
-    private bool _isPassive = true;
-    [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
-    public void Execute(Entity target)
+    public class PetalUtility : PlayerMove, IFightingEntity
     {
-        Debug.Log("PetalUtility executed!");
-        RemovePetal();
-    }
-    
-    private void Awake()
-    {
-        transform.localScale = Vector3.zero;
-        transform.DOScale(1, 0.25f);
-    }
+        [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
+        [SerializeField] private OnDrawPetalEvent onDrawPetalEvent;
+        public ICommand commandPick { get; set; }
 
-    public void Initialize(Entity player)
-    {
-        ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
-        onCommandCreationEvent.Raise(command);
-        commandPick = command;
-    }
+        public void Execute(Entity target)
+        {
+            onDrawPetalEvent.Raise(gameObject);
+            RemovePetal();
+        }
     
-    public void ActivatePetal()
-    {
-        _isPassive = !_isPassive;
-    }
-    
-    public void RemovePetal()
-    {
-        transform.DOScale(0, 0.25f).OnComplete(() => Destroy(gameObject));
-    }
+        private void Awake()
+        {
+            transform.localScale = Vector3.zero;
+            transform.DOScale(1, 0.25f);
+            shouldPlayOnSelect = true;
+        }
 
-    public ICommand commandPick { get; set; }
+        public void Initialize(Entity player)
+        {
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
+            onCommandCreationEvent.Raise(command);
+            commandPick = command;
+        }
+    
+        public void ActivatePetal()
+        {
+            _isPassive = !_isPassive;
+        }
+    
+        public void RemovePetal()
+        {
+            onPetalDeathEvent.Raise(gameObject);
+            transform.DOScale(0, 0.25f).OnComplete(() =>
+            {
+                Destroy(gameObject);
+            });
+        }
+
+    }
 }

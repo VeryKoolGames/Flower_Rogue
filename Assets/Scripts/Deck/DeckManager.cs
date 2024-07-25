@@ -2,21 +2,23 @@ using System.Collections.Generic;
 using Command;
 using DefaultNamespace.Events;
 using DefaultNamespace.ScriptableObjectScripts;
+using Events.PlayerMoveEvents;
 using UnityEngine;
 
-namespace DefaultNamespace.Deck
+namespace Deck
 {
     public class DeckManager : MonoBehaviour
     {
-        public int maxPetals = 6;
         [SerializeField] private List<Transform> petalSpawnPoints;
         [SerializeField] private DeckSO deckSO;
-        [SerializeField] private global::Player.Player player;
+        [SerializeField] private Player.Player player;
         private List<GameObject> petals = new List<GameObject>();
         [SerializeField] private OnTurnEndListener onTurnEndListener;
+        [SerializeField] private OnDrawPetalListener onDrawPetalListener;
         
         private void Start()
         {
+            onDrawPetalListener.Response.AddListener(ReplacePetal);
             onTurnEndListener.Response.AddListener(SpawnPetals);
             petals.AddRange(deckSO.attackPetals);
             petals.AddRange(deckSO.defensePetals);
@@ -29,14 +31,30 @@ namespace DefaultNamespace.Deck
             CommandManager.Instance.commandList.Clear();
             for (int i = 0; i < petalSpawnPoints.Count; i++)
             {
-                Vector3 position = petalSpawnPoints[i].position;
-                Quaternion rotation = petalSpawnPoints[i].rotation;
-                GameObject obj = Instantiate(GetRandomPetal(), position, rotation);
-                obj.transform.SetParent(petalSpawnPoints[i]);
-                IFightingEntity petal = obj.GetComponent<IFightingEntity>();
-                petal.Initialize(player);
-                CommandManager.Instance.AddCommand(petal.commandPick);
+                SpawnPetal(petalSpawnPoints[i]);
             }
+        }
+        
+        private void SpawnPetal(Transform spawnPoint)
+        {
+            Vector3 position = spawnPoint.position;
+            Quaternion rotation = spawnPoint.rotation;
+            GameObject obj = Instantiate(GetRandomPetal(), position, rotation);
+            obj.transform.SetParent(spawnPoint);
+            IFightingEntity petal = obj.GetComponent<IFightingEntity>();
+            petal.Initialize(player);
+            CommandManager.Instance.AddCommand(petal.commandPick);
+        }
+        
+        private void ReplacePetal(GameObject petal)
+        {
+            Vector3 position = petal.transform.position;
+            Quaternion rotation = petal.transform.rotation;
+            GameObject obj = Instantiate(GetRandomPetal(), position, rotation);
+            obj.transform.SetParent(petal.transform.parent);
+            IFightingEntity newPetal = obj.GetComponent<IFightingEntity>();
+            newPetal.Initialize(player);
+            CommandManager.Instance.AddCommand(newPetal.commandPick);
         }
         
         

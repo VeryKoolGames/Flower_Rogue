@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using Command;
+using DefaultNamespace.Events;
 using UnityEngine;
 
-namespace DefaultNamespace.Events
+namespace Events
 {
     [CreateAssetMenu(fileName = "New OnPetalTargetChoiceEvent", menuName = "ScriptableObjects/Events/OnPetalTargetChoiceEvent")]
     public class OnCommandCreationEvent : ScriptableObject

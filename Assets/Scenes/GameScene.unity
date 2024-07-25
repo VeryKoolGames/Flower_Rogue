@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 141100635}
   - component: {fileID: 141100636}
   - component: {fileID: 141100637}
+  - component: {fileID: 141100638}
   m_Layer: 0
   m_Name: DeckManager
   m_TagString: Untagged
@@ -390,7 +391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3075479c28464beeab4b2c3d2e774188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPetals: 5
   petalSpawnPoints:
   - {fileID: 855242919}
   - {fileID: 568662447}
@@ -401,6 +401,7 @@ MonoBehaviour:
   deckSO: {fileID: 11400000, guid: 830407cf657e3462186617f3a4701dbc, type: 2}
   player: {fileID: 1101700318}
   onTurnEndListener: {fileID: 141100637}
+  onDrawPetalListener: {fileID: 141100638}
 --- !u!114 &141100637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,6 +415,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onCommandCreationEvent: {fileID: 11400000, guid: 2b828b41b72b04d2c9284f7eb77824a3,
+    type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &141100638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141100634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7942fc09c074dac94bf9aef05d29e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCommandCreationEvent: {fileID: 11400000, guid: 9809a343c4efc4236b7e4a072182d4a4,
     type: 2}
   Response:
     m_PersistentCalls:
@@ -1266,7 +1284,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 61dbdfea7fafb42eba10b7b858bad567, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1457,6 +1475,7 @@ GameObject:
   - component: {fileID: 1101700325}
   - component: {fileID: 1101700326}
   - component: {fileID: 1101700327}
+  - component: {fileID: 1101700328}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1516,6 +1535,7 @@ MonoBehaviour:
   onCommandCreationListener: {fileID: 1101700320}
   onTargetUpdateListener: {fileID: 1101700321}
   onTurnEndEvent: {fileID: 11400000, guid: ca03c02917a9e4a2fbcdbf36d4537f9f, type: 2}
+  onPetalDeathListener: {fileID: 1101700328}
 --- !u!114 &1101700320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1641,6 +1661,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCommandCreationEvent: {fileID: 11400000, guid: 2b828b41b72b04d2c9284f7eb77824a3,
     type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1101700328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101700315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e2f1adfd11f4944b51c21bd6e15f9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls: []
@@ -2002,6 +2038,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4803163101793744897}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1547556400 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 307963404656530299, guid: d3f92d5bf18af4d3aa266d1ae3542553,
+    type: 3}
+  m_PrefabInstance: {fileID: 4803163101793744897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1547556407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547556400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e2f1adfd11f4944b51c21bd6e15f9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1570632142
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,7 +2348,7 @@ Transform:
   m_GameObject: {fileID: 1696151359}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.36, y: 3.41, z: -0.064190805}
+  m_LocalPosition: {x: -4.36, y: 2.04, z: -0.064190805}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2613,10 +2671,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2b828b41b72b04d2c9284f7eb77824a3,
         type: 2}
+    - target: {fileID: 8166217525564041800, guid: d3f92d5bf18af4d3aa266d1ae3542553,
+        type: 3}
+      propertyPath: onPetalDeathListener
+      value: 
+      objectReference: {fileID: 1547556407}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 307963404656530299, guid: d3f92d5bf18af4d3aa266d1ae3542553,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1547556407}
   m_SourcePrefab: {fileID: 100100000, guid: d3f92d5bf18af4d3aa266d1ae3542553, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Command;
 using DefaultNamespace.Events;
 using DG.Tweening;
+using Events;
 using UnityEngine;
 
 public class PetalDragManager : MonoBehaviour
@@ -15,6 +16,7 @@ public class PetalDragManager : MonoBehaviour
     [SerializeField] private OnPetalStartDraggingListener onPetalStartDraggingListener;
     [SerializeField] private OnPetalStoptDraggingListener onPetalEndDraggingListener;
     [SerializeField] private OnTurnEndListener onTurnEndListener;
+    [SerializeField] private OnPetalDeathListener onPetalDeathListener;
     
     void Awake()
     {
@@ -22,6 +24,7 @@ public class PetalDragManager : MonoBehaviour
         onPetalStartDraggingListener.Response.AddListener(OnPetalStartDragging);
         onPetalEndDraggingListener.Response.AddListener(OnPetalEndDragging);
         onTurnEndListener.Response.AddListener(ClearPetals);
+        onPetalDeathListener.Response.AddListener(OnPetalDeath);
     }
 
     private void OnDisable()
@@ -30,6 +33,7 @@ public class PetalDragManager : MonoBehaviour
         onPetalStartDraggingListener.Response.RemoveListener(OnPetalStartDragging);
         onPetalEndDraggingListener.Response.RemoveListener(OnPetalEndDragging);
         onTurnEndListener.Response.RemoveListener(ClearPetals);
+        onPetalDeathListener.Response.RemoveListener(OnPetalDeath);
     }
     
     private void OnPetalStartDragging(PetalDrag petal)
@@ -46,6 +50,12 @@ public class PetalDragManager : MonoBehaviour
     private void OnPetalEndDragging()
     {
         currentPetal = null;
+    }
+    
+    private void OnPetalDeath(GameObject petal)
+    {
+        petals.Remove(petal.GetComponent<PetalDrag>());
+        commands.Remove(petal.GetComponent<IFightingEntity>().commandPick);
     }
 
     void Update()

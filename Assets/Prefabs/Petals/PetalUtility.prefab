@@ -183,6 +183,7 @@ MonoBehaviour:
     type: 2}
   onPetalStopDraggingEvent: {fileID: 11400000, guid: b37a0d13579d74264a96cc98a689d577,
     type: 2}
+  targetRotation: {x: 0, y: 0, z: 0}
 --- !u!114 &5487604177495178482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,8 +196,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939e7fea3b5e4965b19a674e51ab3320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  passiveValue: 0
+  activeValue: 0
+  PetalSo: {fileID: 11400000, guid: 04916e8b1642b4ecf9b8f9e35de55ed8, type: 2}
+  shouldPlayOnSelect: 0
+  onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
   onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
     type: 2}
+  onDrawPetalEvent: {fileID: 11400000, guid: 9809a343c4efc4236b7e4a072182d4a4, type: 2}
 --- !u!114 &8476301486000879437
 MonoBehaviour:
   m_ObjectHideFlags: 0

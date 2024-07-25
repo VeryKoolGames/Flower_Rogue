@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using ScriptableObjectScripts;
 
 namespace Command
 {
