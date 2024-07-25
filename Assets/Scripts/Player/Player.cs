@@ -1,19 +1,21 @@
+using System;
 using DefaultNamespace;
 using DefaultNamespace.Events;
+using KBCore.Refs;
 using Player.States;
+using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
+    [RequireComponent(typeof(ArmorUI), typeof(HealthUI))]
     public class Player : Entity
     { 
-        private int actionPoints = 4;
-        private int maxActionPoints;
-        [SerializeField] private PlayerUI playerUI;
-        [SerializeField] private HealthUI healthUI;
+        [FormerlySerializedAs("playerUI")] [SerializeField, Self] private ArmorUI armorUI;
+        [SerializeField, Self] private HealthUI healthUI;
         [Header("Events")]
-        [SerializeField] private OnPetalSelectionListener onPetalSelectionListener;
-        [SerializeField] private OnPetalUnSelectionListener onPetalUnSelectionListener;
+        [SerializeField, Self] private OnTurnEndListener onTurnEndListener;
         
         // States
         private PlayerStateMachine stateMachine;
@@ -25,12 +27,14 @@ namespace Player
         private void Start()
         {
             InitStates();
-            maxActionPoints = actionPoints;
-            onPetalSelectionListener.Response.AddListener(UseActionPoint);
-            onPetalUnSelectionListener.Response.AddListener(GainActionPoint);
             _attributes = new EntityAttribute(entitySo.Attribute.Name, entitySo.Attribute.Health);
         }
-        
+
+        private void Update()
+        {
+            stateMachine.Update();
+        }
+
         private void InitStates()
         {
             stateMachine = new PlayerStateMachine();
@@ -45,33 +49,10 @@ namespace Player
             stateMachine.ChangeState(highHealthState);
         }
     
-    
-        private void UseActionPoint(int cost)
-        {
-            if (actionPoints < cost)
-            {
-                Debug.Log("Not enough action points");
-                throw new System.Exception("Not enough action points");
-            }
-            actionPoints -= cost;
-            Debug.Log("Action points: " + actionPoints);
-            playerUI.UpdateActionPoints(actionPoints);
-        }
-    
-        private void GainActionPoint(int amount)
-        {
-            actionPoints += amount;
-            if (actionPoints > maxActionPoints)
-            {
-                actionPoints = maxActionPoints;
-            }
-            playerUI.UpdateActionPoints(actionPoints);
-        }
-    
         public override void addArmor(int amount)
         {
             _attributes.armor += amount;
-            playerUI.UpdateArmor(_attributes.armor);
+            armorUI.UpdateArmor(_attributes.armor);
         }
     
         public override void loseHP(int amount)
@@ -115,18 +96,12 @@ namespace Player
             {
                 amount -= _attributes.armor;
                 _attributes.armor = 0;
-                playerUI.UpdateArmor(_attributes.armor);
+                armorUI.UpdateArmor(_attributes.armor);
                 return amount;
             }
             _attributes.armor -= amount;
-            playerUI.UpdateArmor(_attributes.armor);
+            armorUI.UpdateArmor(_attributes.armor);
             return 0;
-        }
-    
-        private void OnDisable()
-        {
-            onPetalSelectionListener.Response.RemoveListener(UseActionPoint);
-            onPetalUnSelectionListener.Response.RemoveListener(GainActionPoint);
         }
     }
 }

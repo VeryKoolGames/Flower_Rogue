@@ -355,7 +355,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 4475365656068144467}
   m_FillRect: {fileID: 4419041173782143421}
   m_HandleRect: {fileID: 0}
@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 3883003935251709583}
   - component: {fileID: 6112780223819982390}
   - component: {fileID: 3026949287282825951}
-  - component: {fileID: 1768460773139831142}
+  - component: {fileID: 6596367131889026490}
   m_Layer: 0
   m_Name: EnemyPrefab1
   m_TagString: Enemy
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b014058a3129457593ff69cf64d99943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1768460773139831142
+--- !u!114 &6596367131889026490
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -628,7 +628,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7894138560236494060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eae7c32d3354dd3b97e642c695ffc62, type: 3}
+  m_Script: {fileID: 11500000, guid: fef56d8f9d7214e5c93e2f3dca2429f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   armorText: {fileID: 1536474920704142110}

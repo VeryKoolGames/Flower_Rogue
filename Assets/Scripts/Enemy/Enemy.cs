@@ -1,9 +1,10 @@
+using DefaultNamespace;
 using DefaultNamespace.Events;
 using DG.Tweening;
+using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace DefaultNamespace
+namespace Enemy
 {
     [RequireComponent(typeof(HealthUI))]
     public class Enemy : Entity
@@ -11,12 +12,12 @@ namespace DefaultNamespace
         [SerializeField] private HealthUI enemyUI;
         [SerializeField] private OnEnemyDeathEvent onEnemyDeathEvent;
         [SerializeField] private OnEnemySpawnEvent onEnemySpawnEvent;
-        private EnemyUI EnemyUI;
+        private ArmorUI armorUI;
         private void Start()
         {
             _attributes = new EntityAttribute(entitySo.Attribute.Name, entitySo.Attribute.Health);
             onEnemySpawnEvent.Raise(this);
-            EnemyUI = GetComponent<EnemyUI>();
+            armorUI = GetComponent<ArmorUI>();
         }
         
         public override void loseHP(int amount)
@@ -32,7 +33,7 @@ namespace DefaultNamespace
         public override void addArmor(int amount)
         {
             _attributes.armor += amount;
-            EnemyUI.UpdateArmor(_attributes.armor);
+            armorUI.UpdateArmor(_attributes.armor);
         }
 
         private void Die()
