@@ -15,7 +15,14 @@ namespace PetalAttacks
 
         public void Execute(Entity target)
         {
+            // onDrawPetalEvent.Raise(gameObject);
+            RemovePetal();
+        }
+
+        public void ExecuteOnClick()
+        {
             onDrawPetalEvent.Raise(gameObject);
+            onPetalDeathEvent.Raise(gameObject);
             RemovePetal();
         }
     
@@ -32,7 +39,13 @@ namespace PetalAttacks
             onCommandCreationEvent.Raise(command);
             commandPick = command;
         }
-    
+
+        public void InitializeWithoutAdding(Entity player)
+        {
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
+            commandPick = command;
+        }
+
         public void ActivatePetal()
         {
             _isPassive = !_isPassive;
@@ -40,7 +53,6 @@ namespace PetalAttacks
     
         public void RemovePetal()
         {
-            onPetalDeathEvent.Raise(gameObject);
             transform.DOScale(0, 0.25f).OnComplete(() =>
             {
                 Destroy(gameObject);

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace;
 using DefaultNamespace.Events;
 using Events;
@@ -9,13 +10,12 @@ namespace Command
     public class CommandManager : MonoBehaviour
     {
         public static CommandManager Instance;
-        [SerializeField] private List<GameObject> petalPrefabs;
         public List<ICommand> commandList = new List<ICommand>();
         [SerializeField] private OnCommandCreationListener onCommandCreationListener;
         [SerializeField] private OnTargetUpdateListener onTargetUpdateListener;
         [SerializeField] private OnTurnEndEvent onTurnEndEvent;
         [SerializeField] private OnPetalDeathListener onPetalDeathListener;
-        readonly CommandInvoker commandInvoker = new();
+        readonly CommandInvoker _commandInvoker = new();
         
         private void Awake()
         {
@@ -43,7 +43,16 @@ namespace Command
 
         public void AddCommand(ICommand command)
         {
+            if (commandList.Contains(command))
+                return;
             commandList.Add(command);
+        }
+        
+        public void AddCommandAtIndex(ICommand command, int index)
+        {
+            if (commandList.Contains(command))
+                return;
+            commandList.Insert(index, command);
         }
         
         public void RemoveCommand(GameObject petal)
@@ -87,12 +96,12 @@ namespace Command
             {
                 return;
             }
-            commandInvoker.ExecuteCommands(commandList, onTurnEndEvent);
+            _commandInvoker.ExecuteCommands(commandList, onTurnEndEvent);
         }
         
         public void ExecuteCommand(ICommand command)
         {
-            commandInvoker.ExecuteCommand(command);
+            _commandInvoker.ExecuteCommand(command);
         }
         
         private bool CanExecuteCommand()

@@ -2,7 +2,10 @@ using System.Collections.Generic;
 using Command;
 using DefaultNamespace.Events;
 using DefaultNamespace.ScriptableObjectScripts;
+using Events;
 using Events.PlayerMoveEvents;
+using PetalAttacks;
+using PetalBehaviors;
 using UnityEngine;
 
 namespace Deck
@@ -15,6 +18,8 @@ namespace Deck
         private List<GameObject> petals = new List<GameObject>();
         [SerializeField] private OnTurnEndListener onTurnEndListener;
         [SerializeField] private OnDrawPetalListener onDrawPetalListener;
+        [SerializeField] private OnPetalSwapEvent onPetalSwapEvent;
+        [SerializeField] private PetalDragManager petalDragManager;
         
         private void Start()
         {
@@ -31,11 +36,11 @@ namespace Deck
             CommandManager.Instance.commandList.Clear();
             for (int i = 0; i < petalSpawnPoints.Count; i++)
             {
-                SpawnPetal(petalSpawnPoints[i]);
+                SpawnPetal(petalSpawnPoints[i], i);
             }
         }
         
-        private void SpawnPetal(Transform spawnPoint)
+        private void SpawnPetal(Transform spawnPoint, int i)
         {
             Vector3 position = spawnPoint.position;
             Quaternion rotation = spawnPoint.rotation;
@@ -43,6 +48,7 @@ namespace Deck
             obj.transform.SetParent(spawnPoint);
             IFightingEntity petal = obj.GetComponent<IFightingEntity>();
             petal.Initialize(player);
+            obj.GetComponent<PlayerMove>().placeInHand = i;
             CommandManager.Instance.AddCommand(petal.commandPick);
         }
         
@@ -53,8 +59,10 @@ namespace Deck
             GameObject obj = Instantiate(GetRandomPetal(), position, rotation);
             obj.transform.SetParent(petal.transform.parent);
             IFightingEntity newPetal = obj.GetComponent<IFightingEntity>();
-            newPetal.Initialize(player);
-            CommandManager.Instance.AddCommand(newPetal.commandPick);
+            newPetal.InitializeWithoutAdding(player);
+            obj.GetComponent<PlayerMove>().placeInHand = petal.GetComponent<PlayerMove>().placeInHand;
+            CommandManager.Instance.AddCommandAtIndex(newPetal.commandPick, obj.GetComponent<PlayerMove>().placeInHand);
+            petalDragManager.AddPetalAtIndex(obj.GetComponent<PetalDrag>(), obj.GetComponent<PlayerMove>().placeInHand);
         }
         
         

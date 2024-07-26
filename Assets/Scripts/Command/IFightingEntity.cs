@@ -7,7 +7,9 @@ namespace Command
     {
         void Execute(Entity target);
         void Initialize(Entity player);
+        void InitializeWithoutAdding(Entity player);
         void ActivatePetal();
+        void ExecuteOnClick();
         void RemovePetal();
         
         public ICommand commandPick { get; set; }

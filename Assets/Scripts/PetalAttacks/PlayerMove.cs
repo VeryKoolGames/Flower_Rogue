@@ -6,6 +6,7 @@ namespace PetalAttacks
 {
     public abstract class PlayerMove : MonoBehaviour
     {
+        public int placeInHand;
         public int passiveValue;
         public int activeValue;
         protected bool _isPassive = true;

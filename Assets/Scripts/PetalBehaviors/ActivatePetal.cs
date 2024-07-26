@@ -1,5 +1,6 @@
 using Command;
 using DefaultNamespace.Events;
+using Events;
 using PetalAttacks;
 using UnityEngine;
 
@@ -64,7 +65,7 @@ namespace PetalBehaviors
             {
                 if (onPetalSelectionEvent.Raise(_cost))
                 {
-                    CommandManager.Instance.ExecuteCommand(_petal.commandPick);
+                    _petal.ExecuteOnClick();
                 }
             }
             else if (_spriteRenderer.color == _baseColor)

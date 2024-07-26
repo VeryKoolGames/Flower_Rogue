@@ -1,6 +1,5 @@
 using Command;
 using DefaultNamespace;
-using DefaultNamespace.Events;
 using DG.Tweening;
 using Events;
 using UnityEngine;
@@ -33,15 +32,25 @@ namespace PetalAttacks
             onCommandCreationEvent.Raise(command);
             commandPick = command;
         }
-    
+
+        public void InitializeWithoutAdding(Entity player)
+        {
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
+            commandPick = command;
+        }
+
         public void ActivatePetal()
         {
             _isPassive = !_isPassive;
         }
-    
+
+        public void ExecuteOnClick()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void RemovePetal()
         {
-            onPetalDeathEvent.Raise(gameObject);
             transform.DOScale(0, 0.25f).OnComplete(() =>
             {
                 Destroy(gameObject);

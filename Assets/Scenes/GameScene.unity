@@ -1529,9 +1529,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300f5a897d784f9dbf9ddfde0f54f2cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petalPrefabs:
-  - {fileID: 4867423013394408186, guid: c0b1cb05f1446446e84107e135e6a3d7, type: 3}
-  - {fileID: 4867423013394408186, guid: 6efdfed3ac2564b9dad9aa1b2c90ac79, type: 3}
   onCommandCreationListener: {fileID: 1101700320}
   onTargetUpdateListener: {fileID: 1101700321}
   onTurnEndEvent: {fileID: 11400000, guid: ca03c02917a9e4a2fbcdbf36d4537f9f, type: 2}
@@ -2057,6 +2054,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1547556408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547556400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 753777a7629a4e7d8969cf79ecf432bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCommandCreationEvent: {fileID: 11400000, guid: 19fa3092d647c472093677849926e367,
+    type: 2}
   Response:
     m_PersistentCalls:
       m_Calls: []
@@ -2684,6 +2698,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1547556407}
+    - targetCorrespondingSourceObject: {fileID: 307963404656530299, guid: d3f92d5bf18af4d3aa266d1ae3542553,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1547556408}
   m_SourcePrefab: {fileID: 100100000, guid: d3f92d5bf18af4d3aa266d1ae3542553, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

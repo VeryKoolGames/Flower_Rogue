@@ -26,15 +26,25 @@ namespace PetalAttacks
             target.loseHP(damage);
             RemovePetal();
         }
-    
+
+        public void InitializeWithoutAdding(Entity player)
+        {
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
+            commandPick = command;
+        }
+
         public void ActivatePetal()
         {
             _isPassive = !_isPassive;
         }
 
+        public void ExecuteOnClick()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void RemovePetal()
         {
-            onPetalDeathEvent.Raise(gameObject);
             transform.DOScale(0, 0.25f).OnComplete(() => Destroy(gameObject));
         }
 
