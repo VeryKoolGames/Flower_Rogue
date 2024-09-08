@@ -2,13 +2,16 @@ using System.Collections.Generic;
 using Command;
 using DefaultNamespace.Events;
 using Enemy;
+using Events;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum Turn
 {
     Player,
     Enemy,
     Win,
+    Lose,
 }
 
 namespace DefaultNamespace.Combat
@@ -19,13 +22,15 @@ namespace DefaultNamespace.Combat
         [SerializeField] private OnTurnEndEvent onPlayerTurnEndEvent;
         [SerializeField] private OnTurnEndEvent onEnemyTurnEndEvent;
         [SerializeField] private OnCombatWinListener onWinListener;
-        [SerializeField] private CombatWinUiManager combatWinUiManager;
+        [SerializeField] private OnCombatLoseListener onCombatLoseListener;
+        [FormerlySerializedAs("combatWinUiManager")] [SerializeField] private CombatEndUiManager combatEndUiManager;
         private Turn currentTurn = Turn.Player;
         
         private void OnEnable()
         {
             onTurnEndListener.Response.AddListener(SwitchTurn);
             onWinListener.Response.AddListener(OnCombatWin);
+            onCombatLoseListener.Response.AddListener(OnCombatLose);
         }
         
         private void SwitchTurn()
@@ -42,7 +47,11 @@ namespace DefaultNamespace.Combat
             }
             else if (currentTurn == Turn.Win)
             {
-                combatWinUiManager.OnCombatWin();
+                combatEndUiManager.OnCombatWin();
+            }
+            else if (currentTurn == Turn.Lose)
+            {
+                combatEndUiManager.OnCombatLose();
             }
         }
         
@@ -51,11 +60,16 @@ namespace DefaultNamespace.Combat
             currentTurn = Turn.Win;
         }
         
+        private void OnCombatLose()
+        {
+            currentTurn = Turn.Lose;
+        }
+        
         private void OnDisable()
         {
             onTurnEndListener.Response.RemoveListener(SwitchTurn);
             onWinListener.Response.RemoveListener(OnCombatWin);
+            onCombatLoseListener.Response.RemoveListener(OnCombatLose);
         }
-        
     }
 }

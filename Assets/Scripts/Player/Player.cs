@@ -16,6 +16,7 @@ namespace Player
         [SerializeField, Self] private HealthUI healthUI;
         [Header("Events")]
         [SerializeField, Self] private OnTurnEndListener onTurnEndListener;
+        [SerializeField] private OnCombatLoseEvent onCombatLoseEvent;
         
         // States
         private PlayerStateMachine stateMachine;
@@ -66,6 +67,11 @@ namespace Player
                 return;
             }
             _attributes.Health -= amount;
+            if (_attributes.Health <= 0)
+            {
+                _attributes.Health = 0;
+                onCombatLoseEvent.Raise();
+            }
             healthUI.UpdateHealth(_attributes.Health, entitySo.Attribute.Health);
             UpdateState();
         }
