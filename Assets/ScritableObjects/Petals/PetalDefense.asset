@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: PetalDefense
   m_EditorClassIdentifier: 
   petalAttributes:
+    activeValue: 10
+    passiveValue: 5
     cost: 2
     name: Petal Defense
     description: Get 3 or 5 armor

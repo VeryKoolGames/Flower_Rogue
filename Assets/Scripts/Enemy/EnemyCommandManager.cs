@@ -12,6 +12,7 @@ namespace Enemy
         public List<ICommand> commandList = new List<ICommand>();
         [SerializeField] private OnTurnEndEvent onEnemyTurnEndEvent;
         readonly CommandInvoker commandInvoker = new();
+        [SerializeField] private OnEnemyDeathListener onEnemyDeathListener;
         
         private void Awake()
         {
@@ -23,40 +24,27 @@ namespace Enemy
             Instance = this;
         }
 
-        // private void Start()
-        // {
-        //     onCommandCreationListener.Response.AddListener(AddCommand);
-        // }
-        //
-        // private void OnDisable()
-        // {
-        //     onCommandCreationListener.Response.RemoveListener(AddCommand);
-        // }
+        private void Start()
+        {
+            onEnemyDeathListener.Response.AddListener(OnEnemyDeath);
+        }
 
         public void AddCommand(ICommand command)
         {
             commandList.Add(command);
         }
         
-        private void UpdateTarget(ICommand command, Entity[] targets)
+        public void RemoveCommand(ICommand command)
         {
-            Debug.Log("Updating target in CommandManager");
-            if (command is PlayerCommand playerCommand)
-            {
-                playerCommand.ClearTargets();
-                foreach (var target in targets)
-                {
-                    AddTargetToCommand(target, command);
-                }
-            }
+            commandList.Remove(command);
         }
         
-        // public void DecorateCommand<TDecorator>(PlayerCommand command, int decoratorValue)
-        //     where TDecorator : PetalDecorator.PetalDecorator
-        // {
-        //     var decorator = (TDecorator)Activator.CreateInstance(typeof(TDecorator), decoratorValue);
-        //     command.SetDecorator(decorator);
-        // }
+        private void OnEnemyDeath(Entity enemy)
+        {
+            Debug.Log("Enemy death event received");
+            ICommand command = enemy.entityGameObject.GetComponent<EnemyController>().currentCommand;
+            RemoveCommand(command);
+        }
         
         private void AddTargetToCommand(Entity target, ICommand command)
         {
@@ -67,14 +55,15 @@ namespace Enemy
             }
         }
 
-        public void ExecuteCommand()
+        public async void ExecuteCommand()
         {
             if (!CanExecuteCommand())
             {
                 Debug.Log("No targets selected");
                 return;
             }
-            commandInvoker.ExecuteCommands(commandList, onEnemyTurnEndEvent);
+            await commandInvoker.ExecuteCommands(commandList);
+            onEnemyTurnEndEvent.Raise();
         }
         
         private bool CanExecuteCommand()

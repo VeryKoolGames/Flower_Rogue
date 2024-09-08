@@ -19,6 +19,11 @@ namespace PetalAttacks
             RemovePetal();
         }
 
+        public void Decorate(int amount)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void ExecuteOnClick()
         {
             onDrawPetalEvent.Raise(gameObject);

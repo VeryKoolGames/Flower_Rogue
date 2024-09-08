@@ -51,7 +51,12 @@ namespace Command
             {
                 foreach (var target in targets)
                 {
-                    player.Execute(target);
+                    if (target != null)
+                        player.Execute(target);
+                    else
+                    {
+                        player.RemovePetal();
+                    }
                 }
             }
             else
@@ -107,6 +112,26 @@ namespace Command
             await Awaitable.WaitForSecondsAsync(2f);
         }
     }
+    
+    public class BoostCommand : PlayerCommand
+    {
+        public BoostCommand(IFightingEntity target) : base(target)
+        {
+        }
+
+        public override async Task Execute()
+        {
+            if (player != null)
+            {
+                player.Decorate(5);
+            }
+            else
+            {
+                Debug.LogError("No target found");
+            }
+            await Awaitable.WaitForSecondsAsync(2f);
+        }
+    }
 
     public static class CommandFactory
     {
@@ -125,6 +150,10 @@ namespace Command
             else if (player is PetalUtility)
             {
                 command = PlayerCommand.Create<UtilityCommand>(player, targets);
+            }
+            else if (player is PetalBoost)
+            {
+                command = PlayerCommand.Create<BoostCommand>(player, targets);
             }
             return command;
         }

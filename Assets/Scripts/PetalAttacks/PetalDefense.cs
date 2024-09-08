@@ -20,8 +20,8 @@ namespace PetalAttacks
     
         private void Awake()
         {
-            passiveValue = 3;
-            activeValue = 5;
+            passiveValue = PetalSo.petalAttributes.passiveValue;
+            activeValue = PetalSo.petalAttributes.activeValue;
             transform.localScale = Vector3.zero;
             transform.DOScale(1, 0.25f);
         }

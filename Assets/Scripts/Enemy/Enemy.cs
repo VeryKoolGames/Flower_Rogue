@@ -1,6 +1,7 @@
 using DefaultNamespace;
 using DefaultNamespace.Events;
 using DG.Tweening;
+using Events;
 using UI;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Enemy
         private ArmorUI armorUI;
         private void Start()
         {
+            entityGameObject = gameObject;
             _attributes = new EntityAttribute(entitySo.Attribute.Name, entitySo.Attribute.Health);
             onEnemySpawnEvent.Raise(this);
             armorUI = GetComponent<ArmorUI>();
@@ -41,7 +43,6 @@ namespace Enemy
             transform.DOScale(0, 1f).OnComplete(() =>
             {
                 onEnemyDeathEvent.Raise(this);
-                Destroy(gameObject);
             });
         }
     }

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
-using Command;
+using DefaultNamespace;
+using DefaultNamespace.Events;
 using UnityEngine;
 
-namespace DefaultNamespace.Events
+namespace Events
 {
     [CreateAssetMenu(fileName = "New OnEnemyDeathEvent", menuName = "ScriptableObjects/Events/OnEnemyDeathEvent")]
     public class OnEnemyDeathEvent : ScriptableObject
@@ -13,6 +14,7 @@ namespace DefaultNamespace.Events
             for(int i = listeners.Count - 1; i >= 0; i--) {
                 listeners[i].OnEventRaised(enemy);
             }
+            Destroy(enemy.entityGameObject);
         }
 
         public void RegisterListener(OnEnemyDeathListener listener) {

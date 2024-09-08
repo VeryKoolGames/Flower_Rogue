@@ -13,5 +13,20 @@ namespace PetalAttacks
         public PetalSO PetalSo;
         public bool shouldPlayOnSelect = false;
         public OnPetalDeathEvent onPetalDeathEvent;
+        public void Decorate(int amount)
+        {
+            activeValue += amount;
+            passiveValue += amount;
+        }
+        public void RemoveDecorations()
+        {
+            activeValue = PetalSo.petalAttributes.activeValue;
+            passiveValue = PetalSo.petalAttributes.passiveValue;
+        }
+        public void RemoveDecorator(int amount)
+        {
+            activeValue -= amount;
+            passiveValue -= amount;
+        }
     }
 }

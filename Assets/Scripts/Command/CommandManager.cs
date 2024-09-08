@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DefaultNamespace;
 using DefaultNamespace.Events;
 using Events;
+using PetalAttacks;
 using UnityEngine;
 
 namespace Command
@@ -58,7 +60,11 @@ namespace Command
         public void RemoveCommand(GameObject petal)
         {
             var command = petal.GetComponent<IFightingEntity>().commandPick;
-            commandList.Remove(command);
+            if (!commandList.Remove(command))
+            {
+                int index = petal.GetComponent<PlayerMove>().placeInHand + 1;
+                commandList.RemoveAt(index);
+            }
         }
         
         private void UpdateTarget(ICommand command, Entity[] targets)
@@ -85,18 +91,18 @@ namespace Command
         {
             if (command is PlayerCommand playerCommand)
             {
-                Debug.Log("Adding target to command" + target + " " + command);
                 playerCommand.AddTarget(target);
             }
         }
 
-        public void ExecuteCommand()
+        public async void ExecuteCommand()
         {
             if (!CanExecuteCommand())
             {
                 return;
             }
-            _commandInvoker.ExecuteCommands(commandList, onTurnEndEvent);
+            await _commandInvoker.ExecuteCommands(commandList);
+            onTurnEndEvent.Raise();
         }
         
         public void ExecuteCommand(ICommand command)
@@ -124,14 +130,13 @@ namespace Command
 
     public class CommandInvoker
     {
-        public async void ExecuteCommands(List<ICommand> commands, OnTurnEndEvent onTurnEndEvent)
+        public async Task ExecuteCommands(List<ICommand> commands)
         {
             foreach (var command in commands)
             {
                 Debug.Log("Executing player command: " + command);
                 await command.Execute();
             }
-            onTurnEndEvent.Raise();
         }
 
         public void ExecuteCommand(ICommand command)

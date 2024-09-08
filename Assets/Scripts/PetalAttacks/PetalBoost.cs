@@ -6,10 +6,11 @@ using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalAttack : PlayerMove, IFightingEntity
+    public class PetalBoost : PlayerMove, IFightingEntity
     {
         [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
         public ICommand commandPick { get; set; }
+        public PlayerMove targetToBoost;
 
         private void Awake()
         {
@@ -21,12 +22,13 @@ namespace PetalAttacks
 
         public void Execute(Entity target)
         {
-            if (target == null)
+            if (targetToBoost == null)
             {
-                Debug.Log("No target, maybe it died");
+                Debug.LogError("No target to boost");
+                return;
             }
             int damage = _isPassive ? passiveValue : activeValue;
-            target.loseHP(damage);
+            targetToBoost.Decorate(damage);
             RemovePetal();
         }
 

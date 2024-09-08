@@ -9,6 +9,7 @@ namespace Player
     public class PlayerActionPointsManager : MonoBehaviour
     {
         [SerializeField] private List<GameObject> actionPointsGo = new List<GameObject>();
+        [SerializeField] private GameObject actionPointPrefab;
         [SerializeField] private IntVariable startActionPoints;
         [SerializeField] private OnTurnEndListener onEnemyTurnEndListener;
         [SerializeField] private OnPetalSelectionListener onPetalSelectionListener;

@@ -6,6 +6,8 @@ namespace ScriptableObjectScripts
     [Serializable]
     public class PetalAttributes
     {
+        public int activeValue;
+        public int passiveValue;
         public int cost;
         public string name;
         public string description;

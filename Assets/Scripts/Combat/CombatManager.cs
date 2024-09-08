@@ -1,14 +1,17 @@
 using System.Collections.Generic;
+using DefaultNamespace;
 using DefaultNamespace.Events;
+using DG.Tweening;
 using UnityEngine;
 
-namespace DefaultNamespace.Combat
+namespace Combat
 {
     public class CombatManager : MonoBehaviour
     {
         private List<Entity> enemyList = new List<Entity>();
         [SerializeField] private OnEnemyDeathListener onEnemyDeathListener;
         [SerializeField] private OnEnemySpawnListener onEnemySpawnListener;
+        [SerializeField] private OnCombatWinEvent onCombatWinEvent;
         
         private void OnEnable()
         {
@@ -24,9 +27,13 @@ namespace DefaultNamespace.Combat
         private void RemoveEnemy(Entity enemy)
         {
             enemyList.Remove(enemy);
+            enemy.entityGameObject.transform.DOScale(0, .2f).OnComplete(() =>
+            {
+                Destroy(enemy.entityGameObject);
+            });
             if (enemyList.Count == 0)
             {
-                Debug.Log("All enemies are dead!");
+                onCombatWinEvent.Raise();
             }
         }
         

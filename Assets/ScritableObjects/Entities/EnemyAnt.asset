@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attribute:
     Name: Ant
-    Health: 50
+    Health: 10
+    armor: 0

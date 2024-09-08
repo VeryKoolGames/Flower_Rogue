@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using PetalAttacks;
 using ScriptableObjectScripts;
 
 namespace Command
@@ -9,6 +10,7 @@ namespace Command
         void Initialize(Entity player);
         void InitializeWithoutAdding(Entity player);
         void ActivatePetal();
+        void Decorate(int amount);
         void ExecuteOnClick();
         void RemovePetal();
         

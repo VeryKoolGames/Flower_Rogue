@@ -107,7 +107,7 @@ namespace PetalBehaviors
             commands[index2] = command1;
             CommandManager.Instance.commandList = commands;
         }
-    
+        
         private void AddPetal(PetalDrag petal)
         {
             if (petals.Contains(petal))

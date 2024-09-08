@@ -8,6 +8,7 @@ namespace DefaultNamespace
         public EntitySO entitySo;
         protected EntityAttribute _attributes;
         private bool isPoisoned = false;
+        public GameObject entityGameObject;
 
         public virtual void loseHP(int amount){}
 
