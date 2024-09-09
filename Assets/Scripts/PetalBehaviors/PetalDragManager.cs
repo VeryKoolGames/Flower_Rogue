@@ -21,6 +21,7 @@ namespace PetalBehaviors
         [SerializeField] private OnTurnEndListener onTurnEndListener;
         [SerializeField] private OnPetalDeathListener onPetalDeathListener;
         [SerializeField] private OnPetalSwapListener onPetalSwapListener;
+        [SerializeField] private OnBoostListener onPetalBoostListener;
     
         void Awake()
         {
@@ -30,6 +31,7 @@ namespace PetalBehaviors
             onTurnEndListener.Response.AddListener(ClearPetals);
             onPetalDeathListener.Response.AddListener(OnPetalDeath);
             onPetalSwapListener.Response.AddListener(AddPetalAtIndex);
+            onPetalBoostListener.Response.AddListener(CheckForBoosts);
         }
 
         private void OnDisable()
@@ -40,6 +42,7 @@ namespace PetalBehaviors
             onTurnEndListener.Response.RemoveListener(ClearPetals);
             onPetalDeathListener.Response.RemoveListener(OnPetalDeath);
             onPetalSwapListener.Response.RemoveListener(AddPetalAtIndex);
+            onPetalBoostListener.Response.RemoveListener(CheckForBoosts);
         }
     
         private void OnPetalStartDragging(PetalDrag petal)

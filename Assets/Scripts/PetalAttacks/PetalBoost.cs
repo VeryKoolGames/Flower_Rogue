@@ -1,5 +1,6 @@
 using Command;
 using DefaultNamespace;
+using DefaultNamespace.Events;
 using DG.Tweening;
 using Events;
 using UnityEngine;
@@ -9,10 +10,11 @@ namespace PetalAttacks
     public class PetalBoost : PlayerMove, IFightingEntity
     {
         [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
+        [SerializeField] private OnBoostEvent onBoostEvent;
         public ICommand commandPick { get; set; }
         public bool boostLeft = true;
         public bool boostRight = true;
-        public int boostAmount = 1;
+        public int boostAmount = 10;
 
         private void Awake()
         {
@@ -38,6 +40,8 @@ namespace PetalAttacks
         public void ActivatePetal()
         {
             _isPassive = !_isPassive;
+            boostAmount = _isPassive ? boostAmount * 2 : boostAmount / 2;
+            onBoostEvent.Raise();
         }
 
         public void Decorate(int amount)

@@ -121,8 +121,8 @@ namespace Command
 
         public override async Task Execute()
         {
-            await Awaitable.WaitForSecondsAsync(2f);
             player.RemovePetal();
+            await Awaitable.WaitForSecondsAsync(2f);
         }
     }
 

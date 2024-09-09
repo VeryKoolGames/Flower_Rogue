@@ -20,6 +20,7 @@ namespace Deck
         [SerializeField] private OnDrawPetalListener onDrawPetalListener;
         [SerializeField] private OnPetalSwapEvent onPetalSwapEvent;
         [SerializeField] private PetalDragManager petalDragManager;
+        [SerializeField] private OnBoostEvent onBoostEvent;
         
         private void Start()
         {
@@ -31,13 +32,15 @@ namespace Deck
             SpawnPetals();
         }
         
-        private void SpawnPetals()
+        private async void SpawnPetals()
         {
             CommandManager.Instance.commandList.Clear();
             for (int i = 0; i < petalSpawnPoints.Count; i++)
             {
                 SpawnPetal(petalSpawnPoints[i], i);
             }
+            await Awaitable.WaitForSecondsAsync(.2f);
+            onBoostEvent.Raise();
         }
         
         private void SpawnPetal(Transform spawnPoint, int i)

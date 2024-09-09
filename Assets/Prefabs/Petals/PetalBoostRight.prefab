@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8476301486000879437}
   - component: {fileID: 5967721238432303342}
   m_Layer: 0
-  m_Name: PetalBoostLeft
+  m_Name: PetalBoostRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
-  m_Color: {r: 1, g: 0.7826656, b: 0, a: 1}
+  m_Color: {r: 0.8867924, g: 0.44519624, b: 0.14640439, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -222,6 +222,6 @@ MonoBehaviour:
   onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
     type: 2}
   onBoostEvent: {fileID: 11400000, guid: af43f2037c66145779d070d0c163ffc1, type: 2}
-  boostLeft: 1
-  boostRight: 0
+  boostLeft: 0
+  boostRight: 1
   boostAmount: 10

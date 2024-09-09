@@ -432,6 +432,7 @@ MonoBehaviour:
   onDrawPetalListener: {fileID: 141100638}
   onPetalSwapEvent: {fileID: 11400000, guid: bd05b154dfefa4b48901093b07dc0f4d, type: 2}
   petalDragManager: {fileID: 1547556405}
+  onBoostEvent: {fileID: 11400000, guid: af43f2037c66145779d070d0c163ffc1, type: 2}
 --- !u!114 &141100637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1994,6 +1995,7 @@ MonoBehaviour:
   armorUI: {fileID: 1101700324}
   healthUI: {fileID: 1101700326}
   onTurnEndListener: {fileID: 1101700327}
+  onCombatLoseEvent: {fileID: 0}
 --- !u!114 &1101700319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2816,6 +2818,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onPetalSwapEvent: {fileID: 11400000, guid: bd05b154dfefa4b48901093b07dc0f4d, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1547556415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547556400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f4fc5c3b40497ab2e468313d2b87d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBoostEvent: {fileID: 11400000, guid: af43f2037c66145779d070d0c163ffc1, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls: []
@@ -4021,6 +4039,11 @@ PrefabInstance:
       objectReference: {fileID: 1547556409}
     - target: {fileID: 8166217525564041800, guid: d3f92d5bf18af4d3aa266d1ae3542553,
         type: 3}
+      propertyPath: onPetalBoostListener
+      value: 
+      objectReference: {fileID: 1547556415}
+    - target: {fileID: 8166217525564041800, guid: d3f92d5bf18af4d3aa266d1ae3542553,
+        type: 3}
       propertyPath: onPetalDeathListener
       value: 
       objectReference: {fileID: 1547556407}
@@ -4040,6 +4063,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1547556409}
+    - targetCorrespondingSourceObject: {fileID: 307963404656530299, guid: d3f92d5bf18af4d3aa266d1ae3542553,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1547556415}
   m_SourcePrefab: {fileID: 100100000, guid: d3f92d5bf18af4d3aa266d1ae3542553, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
