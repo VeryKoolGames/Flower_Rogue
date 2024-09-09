@@ -56,6 +56,7 @@ namespace PetalBehaviors
         private void OnPetalEndDragging()
         {
             currentPetal = null;
+            CheckForBoosts();
         }
     
         private void OnPetalDeath(GameObject petal)
@@ -97,6 +98,7 @@ namespace PetalBehaviors
             draggedPetal.gameObject.GetComponent<PlayerMove>().placeInHand = targetPetal.gameObject.GetComponent<PlayerMove>().placeInHand;
             targetPetal.gameObject.GetComponent<PlayerMove>().placeInHand = place;
             SwapCommands(draggedPetal.gameObject.GetComponent<IFightingEntity>().commandPick, targetPetal.gameObject.GetComponent<IFightingEntity>().commandPick);
+            SwapPetals(draggedPetal, targetPetal);
         }
     
         private void SwapCommands(ICommand command1, ICommand command2)
@@ -108,6 +110,47 @@ namespace PetalBehaviors
             CommandManager.Instance.commandList = commands;
         }
         
+        private void SwapPetals(PetalDrag petal1, PetalDrag petal2)
+        {
+            var index1 = petals.IndexOf(petal1);
+            var index2 = petals.IndexOf(petal2);
+            petals[index1] = petal2;
+            petals[index2] = petal1;
+        }
+
+        private void CheckForBoosts()
+        {
+            foreach (var petal in petals)
+            {
+                PlayerMove playerMove = petal.gameObject.GetComponent<PlayerMove>();
+                playerMove.boostCount = 0;
+            }
+            foreach (var petal in petals)
+            {
+                PlayerMove playerMove = petal.gameObject.GetComponent<PlayerMove>();
+                if (playerMove is PetalBoost boost)
+                {
+                    Debug.Log("Boost at " + petals.IndexOf(petal));
+                    if (boost.boostLeft)
+                    {
+                        if (petals.IndexOf(petal) > 0)
+                        {
+                            PlayerMove petalToBoost = petals[petals.IndexOf(petal) - 1].gameObject.GetComponent<PlayerMove>();
+                            petalToBoost.boostCount += boost.boostAmount;
+                        }
+                    }
+                    if (boost.boostRight)
+                    {
+                        if (petals.IndexOf(petal) < petals.Count - 1)
+                        {
+                            PlayerMove petalToBoost = petals[petals.IndexOf(petal) + 1].gameObject.GetComponent<PlayerMove>();
+                            petalToBoost.boostCount += boost.boostAmount;
+                        }
+                    }
+                }
+            }
+        }
+
         private void AddPetal(PetalDrag petal)
         {
             if (petals.Contains(petal))

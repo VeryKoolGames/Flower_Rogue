@@ -121,15 +121,8 @@ namespace Command
 
         public override async Task Execute()
         {
-            if (player != null)
-            {
-                player.Decorate(5);
-            }
-            else
-            {
-                Debug.LogError("No target found");
-            }
             await Awaitable.WaitForSecondsAsync(2f);
+            player.RemovePetal();
         }
     }
 

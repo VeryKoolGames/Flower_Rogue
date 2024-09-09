@@ -13,6 +13,7 @@ namespace PetalAttacks
         public void Execute(Entity target)
         {
             int defense = _isPassive ? passiveValue : activeValue;
+            defense += boostCount;
             if (target is Player.Player)
                 target.addArmor(defense);
             RemovePetal();

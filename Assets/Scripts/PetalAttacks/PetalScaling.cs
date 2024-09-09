@@ -1,18 +1,17 @@
 using Command;
 using DefaultNamespace;
+using DefaultNamespace.Events;
 using DG.Tweening;
 using Events;
 using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalBoost : PlayerMove, IFightingEntity
+    public class PetalScaling : PlayerMove, IFightingEntity
     {
         [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
+        [SerializeField] private OnTurnEndListener onTurnEndEventListener;
         public ICommand commandPick { get; set; }
-        public bool boostLeft = true;
-        public bool boostRight = true;
-        public int boostAmount = 1;
 
         private void Awake()
         {
@@ -20,10 +19,23 @@ namespace PetalAttacks
             activeValue = PetalSo.petalAttributes.activeValue;
             transform.localScale = Vector3.zero;
             transform.DOScale(1, 0.25f);
+            onTurnEndEventListener.Response.AddListener(OnTurnEnd);
+        }
+        
+        private void OnTurnEnd()
+        {
+            passiveValue++;
+            activeValue += 2;
         }
 
         public void Execute(Entity target)
         {
+            if (target == null)
+            {
+                Debug.Log("No target, maybe it died");
+            }
+            int damage = _isPassive ? passiveValue : activeValue;
+            target.loseHP(damage);
             RemovePetal();
         }
 
@@ -39,12 +51,7 @@ namespace PetalAttacks
         {
             _isPassive = !_isPassive;
         }
-
-        public void Decorate(int amount)
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
         public void ExecuteOnClick()
         {
             throw new System.NotImplementedException();
@@ -58,7 +65,7 @@ namespace PetalAttacks
 
         public void Initialize(Entity player)
         {
-            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{ player } );
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{} );
             commandPick = command;
             onCommandCreationEvent.Raise(command);
         }

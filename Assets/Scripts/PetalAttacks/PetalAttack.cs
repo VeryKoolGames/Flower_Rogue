@@ -26,6 +26,8 @@ namespace PetalAttacks
                 Debug.Log("No target, maybe it died");
             }
             int damage = _isPassive ? passiveValue : activeValue;
+            damage += boostCount;
+            Debug.Log("Attacking for Damage: " + damage);
             target.loseHP(damage);
             RemovePetal();
         }
