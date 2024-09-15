@@ -11,7 +11,6 @@ namespace PetalBehaviors
     public class PetalDragManager : MonoBehaviour
     {
         private List<PetalDrag> petals = new List<PetalDrag>();
-        private List<ICommand> commands = new List<ICommand>();
         private PetalDrag currentPetal;
         public float swapDistance = 1f;
         [Header("Events")]
@@ -53,7 +52,6 @@ namespace PetalBehaviors
         private void ClearPetals()
         {
             petals.Clear();
-            commands.Clear();
         }
     
         private void OnPetalEndDragging()
@@ -65,7 +63,6 @@ namespace PetalBehaviors
         private void OnPetalDeath(GameObject petal)
         {
             petals.Remove(petal.GetComponent<PetalDrag>());
-            commands.Remove(petal.GetComponent<IFightingEntity>().commandPick);
         }
 
         void Update()
@@ -100,17 +97,8 @@ namespace PetalBehaviors
             int place = draggedPetal.gameObject.GetComponent<PlayerMove>().placeInHand;
             draggedPetal.gameObject.GetComponent<PlayerMove>().placeInHand = targetPetal.gameObject.GetComponent<PlayerMove>().placeInHand;
             targetPetal.gameObject.GetComponent<PlayerMove>().placeInHand = place;
-            SwapCommands(draggedPetal.gameObject.GetComponent<IFightingEntity>().commandPick, targetPetal.gameObject.GetComponent<IFightingEntity>().commandPick);
+            CommandManager.Instance.SwapCommands(draggedPetal.gameObject.GetComponent<IFightingEntity>().commandPick, targetPetal.gameObject.GetComponent<IFightingEntity>().commandPick);
             SwapPetals(draggedPetal, targetPetal);
-        }
-    
-        private void SwapCommands(ICommand command1, ICommand command2)
-        {
-            var index1 = commands.IndexOf(command1);
-            var index2 = commands.IndexOf(command2);
-            commands[index1] = command2;
-            commands[index2] = command1;
-            CommandManager.Instance.commandList = commands;
         }
         
         private void SwapPetals(PetalDrag petal1, PetalDrag petal2)
@@ -161,14 +149,13 @@ namespace PetalBehaviors
                 Debug.Log("Petal already in list");
                 return;
             }
+
             petals.Add(petal);
-            commands.Add(petal.gameObject.GetComponent<IFightingEntity>().commandPick);
         }
         
         public void AddPetalAtIndex(PetalDrag petal, int index)
         {
             petals.Insert(index, petal);
-            commands.Insert(index, petal.gameObject.GetComponent<IFightingEntity>().commandPick);
         }
     }
 }

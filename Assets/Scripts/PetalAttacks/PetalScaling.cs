@@ -30,10 +30,7 @@ namespace PetalAttacks
 
         public void Execute(Entity target)
         {
-            if (target == null)
-            {
-                Debug.Log("No target, maybe it died");
-            }
+            commandPick.IsPreserved = false;
             int damage = _isPassive ? passiveValue : activeValue;
             target.loseHP(damage);
             RemovePetal();
@@ -43,12 +40,13 @@ namespace PetalAttacks
         {
             // When swapping a card in the player's hand, the command is created but not added to the player's list of commands
             // it is added directly in the deckManager
-            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { });
             commandPick = command;
         }
 
         public void ActivatePetal()
         {
+            commandPick.IsPreserved = false;
             _isPassive = !_isPassive;
         }
         
@@ -65,7 +63,7 @@ namespace PetalAttacks
 
         public void Initialize(Entity player)
         {
-            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{} );
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{ } );
             commandPick = command;
             onCommandCreationEvent.Raise(command);
         }

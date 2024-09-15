@@ -12,7 +12,7 @@ public class SelectPetalTarget : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            onTargetUpdateEvent.Raise(GetComponent<PetalAttack>().commandPick, new Entity[] { other.GetComponent<Enemy.Enemy>() });
+            onTargetUpdateEvent.Raise(GetComponent<IFightingEntity>().commandPick, new Entity[] { other.GetComponent<Enemy.Enemy>() });
         }
     }
 }

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36824c5199994fc6b38d8d44c90b11ed, type: 3}
-  m_Name: PetalBoostLeft
+  m_Name: PetalBoostRight
   m_EditorClassIdentifier: 
   petalAttributes:
     activeValue: 0
     passiveValue: 0
     cost: 1
     name: Petal Boost
-    description: Boost the left petal
+    description: Boost the right petal

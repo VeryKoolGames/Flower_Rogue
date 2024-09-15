@@ -9,7 +9,7 @@ namespace Enemy
     public class EnemyCommandManager : MonoBehaviour
     {
         public static EnemyCommandManager Instance;
-        public List<ICommand> commandList = new List<ICommand>();
+        public LinkedList<ICommand> commandList = new LinkedList<ICommand>();
         [SerializeField] private OnTurnEndEvent onEnemyTurnEndEvent;
         readonly CommandInvoker commandInvoker = new();
         [SerializeField] private OnEnemyDeathListener onEnemyDeathListener;
@@ -31,7 +31,18 @@ namespace Enemy
 
         public void AddCommand(ICommand command)
         {
-            commandList.Add(command);
+            var node = commandList.First;
+            while (node != null)
+            {
+                if (!node.Value.IsPreserved)
+                {
+                    commandList.AddBefore(node, command);
+                    return;
+                }
+                node = node.Next;
+            }
+
+            commandList.AddLast(command);
         }
         
         public void RemoveCommand(ICommand command)

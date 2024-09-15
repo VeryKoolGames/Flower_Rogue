@@ -12,7 +12,7 @@ namespace Command
     public class CommandManager : MonoBehaviour
     {
         public static CommandManager Instance;
-        public List<ICommand> commandList = new List<ICommand>();
+        public LinkedList<ICommand> commandList = new LinkedList<ICommand>();
         [SerializeField] private OnCommandCreationListener onCommandCreationListener;
         [SerializeField] private OnTargetUpdateListener onTargetUpdateListener;
         [SerializeField] private OnTurnEndEvent onTurnEndEvent;
@@ -46,30 +46,74 @@ namespace Command
         public void AddCommand(ICommand command)
         {
             if (commandList.Contains(command))
+            {
                 return;
-            commandList.Add(command);
+            }
+            var node = commandList.First;
+            while (node != null)
+            {
+                if (node.Value == null)
+                {
+                    node.Value = command;
+                    return;
+                }
+                if (node.Next != null && node.Value.IsPreserved && node.Next.Value == null)
+                {
+                    node.Next.Value = command;
+                    return;
+                }
+                node = node.Next;
+            }
+
+            commandList.AddLast(command);
         }
         
         public void AddCommandAtIndex(ICommand command, int index)
         {
             if (commandList.Contains(command))
+            {
                 return;
-            commandList.Insert(index, command);
+            }
+            var node = GetNodeAt(commandList, index);
+            if (node != null && node.Value.IsPreserved)
+            {
+                Debug.LogWarning("Cannot overwrite preserved command at index " + index);
+                return;
+            }
+
+            if (node != null)
+            {
+                commandList.AddBefore(node, command);
+            }
+            else
+            {
+                commandList.AddLast(command);
+            }
+        }
+        
+        public void SwapCommands(ICommand command1, ICommand command2)
+        {
+            var node1 = commandList.Find(command1);
+            var node2 = commandList.Find(command2);
+
+            if (node1 != null && node2 != null)
+            {
+                (node1.Value, node2.Value) = (node2.Value, node1.Value);
+            }
         }
         
         public void RemoveCommand(GameObject petal)
         {
             var command = petal.GetComponent<IFightingEntity>().commandPick;
-            if (!commandList.Remove(command))
+            var node = commandList.Find(command);
+            if (node != null)
             {
-                int index = petal.GetComponent<PlayerMove>().placeInHand + 1;
-                commandList.RemoveAt(index);
+                commandList.Remove(node);
             }
         }
-        
+
         private void UpdateTarget(ICommand command, Entity[] targets)
         {
-            Debug.Log("Updating target in CommandManager");
             if (command is PlayerCommand playerCommand)
             {
                 playerCommand.ClearTargets();
@@ -79,14 +123,7 @@ namespace Command
                 }
             }
         }
-        
-        // public void DecorateCommand<TDecorator>(PlayerCommand command, int decoratorValue)
-        //     where TDecorator : PetalDecorator.PetalDecorator
-        // {
-        //     var decorator = (TDecorator)Activator.CreateInstance(typeof(TDecorator), decoratorValue);
-        //     command.SetDecorator(decorator);
-        // }
-        
+
         private void AddTargetToCommand(Entity target, ICommand command)
         {
             if (command is PlayerCommand playerCommand)
@@ -104,33 +141,57 @@ namespace Command
             await _commandInvoker.ExecuteCommands(commandList);
             onTurnEndEvent.Raise();
         }
-        
+
         public void ExecuteCommand(ICommand command)
         {
             _commandInvoker.ExecuteCommand(command);
         }
-        
+
+        public void ClearCommands()
+        {
+            var node = commandList.First;
+            while (node != null && node.Value != null)
+            {
+                var nextNode = node.Next; // Store the next node because we may remove the current one
+                if (!node.Value.IsPreserved)
+                {
+                    node.Value = null;
+                }
+                node = nextNode;
+            }
+        }
+
         private bool CanExecuteCommand()
         {
             foreach (var command in commandList)
             {
-                if (command is PlayerCommand playerCommand)
+                if (command is AttackCommand playerCommand && playerCommand.targets.Count == 0)
                 {
-                    if (playerCommand.targets.Count == 0)
-                    {
-                        Debug.Log("No targets selected for : " + playerCommand);
-                        return false;
-                    }
+                    Debug.Log("No targets selected for: " + playerCommand);
+                    return false;
                 }
             }
-
             return true;
+        }
+
+        // Helper method to get node at a specific index in a LinkedList
+        private LinkedListNode<T> GetNodeAt<T>(LinkedList<T> list, int index)
+        {
+            if (index < 0 || index >= list.Count) return null;
+
+            var node = list.First;
+            for (int i = 0; i < index; i++)
+            {
+                node = node.Next;
+            }
+
+            return node;
         }
     }
 
     public class CommandInvoker
     {
-        public async Task ExecuteCommands(List<ICommand> commands)
+        public async Task ExecuteCommands(LinkedList<ICommand> commands)
         {
             foreach (var command in commands)
             {

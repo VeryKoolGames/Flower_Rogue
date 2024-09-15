@@ -36,7 +36,7 @@ namespace PetalAttacks
         {
             // When swapping a card in the player's hand, the command is created but not added to the player's list of commands
             // it is added directly in the deckManager
-            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] {});
             commandPick = command;
         }
 

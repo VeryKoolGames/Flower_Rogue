@@ -22,7 +22,8 @@ namespace Enemy
         }
 
         public abstract Task Execute();
-        
+        public bool IsPreserved { get; set; }
+
         public static T Create<T>(IEnemyAttack player, Entity[] targets) where T : EnemyCommand
         {
             var command = (T)System.Activator.CreateInstance(typeof(T), player);

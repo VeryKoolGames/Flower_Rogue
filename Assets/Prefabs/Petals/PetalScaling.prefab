@@ -13,10 +13,12 @@ GameObject:
   - component: {fileID: 3330935639859290403}
   - component: {fileID: 1027984503441265875}
   - component: {fileID: 8791730815159992194}
-  - component: {fileID: 8476301486000879437}
-  - component: {fileID: 5967721238432303342}
+  - component: {fileID: 7350959291933243489}
+  - component: {fileID: -6991566407716270835}
+  - component: {fileID: 7783784735540637708}
+  - component: {fileID: -3343868472291355062}
   m_Layer: 0
-  m_Name: PetalBoostRight
+  m_Name: PetalScaling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +84,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
-  m_Color: {r: 0.8867924, g: 0.44519624, b: 0.14640439, a: 1}
+  m_Color: {r: 0.50590426, g: 0.20069422, b: 0.7735849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -184,7 +186,21 @@ MonoBehaviour:
   onPetalStopDraggingEvent: {fileID: 11400000, guid: b37a0d13579d74264a96cc98a689d577,
     type: 2}
   targetRotation: {x: 0, y: 0, z: 0}
---- !u!114 &8476301486000879437
+--- !u!114 &7350959291933243489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe1da8cc8cac430aa99c9f47ac74a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTargetUpdateEvent: {fileID: 11400000, guid: 3a55d8c228f1f486e865e07303266291,
+    type: 2}
+--- !u!114 &-6991566407716270835
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,7 +216,7 @@ MonoBehaviour:
     type: 2}
   onPetalUnSelectionEvent: {fileID: 11400000, guid: cab62844f3c5744e6aa5850ec832bd4e,
     type: 2}
---- !u!114 &5967721238432303342
+--- !u!114 &7783784735540637708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -209,19 +225,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 4867423013394408186}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8ff610406af4925b3d5066b86e254b4, type: 3}
+  m_Script: {fileID: 11500000, guid: a964b7732584414daccc832929247099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   placeInHand: 0
   passiveValue: 0
   activeValue: 0
-  PetalSo: {fileID: 11400000, guid: a9b14d41d7ad14eb59e877d946369030, type: 2}
+  PetalSo: {fileID: 11400000, guid: 814213016d1ee4b098478f8c9b18cab8, type: 2}
   shouldPlayOnSelect: 0
+  shouldStayInHand: 1
   onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
   boostCount: 0
   onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
     type: 2}
-  onBoostEvent: {fileID: 11400000, guid: af43f2037c66145779d070d0c163ffc1, type: 2}
-  boostLeft: 0
-  boostRight: 1
-  boostAmount: 10
+  onTurnEndEventListener: {fileID: -3343868472291355062}
+--- !u!114 &-3343868472291355062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431a72f7f5e84c1bbb61a7264877072e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCommandCreationEvent: {fileID: 11400000, guid: 2b828b41b72b04d2c9284f7eb77824a3,
+    type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []

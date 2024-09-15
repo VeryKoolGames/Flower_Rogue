@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DefaultNamespace;
+using KBCore.Refs;
 using PetalAttacks;
 using UnityEngine;
 
@@ -27,7 +28,8 @@ namespace Command
         }
 
         public abstract Task Execute();
-        
+        public bool IsPreserved { get; set; }
+
         public static T Create<T>(IFightingEntity player, Entity[] targets) where T : PlayerCommand
         {
             var command = (T)System.Activator.CreateInstance(typeof(T), player);
@@ -43,6 +45,35 @@ namespace Command
     {
         public AttackCommand(IFightingEntity player) : base(player)
         {
+        }
+
+        public override async Task Execute()
+        {
+            if (targets.Count > 0)
+            {
+                foreach (var target in targets)
+                {
+                    if (target != null && target != player)
+                        player.Execute(target);
+                    else
+                    {
+                        player.RemovePetal();
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("No target found");
+            }
+            await Awaitable.WaitForSecondsAsync(2f);
+        }
+    }
+    
+    public class ScalingCommand : PlayerCommand
+    {
+        public ScalingCommand(IFightingEntity player) : base(player)
+        {
+            this.IsPreserved = true;
         }
 
         public override async Task Execute()
@@ -147,6 +178,10 @@ namespace Command
             else if (player is PetalBoost)
             {
                 command = PlayerCommand.Create<BoostCommand>(player, targets);
+            }
+            else if (player is PetalScaling)
+            {
+                command = PlayerCommand.Create<ScalingCommand>(player, targets);
             }
             return command;
         }

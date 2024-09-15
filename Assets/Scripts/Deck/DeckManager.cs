@@ -34,9 +34,13 @@ namespace Deck
         
         private async void SpawnPetals()
         {
-            CommandManager.Instance.commandList.Clear();
+            CommandManager.Instance.ClearCommands();
             for (int i = 0; i < petalSpawnPoints.Count; i++)
             {
+                if (petalSpawnPoints[i].childCount > 0)
+                {
+                    continue;
+                }
                 SpawnPetal(petalSpawnPoints[i], i);
             }
             await Awaitable.WaitForSecondsAsync(.2f);

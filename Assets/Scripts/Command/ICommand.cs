@@ -6,5 +6,6 @@ namespace Command
     public interface ICommand
     {
         Task Execute();
+        public bool IsPreserved { get; set; }
     }
 }

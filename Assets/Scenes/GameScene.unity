@@ -4034,6 +4034,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 8166217525564041800, guid: d3f92d5bf18af4d3aa266d1ae3542553,
         type: 3}
+      propertyPath: swapDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166217525564041800, guid: d3f92d5bf18af4d3aa266d1ae3542553,
+        type: 3}
       propertyPath: onPetalSwapListener
       value: 
       objectReference: {fileID: 1547556409}
