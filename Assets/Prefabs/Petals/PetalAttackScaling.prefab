@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: -3343868472291355062}
   - component: {fileID: -2954526586945394405}
   m_Layer: 0
-  m_Name: PetalScaling
+  m_Name: PetalAttackScaling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

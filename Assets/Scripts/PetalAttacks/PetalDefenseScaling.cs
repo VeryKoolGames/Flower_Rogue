@@ -7,8 +7,10 @@ using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalScaling : PlayerMove, IFightingEntity
+    public class PetalDefenseScaling : PlayerMove, IFightingEntity
     {
+        // The scaling petals do not have use the passive value
+        // They are only played when the player clicks on the petal
         [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
         [SerializeField] private OnTurnEndListener onTurnEndEventListener;
         public ICommand commandPick { get; set; }
@@ -24,15 +26,15 @@ namespace PetalAttacks
         
         private void OnTurnEnd()
         {
-            passiveValue++;
             activeValue += 2;
         }
 
         public void Execute(Entity target)
         {
-            commandPick.IsPreserved = false;
-            int damage = _isPassive ? passiveValue : activeValue;
-            target.loseHP(damage);
+            int defense = activeValue;
+            defense += boostCount;
+            if (target is Player.Player)
+                target.addArmor(defense);
             RemovePetal();
         }
 
@@ -40,14 +42,13 @@ namespace PetalAttacks
         {
             // When swapping a card in the player's hand, the command is created but not added to the player's list of commands
             // it is added directly in the deckManager
-            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { });
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
             commandPick = command;
         }
 
         public void ActivatePetal()
         {
             commandPick.IsPreserved = false;
-            _isPassive = !_isPassive;
         }
         
         public void ExecuteOnClick()
@@ -63,7 +64,7 @@ namespace PetalAttacks
 
         public void Initialize(Entity player)
         {
-            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{ } );
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{ player } );
             commandPick = command;
             onCommandCreationEvent.Raise(command);
         }

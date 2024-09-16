@@ -69,9 +69,9 @@ namespace Command
         }
     }
     
-    public class ScalingCommand : PlayerCommand
+    public class ScalingAttackCommand : PlayerCommand
     {
-        public ScalingCommand(IFightingEntity player) : base(player)
+        public ScalingAttackCommand(IFightingEntity player) : base(player)
         {
             this.IsPreserved = true;
         }
@@ -82,12 +82,33 @@ namespace Command
             {
                 foreach (var target in targets)
                 {
-                    if (target != null)
+                    if (target != null && !player.commandPick.IsPreserved)
                         player.Execute(target);
-                    else
-                    {
-                        player.RemovePetal();
-                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("No target found");
+            }
+            await Awaitable.WaitForSecondsAsync(2f);
+        }
+    }
+    
+    public class ScalingDefenseCommand : PlayerCommand
+    {
+        public ScalingDefenseCommand(IFightingEntity player) : base(player)
+        {
+            this.IsPreserved = true;
+        }
+
+        public override async Task Execute()
+        {
+            if (targets.Count > 0)
+            {
+                foreach (var target in targets)
+                {
+                    if (target != null && !player.commandPick.IsPreserved)
+                        player.Execute(target);
                 }
             }
             else
@@ -179,9 +200,13 @@ namespace Command
             {
                 command = PlayerCommand.Create<BoostCommand>(player, targets);
             }
-            else if (player is PetalScaling)
+            else if (player is PetalAttackScaling)
             {
-                command = PlayerCommand.Create<ScalingCommand>(player, targets);
+                command = PlayerCommand.Create<ScalingAttackCommand>(player, targets);
+            }
+            else if (player is PetalDefenseScaling)
+            {
+                command = PlayerCommand.Create<ScalingDefenseCommand>(player, targets);
             }
             return command;
         }

@@ -51,7 +51,20 @@ namespace PetalBehaviors
     
         private void ClearPetals()
         {
-            petals.Clear();
+            for (int i = petals.Count - 1; i >= 0; i--)
+            {
+                try
+                {
+                    if (petals[i] == null || !petals[i].enabled)
+                    {
+                        petals.RemoveAt(i);
+                    }
+                }
+                catch (MissingReferenceException)
+                {
+                    petals.RemoveAt(i);
+                }
+            }
         }
     
         private void OnPetalEndDragging()
@@ -149,13 +162,26 @@ namespace PetalBehaviors
                 Debug.Log("Petal already in list");
                 return;
             }
-
+        
             petals.Add(petal);
+            if (petals.Count == 6)
+            {
+                ReorderPetalsBasedOnHandPosition();
+            }
+        }
+        
+        private void ReorderPetalsBasedOnHandPosition()
+        {
+            petals.Sort((x, y) => x.gameObject.GetComponent<PlayerMove>().placeInHand.CompareTo(y.gameObject.GetComponent<PlayerMove>().placeInHand));
         }
         
         public void AddPetalAtIndex(PetalDrag petal, int index)
         {
             petals.Insert(index, petal);
+            if (petals.Count == 6)
+            {
+                ReorderPetalsBasedOnHandPosition();
+            }
         }
     }
 }
