@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7350959291933243489}
   - component: {fileID: 4502158041975472073}
   - component: {fileID: -6991566407716270835}
+  - component: {fileID: 7041351330429491411}
   m_Layer: 0
   m_Name: PetalAttack
   m_TagString: Untagged
@@ -211,11 +212,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4028d1c6f38eb4501b4784733b6f6a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placeInHand: 0
   passiveValue: 3
   activeValue: 5
   PetalSo: {fileID: 11400000, guid: f88149314f397426ebad675df95cafcb, type: 2}
   shouldPlayOnSelect: 0
   onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
+  boostCount: 0
   onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
     type: 2}
 --- !u!114 &-6991566407716270835
@@ -234,3 +237,16 @@ MonoBehaviour:
     type: 2}
   onPetalUnSelectionEvent: {fileID: 11400000, guid: cab62844f3c5744e6aa5850ec832bd4e,
     type: 2}
+--- !u!114 &7041351330429491411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c2f48c875da4a7492c5988ec5deecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptionText: {fileID: 0}

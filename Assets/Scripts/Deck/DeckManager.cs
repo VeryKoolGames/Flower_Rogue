@@ -6,6 +6,7 @@ using Events;
 using Events.PlayerMoveEvents;
 using PetalAttacks;
 using PetalBehaviors;
+using TMPro;
 using UnityEngine;
 
 namespace Deck
@@ -21,6 +22,7 @@ namespace Deck
         [SerializeField] private OnPetalSwapEvent onPetalSwapEvent;
         [SerializeField] private PetalDragManager petalDragManager;
         [SerializeField] private OnBoostEvent onBoostEvent;
+        [SerializeField] private TextMeshProUGUI petalDescritpion;
         
         private void Start()
         {
@@ -56,6 +58,7 @@ namespace Deck
             IFightingEntity petal = obj.GetComponent<IFightingEntity>();
             petal.Initialize(player);
             obj.GetComponent<PlayerMove>().placeInHand = i;
+            obj.GetComponent<PetalDescriptionManager>().descriptionText = petalDescritpion;
             CommandManager.Instance.AddCommand(petal.commandPick);
         }
         

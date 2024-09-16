@@ -52,11 +52,13 @@ namespace PetalBehaviors
         void OnMouseEnter()
         {
             _isMouseOver = true;
+            GetComponent<PetalDescriptionManager>().SetDescription();
         }
 
         void OnMouseExit()
         {
             _isMouseOver = false;
+            GetComponent<PetalDescriptionManager>().ClearDescription();
         }
 
         private void OnClick()

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -6991566407716270835}
   - component: {fileID: 7783784735540637708}
   - component: {fileID: -3343868472291355062}
+  - component: {fileID: -2954526586945394405}
   m_Layer: 0
   m_Name: PetalScaling
   m_TagString: Untagged
@@ -233,7 +234,6 @@ MonoBehaviour:
   activeValue: 0
   PetalSo: {fileID: 11400000, guid: 814213016d1ee4b098478f8c9b18cab8, type: 2}
   shouldPlayOnSelect: 0
-  shouldStayInHand: 1
   onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
   boostCount: 0
   onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
@@ -256,3 +256,16 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-2954526586945394405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c2f48c875da4a7492c5988ec5deecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptionText: {fileID: 0}
