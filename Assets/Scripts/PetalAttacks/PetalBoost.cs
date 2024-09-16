@@ -7,19 +7,15 @@ using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalBoost : PlayerMove, IFightingEntity
+    public class PetalBoost : PlayerBoostMove, IFightingEntity
     {
-        [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
         [SerializeField] private OnBoostEvent onBoostEvent;
         public ICommand commandPick { get; set; }
         public bool boostLeft = true;
         public bool boostRight = true;
-        public int boostAmount = 10;
 
         private void Awake()
         {
-            passiveValue = PetalSo.petalAttributes.passiveValue;
-            activeValue = PetalSo.petalAttributes.activeValue;
             transform.localScale = Vector3.zero;
             transform.DOScale(1, 0.25f);
         }
@@ -42,11 +38,6 @@ namespace PetalAttacks
             _isPassive = !_isPassive;
             boostAmount = _isPassive ? boostAmount * 2 : boostAmount / 2;
             onBoostEvent.Raise();
-        }
-
-        public void ExecuteOnClick()
-        {
-            throw new System.NotImplementedException();
         }
 
         public void RemovePetal()

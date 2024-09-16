@@ -142,9 +142,9 @@ namespace Command
         }
     }
 
-    public class UtilityCommand : PlayerCommand
+    public class RedrawCommand : PlayerCommand
     {
-        public UtilityCommand(IFightingEntity player) : base(player)
+        public RedrawCommand(IFightingEntity player) : base(player)
         {
         }
 
@@ -215,9 +215,9 @@ namespace Command
             {
                 command = PlayerCommand.Create<DefenseCommand>(player, targets);
             }
-            else if (player is PetalUtility)
+            else if (player is PetalDraw)
             {
-                command = PlayerCommand.Create<UtilityCommand>(player, targets);
+                command = PlayerCommand.Create<RedrawCommand>(player, targets);
             }
             else if (player is PetalBoost)
             {

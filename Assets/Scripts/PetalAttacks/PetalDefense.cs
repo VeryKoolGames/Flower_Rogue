@@ -6,10 +6,8 @@ using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalDefense : PlayerMove, IFightingEntity
+    public class PetalDefense : PlayerAttackMove, IFightingEntity
     {
-        [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
-    
         public void Execute(Entity target)
         {
             int defense = _isPassive ? passiveValue : activeValue;
@@ -43,11 +41,6 @@ namespace PetalAttacks
         public void ActivatePetal()
         {
             _isPassive = !_isPassive;
-        }
-
-        public void ExecuteOnClick()
-        {
-            throw new System.NotImplementedException();
         }
 
         public void RemovePetal()

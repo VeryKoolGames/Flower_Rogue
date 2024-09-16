@@ -2,8 +2,6 @@ using Command;
 using DefaultNamespace;
 using DefaultNamespace.Events;
 using DG.Tweening;
-using Events;
-using Events.PlayerMoveEvents;
 using ScriptableObjectScripts;
 using UnityEngine;
 
@@ -11,7 +9,6 @@ namespace PetalAttacks
 {
     public class PetalBoostActionPointsNextTurn : PlayerMove, IFightingEntity
     {
-        [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
         [SerializeField] private OnNewBoostEvent onBoostEvent;
         [SerializeField] private PlayerBoostSO boost;
         public ICommand commandPick { get; set; }
@@ -25,11 +22,6 @@ namespace PetalAttacks
             RemovePetal();
         }
 
-        public void ExecuteOnClick()
-        {
-            throw new System.NotImplementedException();
-        }
-    
         private void Awake()
         {
             transform.localScale = Vector3.zero;

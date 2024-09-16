@@ -63,11 +63,11 @@ namespace PetalBehaviors
 
         private void OnClick()
         {
-            if (_playerMove.shouldPlayOnSelect)
+            if (_petal is IExecuteOnClick petalExecuteOnClick)
             {
                 if (onPetalSelectionEvent.Raise(_cost))
                 {
-                    _petal.ExecuteOnClick();
+                    petalExecuteOnClick.ExecuteOnClick();
                 }
             }
             else if (_spriteRenderer.color == _baseColor)

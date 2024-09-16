@@ -7,11 +7,10 @@ using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalAttackScaling : PlayerMove, IFightingEntity
+    public class PetalAttackScaling : PlayerAttackMove, IFightingEntity
     {
         // The scaling petals do not have use the passive value
         // They are only played when the player clicks on the petal
-        [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
         [SerializeField] private OnTurnEndListener onTurnEndEventListener;
         public ICommand commandPick { get; set; }
 
@@ -47,11 +46,6 @@ namespace PetalAttacks
         public void ActivatePetal()
         {
             commandPick.IsPreserved = false;
-        }
-        
-        public void ExecuteOnClick()
-        {
-            throw new System.NotImplementedException();
         }
 
         public void RemovePetal()

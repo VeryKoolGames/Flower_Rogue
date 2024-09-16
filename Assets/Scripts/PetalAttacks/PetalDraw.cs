@@ -1,21 +1,18 @@
 using Command;
 using DefaultNamespace;
 using DG.Tweening;
-using Events;
 using Events.PlayerMoveEvents;
 using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalUtility : PlayerMove, IFightingEntity
+    public class PetalDraw : PlayerMove, IFightingEntity, IExecuteOnClick
     {
-        [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
         [SerializeField] private OnDrawPetalEvent onDrawPetalEvent;
         public ICommand commandPick { get; set; }
 
         public void Execute(Entity target)
         {
-            // onDrawPetalEvent.Raise(gameObject);
             RemovePetal();
         }
 
@@ -30,7 +27,6 @@ namespace PetalAttacks
         {
             transform.localScale = Vector3.zero;
             transform.DOScale(1, 0.25f);
-            shouldPlayOnSelect = true;
         }
 
         public void Initialize(Entity player)

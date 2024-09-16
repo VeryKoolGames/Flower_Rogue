@@ -10,9 +10,13 @@ namespace Command
         void Initialize(Entity player);
         void InitializeWithoutAdding(Entity player);
         void ActivatePetal();
-        void ExecuteOnClick();
         void RemovePetal();
         
         public ICommand commandPick { get; set; }
+    }
+    
+    public interface IExecuteOnClick
+    {
+        void ExecuteOnClick();
     }
 }

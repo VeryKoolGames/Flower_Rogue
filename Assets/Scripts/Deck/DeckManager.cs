@@ -19,7 +19,6 @@ namespace Deck
         private List<GameObject> petals = new List<GameObject>();
         [SerializeField] private OnTurnEndListener onTurnEndListener;
         [SerializeField] private OnDrawPetalListener onDrawPetalListener;
-        [SerializeField] private OnPetalSwapEvent onPetalSwapEvent;
         [SerializeField] private PetalDragManager petalDragManager;
         [SerializeField] private OnBoostEvent onBoostEvent;
         [SerializeField] private TextMeshProUGUI petalDescritpion;
@@ -28,8 +27,8 @@ namespace Deck
         {
             onDrawPetalListener.Response.AddListener(ReplacePetal);
             onTurnEndListener.Response.AddListener(SpawnPetals);
-            // petals.AddRange(deckSO.attackPetals);
-            // petals.AddRange(deckSO.defensePetals);
+            petals.AddRange(deckSO.attackPetals);
+            petals.AddRange(deckSO.defensePetals);
             petals.AddRange(deckSO.utilityPetals);
             SpawnPetals();
         }

@@ -6,9 +6,8 @@ using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalAttack : PlayerMove, IFightingEntity
+    public class PetalAttack : PlayerAttackMove, IFightingEntity
     {
-        [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
         public ICommand commandPick { get; set; }
 
         private void Awake()
@@ -43,11 +42,6 @@ namespace PetalAttacks
         public void ActivatePetal()
         {
             _isPassive = !_isPassive;
-        }
-        
-        public void ExecuteOnClick()
-        {
-            throw new System.NotImplementedException();
         }
 
         public void RemovePetal()

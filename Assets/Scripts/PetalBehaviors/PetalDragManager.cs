@@ -4,6 +4,7 @@ using DefaultNamespace.Events;
 using DG.Tweening;
 using Events;
 using PetalAttacks;
+using UI;
 using UnityEngine;
 
 namespace PetalBehaviors
@@ -127,20 +128,27 @@ namespace PetalBehaviors
             foreach (var petal in petals)
             {
                 PlayerMove playerMove = petal.gameObject.GetComponent<PlayerMove>();
-                playerMove.boostCount = 0;
+                if (playerMove is PlayerAttackMove petalAttack)
+                {
+                    petalAttack.petalBoostUI.RemoveBoostingEffect();
+                    petalAttack.boostCount = 0;
+                }
             }
             foreach (var petal in petals)
             {
                 PlayerMove playerMove = petal.gameObject.GetComponent<PlayerMove>();
                 if (playerMove is PetalBoost boost)
                 {
-                    Debug.Log("Boost at " + petals.IndexOf(petal));
                     if (boost.boostLeft)
                     {
                         if (petals.IndexOf(petal) > 0)
                         {
                             PlayerMove petalToBoost = petals[petals.IndexOf(petal) - 1].gameObject.GetComponent<PlayerMove>();
-                            petalToBoost.boostCount += boost.boostAmount;
+                            if (petalToBoost is PlayerAttackMove petalAttack)
+                            {
+                                petalAttack.petalBoostUI.ApplyBoostingEffect();
+                                petalAttack.boostCount += boost.boostAmount;
+                            }
                         }
                     }
                     if (boost.boostRight)
@@ -148,7 +156,11 @@ namespace PetalBehaviors
                         if (petals.IndexOf(petal) < petals.Count - 1)
                         {
                             PlayerMove petalToBoost = petals[petals.IndexOf(petal) + 1].gameObject.GetComponent<PlayerMove>();
-                            petalToBoost.boostCount += boost.boostAmount;
+                            if (petalToBoost is PlayerAttackMove petalAttack)
+                            {
+                                petalAttack.petalBoostUI.ApplyBoostingEffect();
+                                petalAttack.boostCount += boost.boostAmount;
+                            }
                         }
                     }
                 }
@@ -182,6 +194,7 @@ namespace PetalBehaviors
             {
                 ReorderPetalsBasedOnHandPosition();
             }
+            CheckForBoosts();
         }
     }
 }
