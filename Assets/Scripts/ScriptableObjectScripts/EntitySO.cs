@@ -9,11 +9,13 @@ namespace DefaultNamespace
         public string Name;
         public int Health;
         public int armor;
+        public int maxHealth;
 
-        public EntityAttribute(string name, int health)
+        public EntityAttribute(string name, int health, int maxHealth)
         {
             Name = name;
             Health = health;
+            this.maxHealth = maxHealth;
         }
     }
     

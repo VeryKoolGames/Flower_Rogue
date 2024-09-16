@@ -165,6 +165,29 @@ namespace Command
         }
     }
     
+    public class BoostActionPointsCommand : PlayerCommand
+    {
+        public BoostActionPointsCommand(IFightingEntity player) : base(player)
+        {
+        }
+
+        public override async Task Execute()
+        {
+            if (targets.Count > 0)
+            {
+                foreach (var target in targets)
+                {
+                    player.Execute(target);
+                }
+            }
+            else
+            {
+                Debug.LogError("No target found");
+            }
+            await Awaitable.WaitForSecondsAsync(2f);
+        }
+    }
+    
     public class BoostCommand : PlayerCommand
     {
         public BoostCommand(IFightingEntity target) : base(target)
@@ -207,6 +230,10 @@ namespace Command
             else if (player is PetalDefenseScaling)
             {
                 command = PlayerCommand.Create<ScalingDefenseCommand>(player, targets);
+            }
+            else if (player is PetalBoostActionPointsNextTurn)
+            {
+                command = PlayerCommand.Create<BoostActionPointsCommand>(player, targets);
             }
             return command;
         }

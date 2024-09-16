@@ -28,7 +28,7 @@ namespace Player
         private void Start()
         {
             InitStates();
-            _attributes = new EntityAttribute(entitySo.Attribute.Name, entitySo.Attribute.Health);
+            _attributes = new EntityAttribute(entitySo.Attribute.Name, entitySo.Attribute.Health, entitySo.Attribute.maxHealth);
         }
 
         private void Update()
@@ -108,6 +108,12 @@ namespace Player
             _attributes.armor -= amount;
             armorUI.UpdateArmor(_attributes.armor);
             return 0;
+        }
+        
+        public void UpdateMaxHealth(int amount)
+        {
+            _attributes.maxHealth += amount;
+            healthUI.UpdateHealth(_attributes.Health, _attributes.maxHealth);
         }
     }
 }

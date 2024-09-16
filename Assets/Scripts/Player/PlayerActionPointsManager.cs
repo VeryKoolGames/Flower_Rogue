@@ -10,6 +10,7 @@ namespace Player
     {
         [SerializeField] private List<GameObject> actionPointsGo = new List<GameObject>();
         [SerializeField] private GameObject actionPointPrefab;
+        [SerializeField] private GameObject actionPointParent;
         [SerializeField] private IntVariable startActionPoints;
         [SerializeField] private OnTurnEndListener onEnemyTurnEndListener;
         [SerializeField] private OnPetalSelectionListener onPetalSelectionListener;
@@ -17,13 +18,41 @@ namespace Player
         private int _actionPoints;
         private int _maxActionPoints;
         
-        private void Start()
+        private void Awake()
         {
             _actionPoints = startActionPoints.Value;
             _maxActionPoints = _actionPoints;
             onEnemyTurnEndListener.Response.AddListener(ResetActionPoints);
             onPetalSelectionListener.Response.AddListener(UseActionPoint);
             onPetalUnSelectionListener.Response.AddListener(GainActionPoint);
+            InstantiateActionPoints();
+        }
+        
+        private void InstantiateActionPoints()
+        {
+            for (int i = 0; i < _maxActionPoints; i++)
+            {
+                var go = Instantiate(actionPointPrefab, actionPointParent.transform);
+                actionPointsGo.Add(go);
+            }
+        }
+        
+        private void InstantiateMoreActionPoints(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                var go = Instantiate(actionPointPrefab, actionPointParent.transform);
+                actionPointsGo.Add(go);
+            }
+        }
+        
+        private void DestroyActionPointsFromLast(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                Destroy(actionPointsGo[actionPointsGo.Count - 1]);
+                actionPointsGo.RemoveAt(actionPointsGo.Count - 1);
+            }
         }
         
         private void UseActionPoint(int cost)
@@ -53,7 +82,7 @@ namespace Player
             UpdateActionPointsUI(_actionPoints);
         }
         
-        public void UpdateActionPointsUI(int currentPoints)
+        private void UpdateActionPointsUI(int currentPoints)
         {
             for (int i = 0; i < actionPointsGo.Count; i++)
             {
@@ -66,6 +95,21 @@ namespace Player
             onEnemyTurnEndListener.Response.RemoveListener(ResetActionPoints);
             onPetalSelectionListener.Response.RemoveListener(UseActionPoint);
             onPetalUnSelectionListener.Response.RemoveListener(GainActionPoint);
+        }
+
+        public void UpdateMaxActionPoints(int actionPoints)
+        {
+            _maxActionPoints += actionPoints;
+            _actionPoints += actionPoints;
+            if (actionPoints > 0)
+            {
+                InstantiateMoreActionPoints(actionPoints);
+            }
+            else
+            {
+                DestroyActionPointsFromLast(-actionPoints);
+            }
+            UpdateActionPointsUI(_maxActionPoints);
         }
     }
 }

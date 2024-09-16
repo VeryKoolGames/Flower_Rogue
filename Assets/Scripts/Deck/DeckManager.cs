@@ -28,8 +28,8 @@ namespace Deck
         {
             onDrawPetalListener.Response.AddListener(ReplacePetal);
             onTurnEndListener.Response.AddListener(SpawnPetals);
-            petals.AddRange(deckSO.attackPetals);
-            petals.AddRange(deckSO.defensePetals);
+            // petals.AddRange(deckSO.attackPetals);
+            // petals.AddRange(deckSO.defensePetals);
             petals.AddRange(deckSO.utilityPetals);
             SpawnPetals();
         }
@@ -67,6 +67,7 @@ namespace Deck
             Vector3 position = petal.transform.position;
             Quaternion rotation = petal.transform.rotation;
             GameObject obj = Instantiate(GetRandomPetal(), position, rotation);
+            obj.GetComponent<PetalDescriptionManager>().descriptionText = petalDescritpion;
             obj.transform.SetParent(petal.transform.parent);
             IFightingEntity newPetal = obj.GetComponent<IFightingEntity>();
             newPetal.InitializeWithoutAdding(player);

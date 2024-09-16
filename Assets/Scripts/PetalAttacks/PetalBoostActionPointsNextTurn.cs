@@ -1,36 +1,39 @@
 using Command;
 using DefaultNamespace;
+using DefaultNamespace.Events;
 using DG.Tweening;
 using Events;
 using Events.PlayerMoveEvents;
+using ScriptableObjectScripts;
 using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalUtility : PlayerMove, IFightingEntity
+    public class PetalBoostActionPointsNextTurn : PlayerMove, IFightingEntity
     {
         [SerializeField] private OnCommandCreationEvent onCommandCreationEvent;
-        [SerializeField] private OnDrawPetalEvent onDrawPetalEvent;
+        [SerializeField] private OnNewBoostEvent onBoostEvent;
+        [SerializeField] private PlayerBoostSO boost;
         public ICommand commandPick { get; set; }
 
         public void Execute(Entity target)
         {
-            // onDrawPetalEvent.Raise(gameObject);
+            if (!_isPassive)
+            {
+                onBoostEvent.Raise(boost);
+            }
             RemovePetal();
         }
 
         public void ExecuteOnClick()
         {
-            onDrawPetalEvent.Raise(gameObject);
-            onPetalDeathEvent.Raise(gameObject);
-            RemovePetal();
+            throw new System.NotImplementedException();
         }
     
         private void Awake()
         {
             transform.localScale = Vector3.zero;
             transform.DOScale(1, 0.25f);
-            shouldPlayOnSelect = true;
         }
 
         public void Initialize(Entity player)

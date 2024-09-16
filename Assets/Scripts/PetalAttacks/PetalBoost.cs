@@ -44,11 +44,6 @@ namespace PetalAttacks
             onBoostEvent.Raise();
         }
 
-        public void Decorate(int amount)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void ExecuteOnClick()
         {
             throw new System.NotImplementedException();

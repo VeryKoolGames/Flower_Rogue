@@ -17,7 +17,7 @@ namespace Enemy
         private void Start()
         {
             entityGameObject = gameObject;
-            _attributes = new EntityAttribute(entitySo.Attribute.Name, entitySo.Attribute.Health);
+            _attributes = new EntityAttribute(entitySo.Attribute.Name, entitySo.Attribute.Health, entitySo.Attribute.maxHealth);
             onEnemySpawnEvent.Raise(this);
             armorUI = GetComponent<ArmorUI>();
         }
