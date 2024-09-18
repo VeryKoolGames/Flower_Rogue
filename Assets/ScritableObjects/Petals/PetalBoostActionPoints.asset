@@ -18,3 +18,4 @@ MonoBehaviour:
     cost: 2
     name: Petal Boost Action Points
     description: Gives you + 2 action points for next turn
+    warningDescription: Only plays if activated

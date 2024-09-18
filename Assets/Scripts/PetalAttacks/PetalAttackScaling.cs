@@ -26,6 +26,7 @@ namespace PetalAttacks
 
         public void Execute(Entity target)
         {
+            commandPick.IsPreserved = false;
             int damage = activeValue;
             target.loseHP(damage);
             RemovePetal();
@@ -47,9 +48,7 @@ namespace PetalAttacks
                 onDrawPetalEvent.Raise(gameObject);
                 onPetalDeathEvent.Raise(gameObject);
                 RemovePetal();
-                return;
             }
-            commandPick.IsPreserved = false;
         }
 
         public void RemovePetal()

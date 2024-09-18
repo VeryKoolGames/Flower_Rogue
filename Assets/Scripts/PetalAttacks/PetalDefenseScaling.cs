@@ -27,6 +27,7 @@ namespace PetalAttacks
 
         public void Execute(Entity target)
         {
+            commandPick.IsPreserved = false;
             int defense = activeValue;
             defense += boostCount;
             if (target is Player.Player)

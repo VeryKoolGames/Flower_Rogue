@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petalAttributes:
     activeValue: 1
-    passiveValue: 2
+    passiveValue: 0
     cost: 2
     name: Petal Scaling
     description: Attack scale with each turn
+    warningDescription: Stays in hand

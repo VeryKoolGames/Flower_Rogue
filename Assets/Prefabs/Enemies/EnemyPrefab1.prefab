@@ -590,8 +590,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ffb7dbe913a47aeb648bf0508a7b868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  armorUI: {fileID: 6596367131889026490}
+  healthUI: {fileID: 6112780223819982390}
   entitySo: {fileID: 11400000, guid: a72739595e8754b23b7d6db804f3a811, type: 2}
-  enemyUI: {fileID: 6112780223819982390}
+  entityGameObject: {fileID: 0}
   onEnemyDeathEvent: {fileID: 11400000, guid: e18e7bf6e44354748abb80307142fd30, type: 2}
   onEnemySpawnEvent: {fileID: 11400000, guid: 97cab8df65bfd40958f60433503d3265, type: 2}
 --- !u!114 &6112780223819982390

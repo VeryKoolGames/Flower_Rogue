@@ -17,5 +17,5 @@ MonoBehaviour:
     passiveValue: 0
     cost: 2
     name: Petal Passive Defense
-    description: Stays in hand and gives you 2 armor each turn
-    warningDescription: 
+    description: Gives you 2 armor each turn
+    warningDescription: Stays in hand

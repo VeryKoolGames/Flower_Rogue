@@ -12,8 +12,6 @@ namespace Player
     [RequireComponent(typeof(ArmorUI), typeof(HealthUI))]
     public class Player : Entity
     { 
-        [FormerlySerializedAs("playerUI")] [SerializeField, Self] private ArmorUI armorUI;
-        [SerializeField, Self] private HealthUI healthUI;
         [Header("Events")]
         [SerializeField, Self] private OnTurnEndListener onTurnEndListener;
         [SerializeField] private OnCombatLoseEvent onCombatLoseEvent;

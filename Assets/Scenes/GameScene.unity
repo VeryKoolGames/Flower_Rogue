@@ -2940,10 +2940,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8baecc8e373f4463b8ab0e8486541e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entitySo: {fileID: 11400000, guid: 173a6ce618f2949b0b222e515e21a56f, type: 2}
-  entityGameObject: {fileID: 0}
   armorUI: {fileID: 1101700324}
   healthUI: {fileID: 1101700326}
+  entitySo: {fileID: 11400000, guid: 173a6ce618f2949b0b222e515e21a56f, type: 2}
+  entityGameObject: {fileID: 0}
   onTurnEndListener: {fileID: 1101700327}
   onCombatLoseEvent: {fileID: 0}
 --- !u!114 &1101700319

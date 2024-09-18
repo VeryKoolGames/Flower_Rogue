@@ -17,5 +17,5 @@ MonoBehaviour:
     passiveValue: 5
     cost: 2
     name: Petal Attack
-    description: Does 3 or 5 attack dmg
+    description: Deals damage to an enemy
     warningDescription: You have to select an enemy

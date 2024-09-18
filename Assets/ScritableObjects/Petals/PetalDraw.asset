@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: PetalDraw
   m_EditorClassIdentifier: 
   petalAttributes:
+    activeValue: 0
+    passiveValue: 0
     cost: 1
     name: Petal Draw
     description: Draw a new petal
+    warningDescription: Only played on click
