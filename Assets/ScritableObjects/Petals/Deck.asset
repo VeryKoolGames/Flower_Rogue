@@ -15,6 +15,7 @@ MonoBehaviour:
   attackPetals:
   - {fileID: 4867423013394408186, guid: c0b1cb05f1446446e84107e135e6a3d7, type: 3}
   - {fileID: 4867423013394408186, guid: a3f7d68690f174864bb14e827a4279a2, type: 3}
+  - {fileID: 4867423013394408186, guid: 49277e57efda7442cac8c8db620f2814, type: 3}
   defensePetals:
   - {fileID: 4867423013394408186, guid: 6efdfed3ac2564b9dad9aa1b2c90ac79, type: 3}
   - {fileID: 4867423013394408186, guid: 10b85cb7a904b4c4e8cfe6cbb1db1d54, type: 3}

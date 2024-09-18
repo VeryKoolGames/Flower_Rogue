@@ -1,6 +1,8 @@
 using DefaultNamespace;
+using DefaultNamespace.Events;
 using PetalAttacks;
 using ScriptableObjectScripts;
+using UnityEngine;
 
 namespace Command
 {
@@ -18,5 +20,10 @@ namespace Command
     public interface IExecuteOnClick
     {
         void ExecuteOnClick();
+    }
+
+    public interface IPassiveActive
+    {
+        public bool isActive { get; set; }
     }
 }

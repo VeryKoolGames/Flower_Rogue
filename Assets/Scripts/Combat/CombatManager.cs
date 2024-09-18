@@ -13,7 +13,7 @@ namespace Combat
         [SerializeField] private OnEnemySpawnListener onEnemySpawnListener;
         [SerializeField] private OnCombatWinEvent onCombatWinEvent;
         
-        private void OnEnable()
+        private void Awake()
         {
             onEnemyDeathListener.Response.AddListener(RemoveEnemy);
             onEnemySpawnListener.Response.AddListener(AddEnemy);

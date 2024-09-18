@@ -73,7 +73,30 @@ namespace Command
     {
         public ScalingAttackCommand(IFightingEntity player) : base(player)
         {
-            this.IsPreserved = true;
+        }
+
+        public override async Task Execute()
+        {
+            if (targets.Count > 0)
+            {
+                foreach (var target in targets)
+                {
+                    if (target != null || !player.commandPick.IsPreserved)
+                        player.Execute(target);
+                }
+            }
+            else
+            {
+                Debug.LogError("No target found");
+            }
+            await Awaitable.WaitForSecondsAsync(2f);
+        }
+    }
+    
+    public class ScalingDefenseCommand : PlayerCommand
+    {
+        public ScalingDefenseCommand(IFightingEntity player) : base(player)
+        {
         }
 
         public override async Task Execute()
@@ -94,27 +117,16 @@ namespace Command
         }
     }
     
-    public class ScalingDefenseCommand : PlayerCommand
+    public class PassiveDefenseCommand : PlayerCommand
     {
-        public ScalingDefenseCommand(IFightingEntity player) : base(player)
+        public PassiveDefenseCommand(IFightingEntity player) : base(player)
         {
-            this.IsPreserved = true;
         }
 
         public override async Task Execute()
         {
-            if (targets.Count > 0)
-            {
-                foreach (var target in targets)
-                {
-                    if (target != null && !player.commandPick.IsPreserved)
-                        player.Execute(target);
-                }
-            }
-            else
-            {
-                Debug.LogError("No target found");
-            }
+            if (!player.commandPick.IsPreserved)
+                player.Execute(null);
             await Awaitable.WaitForSecondsAsync(2f);
         }
     }
@@ -234,6 +246,10 @@ namespace Command
             else if (player is PetalBoostActionPointsNextTurn)
             {
                 command = PlayerCommand.Create<BoostActionPointsCommand>(player, targets);
+            }
+            else if (player is PetalPassiveDefense)
+            {
+                command = PlayerCommand.Create<PassiveDefenseCommand>(player, targets);
             }
             return command;
         }

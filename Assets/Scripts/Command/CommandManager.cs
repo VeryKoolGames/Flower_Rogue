@@ -27,10 +27,6 @@ namespace Command
                 return;
             }
             Instance = this;
-        }
-
-        private void Start()
-        {
             onPetalDeathListener.Response.AddListener(RemoveCommand);
             onCommandCreationListener.Response.AddListener(AddCommand);
             onTargetUpdateListener.Response.AddListener(UpdateTarget);
@@ -75,19 +71,10 @@ namespace Command
                 return;
             }
             var node = GetNodeAt(commandList, index);
-            if (node != null && node.Value.IsPreserved)
-            {
-                Debug.LogWarning("Cannot overwrite preserved command at index " + index);
-                return;
-            }
 
             if (node != null)
             {
-                commandList.AddBefore(node, command);
-            }
-            else
-            {
-                commandList.AddLast(command);
+                node.Value = command;
             }
         }
         

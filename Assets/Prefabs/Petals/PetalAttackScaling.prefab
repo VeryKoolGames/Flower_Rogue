@@ -4851,6 +4851,8 @@ GameObject:
   - component: {fileID: -3343868472291355062}
   - component: {fileID: -2954526586945394405}
   - component: {fileID: -835159388028383637}
+  - component: {fileID: 4276374761066842687}
+  - component: {fileID: -4245850841145469124}
   m_Layer: 0
   m_Name: PetalAttackScaling
   m_TagString: Untagged
@@ -5065,14 +5067,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeInHand: 0
   PetalSo: {fileID: 11400000, guid: 814213016d1ee4b098478f8c9b18cab8, type: 2}
-  shouldPlayOnSelect: 0
   onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
+  onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
+    type: 2}
+  onRedrawTurnListener: {fileID: 4276374761066842687}
+  onCombatStartListener: {fileID: -4245850841145469124}
+  onDrawPetalEvent: {fileID: 11400000, guid: 9809a343c4efc4236b7e4a072182d4a4, type: 2}
+  isRedrawEnabled: 0
   passiveValue: 0
   activeValue: 0
   boostCount: 0
   petalBoostUI: {fileID: -835159388028383637}
-  onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
-    type: 2}
   onTurnEndEventListener: {fileID: -3343868472291355062}
 --- !u!114 &-3343868472291355062
 MonoBehaviour:
@@ -5117,6 +5122,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boostEffect: {fileID: 6772100059864866300}
+--- !u!114 &4276374761066842687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431a72f7f5e84c1bbb61a7264877072e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCommandCreationEvent: {fileID: 11400000, guid: 893bf0e1fbffe40fa95f57b448ab7a9a,
+    type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-4245850841145469124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431a72f7f5e84c1bbb61a7264877072e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCommandCreationEvent: {fileID: 11400000, guid: 4a91f9cb691b84409b7f3b29e0402577,
+    type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5880307012556497818
 GameObject:
   m_ObjectHideFlags: 0

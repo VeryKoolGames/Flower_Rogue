@@ -1,18 +1,20 @@
 using Command;
 using DefaultNamespace;
 using DefaultNamespace.Events;
-using PetalAttacks;
 using UnityEngine;
 
-public class SelectPetalTarget : MonoBehaviour
+namespace PetalBehaviors
 {
-    [SerializeField] private OnTargetUpdateEvent onTargetUpdateEvent;
-
-    private void OnTriggerEnter2D(Collider2D other)
+    public class SelectPetalTarget : MonoBehaviour
     {
-        if (other.CompareTag("Enemy"))
+        [SerializeField] private OnTargetUpdateEvent onTargetUpdateEvent;
+
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            onTargetUpdateEvent.Raise(GetComponent<IFightingEntity>().commandPick, new Entity[] { other.GetComponent<Enemy.Enemy>() });
+            if (other.CompareTag("Enemy"))
+            {
+                onTargetUpdateEvent.Raise(GetComponent<IFightingEntity>().commandPick, new Entity[] { other.GetComponent<Enemy.Enemy>() });
+            }
         }
     }
 }

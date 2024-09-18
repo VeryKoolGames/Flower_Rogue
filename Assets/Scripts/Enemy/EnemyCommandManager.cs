@@ -13,6 +13,7 @@ namespace Enemy
         [SerializeField] private OnTurnEndEvent onEnemyTurnEndEvent;
         readonly CommandInvoker commandInvoker = new();
         [SerializeField] private OnEnemyDeathListener onEnemyDeathListener;
+        [SerializeField] private OnTurnEndListener onPlayerTurnEndListener;
         
         private void Awake()
         {
@@ -22,11 +23,14 @@ namespace Enemy
                 return;
             }
             Instance = this;
-        }
-
-        private void Start()
-        {
             onEnemyDeathListener.Response.AddListener(OnEnemyDeath);
+            onPlayerTurnEndListener.Response.AddListener(ExecuteCommand);
+        }
+        
+        private void OnDisable()
+        {
+            onEnemyDeathListener.Response.RemoveListener(OnEnemyDeath);
+            onPlayerTurnEndListener.Response.RemoveListener(ExecuteCommand);
         }
 
         public void AddCommand(ICommand command)

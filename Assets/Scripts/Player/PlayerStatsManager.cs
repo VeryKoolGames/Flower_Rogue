@@ -28,7 +28,7 @@ namespace Player
         [SerializeField] private PlayerActionPointsManager playerActionPointsManager;
         [SerializeField] private OnNewBoostListener onNewBoostListener;
         
-        private void Start()
+        private void Awake()
         {
             onTurnEndListener.Response.AddListener(RemoveBoostDuration);
             onNewBoostListener.Response.AddListener(ApplyBoost);

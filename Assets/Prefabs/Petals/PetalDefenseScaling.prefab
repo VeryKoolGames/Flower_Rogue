@@ -13,12 +13,13 @@ GameObject:
   - component: {fileID: 3330935639859290403}
   - component: {fileID: 1027984503441265875}
   - component: {fileID: 8791730815159992194}
-  - component: {fileID: 7350959291933243489}
   - component: {fileID: -6991566407716270835}
   - component: {fileID: -3343868472291355062}
   - component: {fileID: -2954526586945394405}
   - component: {fileID: 1217230755413082689}
   - component: {fileID: 7595074989380014427}
+  - component: {fileID: -8136231252945790730}
+  - component: {fileID: 2150255444055242010}
   m_Layer: 0
   m_Name: PetalDefenseScaling
   m_TagString: Untagged
@@ -189,20 +190,6 @@ MonoBehaviour:
   onPetalStopDraggingEvent: {fileID: 11400000, guid: b37a0d13579d74264a96cc98a689d577,
     type: 2}
   targetRotation: {x: 0, y: 0, z: 0}
---- !u!114 &7350959291933243489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4867423013394408186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fe1da8cc8cac430aa99c9f47ac74a35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onTargetUpdateEvent: {fileID: 11400000, guid: 3a55d8c228f1f486e865e07303266291,
-    type: 2}
 --- !u!114 &-6991566407716270835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,14 +250,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeInHand: 0
   PetalSo: {fileID: 11400000, guid: 134a21611a99b4651b066900b8f1c157, type: 2}
-  shouldPlayOnSelect: 0
   onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
+  onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
+    type: 2}
+  onRedrawTurnListener: {fileID: -8136231252945790730}
+  onCombatStartListener: {fileID: 2150255444055242010}
+  onDrawPetalEvent: {fileID: 11400000, guid: 9809a343c4efc4236b7e4a072182d4a4, type: 2}
+  isRedrawEnabled: 0
   passiveValue: 0
   activeValue: 0
   boostCount: 0
   petalBoostUI: {fileID: 7595074989380014427}
-  onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
-    type: 2}
   onTurnEndEventListener: {fileID: -3343868472291355062}
 --- !u!114 &7595074989380014427
 MonoBehaviour:
@@ -285,6 +275,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boostEffect: {fileID: 2966963431777106694}
+--- !u!114 &-8136231252945790730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431a72f7f5e84c1bbb61a7264877072e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCommandCreationEvent: {fileID: 11400000, guid: 893bf0e1fbffe40fa95f57b448ab7a9a,
+    type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2150255444055242010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431a72f7f5e84c1bbb61a7264877072e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCommandCreationEvent: {fileID: 11400000, guid: 4a91f9cb691b84409b7f3b29e0402577,
+    type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6699737293635835833
 GameObject:
   m_ObjectHideFlags: 0

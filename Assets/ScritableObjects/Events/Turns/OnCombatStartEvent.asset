@@ -9,13 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36824c5199994fc6b38d8d44c90b11ed, type: 3}
-  m_Name: PetalAttack
+  m_Script: {fileID: 11500000, guid: 3951380ec82c4fdea977a347438c30ea, type: 3}
+  m_Name: OnCombatStartEvent
   m_EditorClassIdentifier: 
-  petalAttributes:
-    activeValue: 10
-    passiveValue: 5
-    cost: 2
-    name: Petal Attack
-    description: Does 3 or 5 attack dmg
-    warningDescription: You have to select an enemy

@@ -1,14 +1,11 @@
 using Command;
 using DefaultNamespace;
 using DG.Tweening;
-using Events.PlayerMoveEvents;
-using UnityEngine;
 
 namespace PetalAttacks
 {
     public class PetalDraw : PlayerMove, IFightingEntity, IExecuteOnClick
     {
-        [SerializeField] private OnDrawPetalEvent onDrawPetalEvent;
         public ICommand commandPick { get; set; }
 
         public void Execute(Entity target)
@@ -21,12 +18,6 @@ namespace PetalAttacks
             onDrawPetalEvent.Raise(gameObject);
             onPetalDeathEvent.Raise(gameObject);
             RemovePetal();
-        }
-    
-        private void Awake()
-        {
-            transform.localScale = Vector3.zero;
-            transform.DOScale(1, 0.25f);
         }
 
         public void Initialize(Entity player)
@@ -44,7 +35,10 @@ namespace PetalAttacks
 
         public void ActivatePetal()
         {
-            _isPassive = !_isPassive;
+            if (!isRedrawEnabled) return;
+            onDrawPetalEvent.Raise(gameObject);
+            onPetalDeathEvent.Raise(gameObject);
+            RemovePetal();
         }
     
         public void RemovePetal()

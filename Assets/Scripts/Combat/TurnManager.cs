@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Command;
 using DefaultNamespace.Events;
 using Enemy;
 using Events;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,6 +14,7 @@ public enum Turn
     Enemy,
     Win,
     Lose,
+    Redraw,
 }
 
 namespace DefaultNamespace.Combat
@@ -19,40 +22,49 @@ namespace DefaultNamespace.Combat
     public class TurnManager : MonoBehaviour
     {
         [SerializeField] private OnTurnEndListener onTurnEndListener;
-        [SerializeField] private OnTurnEndEvent onPlayerTurnEndEvent;
         [SerializeField] private OnTurnEndEvent onEnemyTurnEndEvent;
+        [SerializeField] private OnTurnEndEvent onRedrawTurnEvent;
+        [SerializeField] private OnTurnEndEvent onPlayerTurnEndEvent;
         [SerializeField] private OnCombatWinListener onWinListener;
         [SerializeField] private OnCombatLoseListener onCombatLoseListener;
         [FormerlySerializedAs("combatWinUiManager")] [SerializeField] private CombatEndUiManager combatEndUiManager;
-        private Turn currentTurn = Turn.Player;
+        [SerializeField] private TextMeshProUGUI currentPhaseText;
+        private Turn currentTurn = Turn.Redraw;
         
-        private void OnEnable()
+        private void Start()
         {
             onTurnEndListener.Response.AddListener(SwitchTurn);
             onWinListener.Response.AddListener(OnCombatWin);
             onCombatLoseListener.Response.AddListener(OnCombatLose);
+            UpdateCurrentPhaseText();
         }
         
-        private void SwitchTurn()
+        public void SwitchTurn()
         {
-            if (currentTurn == Turn.Player)
+            switch (currentTurn)
             {
-                currentTurn = Turn.Enemy;
-                EnemyCommandManager.Instance.ExecuteCommand();
+                case Turn.Redraw:
+                    currentTurn = Turn.Player;
+                    onRedrawTurnEvent.Raise();
+                    break;
+                case Turn.Player:
+                    currentTurn = Turn.Enemy;
+                    onPlayerTurnEndEvent.Raise();
+                    break;
+                case Turn.Enemy:
+                    currentTurn = Turn.Redraw;
+                    onEnemyTurnEndEvent.Raise();
+                    break;
+                case Turn.Win:
+                    combatEndUiManager.OnCombatWin();
+                    break;
+                case Turn.Lose:
+                    combatEndUiManager.OnCombatLose();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            else if (currentTurn == Turn.Enemy)
-            {
-                currentTurn = Turn.Player;
-                onEnemyTurnEndEvent.Raise();
-            }
-            else if (currentTurn == Turn.Win)
-            {
-                combatEndUiManager.OnCombatWin();
-            }
-            else if (currentTurn == Turn.Lose)
-            {
-                combatEndUiManager.OnCombatLose();
-            }
+            UpdateCurrentPhaseText();
         }
         
         private void OnCombatWin()
@@ -70,6 +82,11 @@ namespace DefaultNamespace.Combat
             onTurnEndListener.Response.RemoveListener(SwitchTurn);
             onWinListener.Response.RemoveListener(OnCombatWin);
             onCombatLoseListener.Response.RemoveListener(OnCombatLose);
+        }
+
+        private void UpdateCurrentPhaseText()
+        {
+            currentPhaseText.text = "Current Phase: --" + currentTurn + "--";
         }
     }
 }

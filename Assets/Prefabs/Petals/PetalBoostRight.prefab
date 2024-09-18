@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 8476301486000879437}
   - component: {fileID: 5967721238432303342}
   - component: {fileID: -1687550017918420378}
+  - component: {fileID: -4157222901260887264}
+  - component: {fileID: -1563292807020637370}
   m_Layer: 0
   m_Name: PetalBoostRight
   m_TagString: Untagged
@@ -214,18 +216,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placeInHand: 0
-  passiveValue: 0
-  activeValue: 0
   PetalSo: {fileID: 11400000, guid: a9b14d41d7ad14eb59e877d946369030, type: 2}
-  shouldPlayOnSelect: 0
   onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
-  boostCount: 0
   onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
     type: 2}
+  onRedrawTurnListener: {fileID: -4157222901260887264}
+  onCombatStartListener: {fileID: -1563292807020637370}
+  onDrawPetalEvent: {fileID: 11400000, guid: 9809a343c4efc4236b7e4a072182d4a4, type: 2}
+  isRedrawEnabled: 0
+  boostAmount: 10
   onBoostEvent: {fileID: 11400000, guid: af43f2037c66145779d070d0c163ffc1, type: 2}
   boostLeft: 0
   boostRight: 1
-  boostAmount: 10
 --- !u!114 &-1687550017918420378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,3 +241,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   descriptionText: {fileID: 0}
+--- !u!114 &-4157222901260887264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431a72f7f5e84c1bbb61a7264877072e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCommandCreationEvent: {fileID: 11400000, guid: 893bf0e1fbffe40fa95f57b448ab7a9a,
+    type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-1563292807020637370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431a72f7f5e84c1bbb61a7264877072e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCommandCreationEvent: {fileID: 11400000, guid: 4a91f9cb691b84409b7f3b29e0402577,
+    type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []

@@ -6,17 +6,10 @@ using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalAttack : PlayerAttackMove, IFightingEntity
+    public class PetalAttack : PlayerAttackMove, IFightingEntity, IPassiveActive
     {
         public ICommand commandPick { get; set; }
-
-        private void Awake()
-        {
-            passiveValue = PetalSo.petalAttributes.passiveValue;
-            activeValue = PetalSo.petalAttributes.activeValue;
-            transform.localScale = Vector3.zero;
-            transform.DOScale(1, 0.25f);
-        }
+        
 
         public void Execute(Entity target)
         {
@@ -24,7 +17,7 @@ namespace PetalAttacks
             {
                 Debug.Log("No target, maybe it died");
             }
-            int damage = _isPassive ? passiveValue : activeValue;
+            int damage = isActive ? activeValue : passiveValue;
             damage += boostCount;
             Debug.Log("Attacking for Damage: " + damage);
             target.loseHP(damage);
@@ -41,7 +34,14 @@ namespace PetalAttacks
 
         public void ActivatePetal()
         {
-            _isPassive = !_isPassive;
+            if (isRedrawEnabled)
+            {
+                onDrawPetalEvent.Raise(gameObject);
+                onPetalDeathEvent.Raise(gameObject);
+                RemovePetal();
+                return;
+            }
+            isActive = !isActive;
         }
 
         public void RemovePetal()
@@ -56,5 +56,7 @@ namespace PetalAttacks
             commandPick = command;
             onCommandCreationEvent.Raise(command);
         }
+
+        public bool isActive { get; set; }
     }
 }

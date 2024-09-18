@@ -63,6 +63,14 @@ namespace PetalBehaviors
 
         private void OnClick()
         {
+            if (_petal is PlayerMove playerMove)
+            {
+                if (playerMove.isRedrawEnabled)
+                {
+                    _petal.ActivatePetal();
+                    return;
+                }
+            }
             if (_petal is IExecuteOnClick petalExecuteOnClick)
             {
                 if (onPetalSelectionEvent.Raise(_cost))

@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 8476301486000879437}
   - component: {fileID: -8473203183570474879}
   - component: {fileID: -6684518969345069692}
+  - component: {fileID: 99193493866302336}
+  - component: {fileID: 2540739411175766391}
   m_Layer: 0
   m_Name: PetalBoostActionPoints
   m_TagString: Untagged
@@ -227,13 +229,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placeInHand: 0
-  passiveValue: 0
-  activeValue: 0
   PetalSo: {fileID: 11400000, guid: 421d3ba9e89364b58938596441106be9, type: 2}
-  shouldPlayOnSelect: 0
   onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
-  boostCount: 0
   onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
     type: 2}
+  onRedrawTurnListener: {fileID: 99193493866302336}
+  onCombatStartListener: {fileID: 2540739411175766391}
+  onDrawPetalEvent: {fileID: 11400000, guid: 9809a343c4efc4236b7e4a072182d4a4, type: 2}
+  isRedrawEnabled: 0
   onBoostEvent: {fileID: 11400000, guid: 1e041486262d446948fa5d32a094628e, type: 2}
   boost: {fileID: 11400000, guid: 74ed0101fdda54d0481ebdd7a5dc9db5, type: 2}
+--- !u!114 &99193493866302336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431a72f7f5e84c1bbb61a7264877072e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCommandCreationEvent: {fileID: 11400000, guid: 893bf0e1fbffe40fa95f57b448ab7a9a,
+    type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2540739411175766391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431a72f7f5e84c1bbb61a7264877072e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCommandCreationEvent: {fileID: 11400000, guid: 4a91f9cb691b84409b7f3b29e0402577,
+    type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []

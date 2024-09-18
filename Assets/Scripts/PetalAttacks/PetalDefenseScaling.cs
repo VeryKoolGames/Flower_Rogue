@@ -14,12 +14,9 @@ namespace PetalAttacks
         [SerializeField] private OnTurnEndListener onTurnEndEventListener;
         public ICommand commandPick { get; set; }
 
-        private void Awake()
+        protected override void Awake()
         {
-            passiveValue = PetalSo.petalAttributes.passiveValue;
-            activeValue = PetalSo.petalAttributes.activeValue;
-            transform.localScale = Vector3.zero;
-            transform.DOScale(1, 0.25f);
+            base.Awake();
             onTurnEndEventListener.Response.AddListener(OnTurnEnd);
         }
         
@@ -43,10 +40,18 @@ namespace PetalAttacks
             // it is added directly in the deckManager
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
             commandPick = command;
+            command.IsPreserved = true;
         }
 
         public void ActivatePetal()
         {
+            if (isRedrawEnabled)
+            {
+                onDrawPetalEvent.Raise(gameObject);
+                onPetalDeathEvent.Raise(gameObject);
+                RemovePetal();
+                return;
+            }
             commandPick.IsPreserved = false;
         }
 
@@ -60,6 +65,7 @@ namespace PetalAttacks
         {
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{ player } );
             commandPick = command;
+            command.IsPreserved = true;
             onCommandCreationEvent.Raise(command);
         }
     }

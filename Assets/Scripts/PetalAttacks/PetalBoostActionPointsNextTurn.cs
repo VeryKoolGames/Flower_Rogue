@@ -1,3 +1,4 @@
+using System;
 using Command;
 using DefaultNamespace;
 using DefaultNamespace.Events;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalBoostActionPointsNextTurn : PlayerMove, IFightingEntity
+    public class PetalBoostActionPointsNextTurn : PlayerMove, IFightingEntity, IPassiveActive
     {
         [SerializeField] private OnNewBoostEvent onBoostEvent;
         [SerializeField] private PlayerBoostSO boost;
@@ -15,19 +16,13 @@ namespace PetalAttacks
 
         public void Execute(Entity target)
         {
-            if (!_isPassive)
+            if (isActive)
             {
                 onBoostEvent.Raise(boost);
             }
             RemovePetal();
         }
-
-        private void Awake()
-        {
-            transform.localScale = Vector3.zero;
-            transform.DOScale(1, 0.25f);
-        }
-
+        
         public void Initialize(Entity player)
         {
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
@@ -43,7 +38,14 @@ namespace PetalAttacks
 
         public void ActivatePetal()
         {
-            _isPassive = !_isPassive;
+            if (isRedrawEnabled)
+            {
+                onDrawPetalEvent.Raise(gameObject);
+                onPetalDeathEvent.Raise(gameObject);
+                RemovePetal();
+                return;
+            }
+            isActive = !isActive;
         }
     
         public void RemovePetal()
@@ -54,5 +56,6 @@ namespace PetalAttacks
             });
         }
 
+        public bool isActive { get; set; }
     }
 }

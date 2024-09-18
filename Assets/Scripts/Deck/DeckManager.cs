@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Combat;
 using Command;
 using DefaultNamespace.Events;
 using DefaultNamespace.ScriptableObjectScripts;
@@ -8,6 +10,7 @@ using PetalAttacks;
 using PetalBehaviors;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Deck
 {
@@ -22,17 +25,23 @@ namespace Deck
         [SerializeField] private PetalDragManager petalDragManager;
         [SerializeField] private OnBoostEvent onBoostEvent;
         [SerializeField] private TextMeshProUGUI petalDescritpion;
+        [SerializeField] private OnTurnEndEvent onCombatStartEvent;
+        [SerializeField] private PetalRedrawManager petalRedrawManager;
         
-        private void Start()
+        private void Awake()
         {
             onDrawPetalListener.Response.AddListener(ReplacePetal);
             onTurnEndListener.Response.AddListener(SpawnPetals);
             petals.AddRange(deckSO.attackPetals);
             petals.AddRange(deckSO.defensePetals);
             petals.AddRange(deckSO.utilityPetals);
+        }
+
+        private void Start()
+        {
             SpawnPetals();
         }
-        
+
         private async void SpawnPetals()
         {
             CommandManager.Instance.ClearCommands();
@@ -46,6 +55,7 @@ namespace Deck
             }
             await Awaitable.WaitForSecondsAsync(.2f);
             onBoostEvent.Raise();
+            onCombatStartEvent.Raise();
         }
         
         private void SpawnPetal(Transform spawnPoint, int i)
@@ -71,6 +81,11 @@ namespace Deck
             IFightingEntity newPetal = obj.GetComponent<IFightingEntity>();
             newPetal.InitializeWithoutAdding(player);
             obj.GetComponent<PlayerMove>().placeInHand = petal.GetComponent<PlayerMove>().placeInHand;
+            if (petal.GetComponent<PlayerMove>().isRedrawEnabled)
+            {
+                obj.GetComponent<PlayerMove>().isRedrawEnabled = true;
+                petalRedrawManager.OnRedraw();
+            }
             CommandManager.Instance.AddCommandAtIndex(newPetal.commandPick, obj.GetComponent<PlayerMove>().placeInHand);
             petalDragManager.AddPetalAtIndex(obj.GetComponent<PetalDrag>(), obj.GetComponent<PlayerMove>().placeInHand);
         }
