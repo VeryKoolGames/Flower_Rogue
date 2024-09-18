@@ -1,6 +1,7 @@
 using Command;
 using DefaultNamespace;
 using DefaultNamespace.Events;
+using Entities;
 using UnityEngine;
 
 namespace PetalBehaviors
@@ -13,7 +14,7 @@ namespace PetalBehaviors
         {
             if (other.CompareTag("Enemy"))
             {
-                onTargetUpdateEvent.Raise(GetComponent<IFightingEntity>().commandPick, new Entity[] { other.GetComponent<Enemy.Enemy>() });
+                onTargetUpdateEvent.Raise(GetComponent<IFightingEntity>().commandPick, new Entity[] { other.GetComponent<Entities.Enemy>() });
             }
         }
     }

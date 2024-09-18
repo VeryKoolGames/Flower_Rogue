@@ -3,6 +3,7 @@ using Command;
 using DefaultNamespace;
 using DefaultNamespace.Events;
 using DG.Tweening;
+using Entities;
 using ScriptableObjectScripts;
 using UnityEngine;
 

@@ -24,7 +24,7 @@ namespace Player
         private int actionPoints;
         private Dictionary<StatType, List<StatBoostData>> statBoosts = new Dictionary<StatType, List<StatBoostData>>();
         [SerializeField] private OnTurnEndListener onTurnEndListener;
-        [SerializeField] private Player playerHealth;
+        [SerializeField] private Entities.Player playerHealth;
         [SerializeField] private PlayerActionPointsManager playerActionPointsManager;
         [SerializeField] private OnNewBoostListener onNewBoostListener;
         

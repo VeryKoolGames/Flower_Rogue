@@ -5,7 +5,7 @@ using Events;
 using UI;
 using UnityEngine;
 
-namespace Enemy
+namespace Entities
 {
     [RequireComponent(typeof(HealthUI))]
     public class Enemy : Entity
@@ -37,8 +37,8 @@ namespace Enemy
                 Die();
             }
         }
-        
-        private int loseArmor(int amount)
+
+        public override int loseArmor(int amount)
         {
             if (_attributes.armor < amount)
             {

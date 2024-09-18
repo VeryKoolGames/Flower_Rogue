@@ -2,6 +2,7 @@ using Command;
 using DefaultNamespace;
 using DefaultNamespace.Events;
 using DG.Tweening;
+using Entities;
 using Events;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ namespace PetalAttacks
             commandPick.IsPreserved = false;
             int defense = activeValue;
             defense += boostCount;
-            if (target is Player.Player)
+            if (target is Entities.Player)
                 target.addArmor(defense);
             RemovePetal();
         }

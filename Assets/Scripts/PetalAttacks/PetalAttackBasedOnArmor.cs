@@ -1,6 +1,5 @@
 using Command;
 using DefaultNamespace;
-using DefaultNamespace.Events;
 using DG.Tweening;
 using Entities;
 using Events;
@@ -8,23 +7,31 @@ using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalBoost : PlayerBoostMove, IFightingEntity, IPassiveActive
+    public class PetalAttackBasedOnArmor : PlayerAttackMove, IFightingEntity, IPassiveActive, IKeepPlayerReference
     {
-        [SerializeField] private OnBoostEvent onBoostEvent;
         public ICommand commandPick { get; set; }
-        public bool boostLeft = true;
-        public bool boostRight = true;
+        
 
         public void Execute(Entity target)
         {
+            if (target == null)
+            {
+                Debug.Log("No target, maybe it died");
+            }
+            int damage = player.GetArmor();
+            player.loseArmor(damage);
+            damage += boostCount;
+            Debug.Log("Attacking for Damage: " + damage);
+            target.loseHP(damage);
             RemovePetal();
         }
 
-        public void InitializeWithoutAdding(Entity player)
+        public void InitializeWithoutAdding(Entity target)
         {
+            player = target;
             // When swapping a card in the player's hand, the command is created but not added to the player's list of commands
             // it is added directly in the deckManager
-            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] {});
             commandPick = command;
         }
 
@@ -38,8 +45,6 @@ namespace PetalAttacks
                 return;
             }
             isActive = !isActive;
-            boostAmount = isActive ? boostAmount * 2 : boostAmount / 2;
-            onBoostEvent.Raise();
         }
 
         public void RemovePetal()
@@ -48,13 +53,15 @@ namespace PetalAttacks
         }
 
 
-        public void Initialize(Entity player)
+        public void Initialize(Entity target)
         {
-            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{ player } );
+            player = target;
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{} );
             commandPick = command;
             onCommandCreationEvent.Raise(command);
         }
 
         public bool isActive { get; set; }
+        public Entity player { get; set; }
     }
 }

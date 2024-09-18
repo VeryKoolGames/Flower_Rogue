@@ -1,6 +1,7 @@
 using Command;
 using DefaultNamespace;
 using DG.Tweening;
+using Entities;
 using Events;
 using UnityEngine;
 

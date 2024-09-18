@@ -2,8 +2,8 @@ namespace Player.States
 {
     public abstract class PlayerState
     {
-        protected Player player;
-        public void Initialize(Player player)
+        protected Entities.Player player;
+        public void Initialize(Entities.Player player)
         {
             this.player = player;
         }

@@ -2,13 +2,13 @@ using Command;
 using DefaultNamespace;
 using DefaultNamespace.Events;
 using DG.Tweening;
+using Entities;
 using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalPassiveDefense : PlayerPassiveMove, IFightingEntity
+    public class PetalPassiveDefense : PlayerPassiveMove, IFightingEntity, IKeepPlayerReference
     {
-        private Entity player;
         public void Execute(Entity target)
         {
             RemovePetal();
@@ -27,7 +27,7 @@ namespace PetalAttacks
 
         public void Initialize(Entity target)
         {
-            this.player = target;
+            player = target;
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { target });
             onCommandCreationEvent.Raise(command);
             commandPick = command;
@@ -36,7 +36,7 @@ namespace PetalAttacks
 
         public void InitializeWithoutAdding(Entity target)
         {
-            this.player = target;
+            player = target;
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { target });
             commandPick = command;
             command.IsPreserved = true;
@@ -63,5 +63,6 @@ namespace PetalAttacks
         }
 
         public ICommand commandPick { get; set; }
+        public Entity player { get; set; }
     }
 }

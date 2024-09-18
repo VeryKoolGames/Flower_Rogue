@@ -1,13 +1,11 @@
-using System;
 using DefaultNamespace;
 using DefaultNamespace.Events;
 using KBCore.Refs;
 using Player.States;
 using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Player
+namespace Entities
 {
     [RequireComponent(typeof(ArmorUI), typeof(HealthUI))]
     public class Player : Entity
@@ -93,8 +91,8 @@ namespace Player
                 stateMachine.ChangeState(highHealthState);
             }
         }
-        
-        private int loseArmor(int amount)
+
+        public override int loseArmor(int amount)
         {
             if (_attributes.armor < amount)
             {

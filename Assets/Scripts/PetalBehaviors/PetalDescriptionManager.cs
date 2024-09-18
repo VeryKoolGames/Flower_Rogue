@@ -1,3 +1,4 @@
+using Command;
 using PetalAttacks;
 using ScriptableObjectScripts;
 using TMPro;
@@ -40,7 +41,11 @@ namespace PetalBehaviors
         
         private void SetDamageDescription()
         {
-            if (GetComponent<PlayerMove>() is PlayerAttackMove playerAttack)
+            if (GetComponent<PlayerMove>() is IKeepPlayerReference playerReference)
+            {
+                descriptionText.text += "\n<color=lightblue> Damage: " + playerReference.player.GetArmor() + "</color>";
+            }
+            else if (GetComponent<PlayerMove>() is PlayerAttackMove playerAttack)
             {
                 int active = playerAttack.activeValue + playerAttack.boostCount;
                 descriptionText.text += "\n<color=lightblue> Active value: " + active + "</color>";

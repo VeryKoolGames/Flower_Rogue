@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DefaultNamespace;
 using DefaultNamespace.Events;
+using Entities;
 using UnityEngine;
 
 namespace Events

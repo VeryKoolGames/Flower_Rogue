@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using Entities;
 using UnityEngine;
 
 namespace Enemy

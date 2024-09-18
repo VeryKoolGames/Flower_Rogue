@@ -1,6 +1,7 @@
 using Command;
 using DefaultNamespace;
 using DG.Tweening;
+using Entities;
 using Events;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace PetalAttacks
         {
             int defense = isActive ? activeValue : passiveValue;
             defense += boostCount;
-            if (target is Player.Player)
+            if (target is Entities.Player)
                 target.addArmor(defense);
             RemovePetal();
         }

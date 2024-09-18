@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DefaultNamespace;
+using Entities;
 using UnityEngine;
 
 namespace Enemy
@@ -9,7 +10,7 @@ namespace Enemy
         [SerializeField] private List<GameObject> enemyPrefabs = new List<GameObject>();
         [SerializeField] private List<Transform> enemySpawnLocations = new List<Transform>();
         private List<IEnemyAttack> enemyAttacks = new List<IEnemyAttack>();
-        [SerializeField] private Player.Player player;
+        [SerializeField] private Entities.Player player;
         
         private void Start()
         {

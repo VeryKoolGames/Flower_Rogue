@@ -18,7 +18,7 @@ namespace Deck
     {
         [SerializeField] private List<Transform> petalSpawnPoints;
         [SerializeField] private DeckSO deckSO;
-        [SerializeField] private Player.Player player;
+        [SerializeField] private Entities.Player player;
         private List<GameObject> petals = new List<GameObject>();
         [SerializeField] private OnTurnEndListener onTurnEndListener;
         [SerializeField] private OnDrawPetalListener onDrawPetalListener;
@@ -32,9 +32,9 @@ namespace Deck
         {
             onDrawPetalListener.Response.AddListener(ReplacePetal);
             onTurnEndListener.Response.AddListener(SpawnPetals);
-            petals.AddRange(deckSO.attackPetals);
+            // petals.AddRange(deckSO.attackPetals);
             petals.AddRange(deckSO.defensePetals);
-            petals.AddRange(deckSO.utilityPetals);
+            // petals.AddRange(deckSO.utilityPetals);
         }
 
         private void Start()

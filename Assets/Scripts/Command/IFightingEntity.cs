@@ -1,5 +1,6 @@
 using DefaultNamespace;
 using DefaultNamespace.Events;
+using Entities;
 using PetalAttacks;
 using ScriptableObjectScripts;
 using UnityEngine;
@@ -25,5 +26,10 @@ namespace Command
     public interface IPassiveActive
     {
         public bool isActive { get; set; }
+    }
+    
+    public interface IKeepPlayerReference
+    {
+        public Entity player { get; set; }
     }
 }

@@ -38,8 +38,8 @@ namespace Combat
     
         private void OnRedrawMaxReached()
         {
+            _redrawCount = 0;
             turnManager.SwitchTurn();
-            _redrawCount = _maxRedraws;
         }
         
         private void UpdateRedrawCountText()
