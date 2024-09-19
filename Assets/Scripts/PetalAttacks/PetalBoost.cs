@@ -10,10 +10,10 @@ namespace PetalAttacks
 {
     public class PetalBoost : PlayerBoostMove, IFightingEntity, IPassiveActive
     {
+        private int boostAmount;
         [SerializeField] private OnBoostEvent onBoostEvent;
         public ICommand commandPick { get; set; }
-        public bool boostLeft = true;
-        public bool boostRight = true;
+
 
         public void Execute(Entity target)
         {
@@ -26,6 +26,9 @@ namespace PetalAttacks
             // it is added directly in the deckManager
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
             commandPick = command;
+            boostAmount = petalBoostSo.boostAmount;
+            petalBoostsManager.Initialize(this, commandPick);
+
         }
 
         public void ActivatePetal()
@@ -53,6 +56,18 @@ namespace PetalAttacks
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{ player } );
             commandPick = command;
             onCommandCreationEvent.Raise(command);
+            boostAmount = petalBoostSo.boostAmount;
+            petalBoostsManager.Initialize(this, commandPick);
+
+        }
+        
+        public override void ApplyBoostEffect(PlayerMove target)
+        {
+            if (target is PlayerAttackMove petalAttack)
+            {
+                target.petalBoostsManager.ApplyBoost(petalBoostSo);
+                petalAttack.petalBoostUI.ApplyBoostingEffect();
+            }
         }
 
         public bool isActive { get; set; }

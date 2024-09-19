@@ -34,7 +34,7 @@ namespace Deck
             onTurnEndListener.Response.AddListener(SpawnPetals);
             // petals.AddRange(deckSO.attackPetals);
             petals.AddRange(deckSO.defensePetals);
-            // petals.AddRange(deckSO.utilityPetals);
+            petals.AddRange(deckSO.utilityPetals);
         }
 
         private void Start()

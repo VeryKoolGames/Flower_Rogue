@@ -27,7 +27,7 @@ namespace PetalAttacks
 
         public void Execute(Entity target)
         {
-            commandPick.IsPreserved = false;
+            commandPick.IsPersistent = false;
             int damage = activeValue;
             target.loseHP(damage);
             RemovePetal();
@@ -39,7 +39,8 @@ namespace PetalAttacks
             // it is added directly in the deckManager
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { });
             commandPick = command;
-            command.IsPreserved = true;
+            command.IsPersistent = true;
+            petalBoostsManager.Initialize(this, commandPick);
         }
 
         public void ActivatePetal()
@@ -62,8 +63,9 @@ namespace PetalAttacks
         {
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{ } );
             commandPick = command;
-            command.IsPreserved = true;
+            command.IsPersistent = true;
             onCommandCreationEvent.Raise(command);
+            petalBoostsManager.Initialize(this, commandPick);
         }
 
     }

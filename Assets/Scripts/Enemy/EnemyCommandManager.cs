@@ -39,7 +39,7 @@ namespace Enemy
             var node = commandList.First;
             while (node != null)
             {
-                if (!node.Value.IsPreserved)
+                if (!node.Value.IsPersistent)
                 {
                     commandList.AddBefore(node, command);
                     return;

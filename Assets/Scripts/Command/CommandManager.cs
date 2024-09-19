@@ -55,7 +55,7 @@ namespace Command
                     node.Value = command;
                     return;
                 }
-                if (node.Next != null && node.Value.IsPreserved && node.Next.Value == null)
+                if (node.Next != null && node.Value.IsPersistent && node.Next.Value == null)
                 {
                     node.Next.Value = command;
                     return;
@@ -142,7 +142,7 @@ namespace Command
             while (node != null && node.Value != null)
             {
                 var nextNode = node.Next; // Store the next node because we may remove the current one
-                if (!node.Value.IsPreserved)
+                if (!node.Value.IsPersistent)
                 {
                     node.Value = null;
                 }

@@ -20,8 +20,15 @@ namespace Combat
             _maxRedraws = maxRedraws.Value;
         }
 
-        private void Start()
+        private void OnEnable()
         {
+            _redrawCount = 0;
+            UpdateRedrawCountText();
+        }
+        
+        public void ResetRedrawCount()
+        {
+            _redrawCount = 0;
             UpdateRedrawCountText();
         }
 

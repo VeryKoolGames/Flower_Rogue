@@ -29,7 +29,7 @@ namespace Command
         }
 
         public abstract Task Execute();
-        public bool IsPreserved { get; set; }
+        public bool IsPersistent { get; set; }
 
         public static T Create<T>(IFightingEntity player, Entity[] targets) where T : PlayerCommand
         {
@@ -57,6 +57,7 @@ namespace Command
                 PetalBoostActionPointsNextTurn => PlayerCommand.Create<BoostActionPointsCommand>(player, targets),
                 PetalPassiveDefense => PlayerCommand.Create<PassiveDefenseCommand>(player, targets),
                 PetalAttackBasedOnArmor => PlayerCommand.Create<AttackBasedOnArmorCommand>(player, targets),
+                PetalBoostPersistent => PlayerCommand.Create<PersistentBoostCommand>(player, targets),
                 _ => null
             };
             return command;

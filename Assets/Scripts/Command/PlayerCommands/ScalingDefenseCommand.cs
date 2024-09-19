@@ -15,7 +15,7 @@ namespace Command.PlayerCommands
             {
                 foreach (var target in targets)
                 {
-                    if (target != null && !player.commandPick.IsPreserved)
+                    if (target != null && !player.commandPick.IsPersistent)
                         player.Execute(target);
                 }
             }

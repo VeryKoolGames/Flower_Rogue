@@ -4853,6 +4853,7 @@ GameObject:
   - component: {fileID: -835159388028383637}
   - component: {fileID: 4276374761066842687}
   - component: {fileID: -4245850841145469124}
+  - component: {fileID: 5956988635477972568}
   m_Layer: 0
   m_Name: PetalAttackScaling
   m_TagString: Untagged
@@ -5074,6 +5075,7 @@ MonoBehaviour:
   onCombatStartListener: {fileID: -4245850841145469124}
   onDrawPetalEvent: {fileID: 11400000, guid: 9809a343c4efc4236b7e4a072182d4a4, type: 2}
   isRedrawEnabled: 0
+  petalBoostsManager: {fileID: 5956988635477972568}
   passiveValue: 0
   activeValue: 0
   boostCount: 0
@@ -5156,6 +5158,19 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5956988635477972568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd70b7a9318846bcaf470eebbc3e43db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTurnEndListener: {fileID: 0}
 --- !u!1 &5880307012556497818
 GameObject:
   m_ObjectHideFlags: 0

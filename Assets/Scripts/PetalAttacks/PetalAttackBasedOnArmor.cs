@@ -33,6 +33,7 @@ namespace PetalAttacks
             // it is added directly in the deckManager
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] {});
             commandPick = command;
+            petalBoostsManager.Initialize(this, commandPick);
         }
 
         public void ActivatePetal()
@@ -59,6 +60,7 @@ namespace PetalAttacks
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{} );
             commandPick = command;
             onCommandCreationEvent.Raise(command);
+            petalBoostsManager.Initialize(this, commandPick);
         }
 
         public bool isActive { get; set; }

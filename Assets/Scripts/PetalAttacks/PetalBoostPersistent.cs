@@ -1,5 +1,6 @@
 using Command;
 using DefaultNamespace;
+using DefaultNamespace.Events;
 using DG.Tweening;
 using Entities;
 using Events;
@@ -7,21 +8,14 @@ using UnityEngine;
 
 namespace PetalAttacks
 {
-    public class PetalAttack : PlayerAttackMove, IFightingEntity, IPassiveActive
+    public class PetalBoostPersistent : PlayerBoostMove, IFightingEntity, IPassiveActive
     {
+        [SerializeField] private OnBoostEvent onBoostEvent;
         public ICommand commandPick { get; set; }
-        
+
 
         public void Execute(Entity target)
         {
-            if (target == null)
-            {
-                Debug.Log("No target, maybe it died");
-            }
-            int damage = isActive ? activeValue : passiveValue;
-            damage += boostCount;
-            Debug.Log("Attacking for Damage: " + damage);
-            target.loseHP(damage);
             RemovePetal();
         }
 
@@ -29,9 +23,10 @@ namespace PetalAttacks
         {
             // When swapping a card in the player's hand, the command is created but not added to the player's list of commands
             // it is added directly in the deckManager
-            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] {});
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
             commandPick = command;
             petalBoostsManager.Initialize(this, commandPick);
+
         }
 
         public void ActivatePetal()
@@ -44,6 +39,7 @@ namespace PetalAttacks
                 return;
             }
             isActive = !isActive;
+            onBoostEvent.Raise();
         }
 
         public void RemovePetal()
@@ -54,10 +50,23 @@ namespace PetalAttacks
 
         public void Initialize(Entity player)
         {
-            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{} );
+            ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[]{ player } );
             commandPick = command;
             onCommandCreationEvent.Raise(command);
             petalBoostsManager.Initialize(this, commandPick);
+
+        }
+        
+        public override void ApplyBoostEffect(PlayerMove target)
+        {
+            if (target is IFightingEntity targetFightingEntity)
+            {
+                if (targetFightingEntity.commandPick.IsPersistent)
+                {
+                    return;
+                }
+                target.petalBoostsManager.ApplyBoost(petalBoostSo);
+            }
         }
 
         public bool isActive { get; set; }

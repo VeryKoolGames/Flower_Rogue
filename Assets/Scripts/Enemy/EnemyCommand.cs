@@ -23,7 +23,7 @@ namespace Enemy
         }
 
         public abstract Task Execute();
-        public bool IsPreserved { get; set; }
+        public bool IsPersistent { get; set; }
 
         public static T Create<T>(IEnemyAttack player, Entity[] targets) where T : EnemyCommand
         {

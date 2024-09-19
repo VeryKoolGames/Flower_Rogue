@@ -3,16 +3,18 @@ using UnityEngine;
 
 namespace Command.PlayerCommands
 {
-    public class PassiveDefenseCommand : PlayerCommand
+    public class PersistentBoostCommand : PlayerCommand
     {
-        public PassiveDefenseCommand(IFightingEntity player) : base(player)
+        public PersistentBoostCommand(IFightingEntity target) : base(target)
         {
         }
 
         public override async Task Execute()
         {
             if (!player.commandPick.IsPersistent)
-                player.Execute(null);
+            {
+                player.RemovePetal();
+            }
             await Awaitable.WaitForSecondsAsync(2f);
         }
     }

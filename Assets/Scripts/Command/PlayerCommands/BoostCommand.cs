@@ -11,7 +11,10 @@ namespace Command.PlayerCommands
 
         public override async Task Execute()
         {
-            player.RemovePetal();
+            if (!player.commandPick.IsPersistent)
+            {
+                player.RemovePetal();
+            }
             await Awaitable.WaitForSecondsAsync(2f);
         }
     }

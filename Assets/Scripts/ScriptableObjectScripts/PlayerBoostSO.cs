@@ -10,7 +10,7 @@ namespace ScriptableObjectScripts
         public int boostAmount;
         public int duration;
     }
-    
+
     public enum StatType
     {
         Health,

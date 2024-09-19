@@ -1,3 +1,4 @@
+using Combat;
 using DefaultNamespace.Events;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace UI
         [SerializeField] private GameObject redrawUIObject;
         [SerializeField] private OnTurnEndListener onCombatStartListener;
         [SerializeField] private OnTurnEndListener onPlayerTurnEvent;
+        [SerializeField] private PetalRedrawManager petalRedrawManager;
 
         private void OnEnable()
         {
@@ -17,6 +19,7 @@ namespace UI
 
         private void EnableObjects()
         {
+            petalRedrawManager.ResetRedrawCount();
             redrawUIObject.SetActive(true);
         }
         

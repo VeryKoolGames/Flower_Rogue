@@ -57,7 +57,7 @@ namespace PetalBehaviors
             }
             else if (GetComponent<PlayerMove>() is PlayerBoostMove playerBoost)
             {
-                descriptionText.text += "\n<color=lightblue> Boosts for: " + playerBoost.boostAmount + "</color>";
+                descriptionText.text += "\n<color=lightblue> Boosts for: " + playerBoost.petalBoostSo.boostAmount + "</color>";
             }
         }
     }

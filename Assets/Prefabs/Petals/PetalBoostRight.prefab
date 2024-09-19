@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -1687550017918420378}
   - component: {fileID: -4157222901260887264}
   - component: {fileID: -1563292807020637370}
+  - component: {fileID: 6127865344511630634}
   m_Layer: 0
   m_Name: PetalBoostRight
   m_TagString: Untagged
@@ -224,10 +225,11 @@ MonoBehaviour:
   onCombatStartListener: {fileID: -1563292807020637370}
   onDrawPetalEvent: {fileID: 11400000, guid: 9809a343c4efc4236b7e4a072182d4a4, type: 2}
   isRedrawEnabled: 0
-  boostAmount: 10
-  onBoostEvent: {fileID: 11400000, guid: af43f2037c66145779d070d0c163ffc1, type: 2}
+  petalBoostsManager: {fileID: 6127865344511630634}
+  petalBoostSo: {fileID: 11400000, guid: 2a1561e07f925450bb854179137926c4, type: 2}
   boostLeft: 0
   boostRight: 1
+  onBoostEvent: {fileID: 11400000, guid: af43f2037c66145779d070d0c163ffc1, type: 2}
 --- !u!114 &-1687550017918420378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,3 +277,16 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6127865344511630634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd70b7a9318846bcaf470eebbc3e43db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTurnEndListener: {fileID: 0}

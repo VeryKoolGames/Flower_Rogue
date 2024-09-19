@@ -13,15 +13,14 @@ GameObject:
   - component: {fileID: 3330935639859290403}
   - component: {fileID: 1027984503441265875}
   - component: {fileID: 8791730815159992194}
-  - component: {fileID: -6991566407716270835}
-  - component: {fileID: -3343868472291355062}
-  - component: {fileID: -2954526586945394405}
-  - component: {fileID: 3453262655670657471}
-  - component: {fileID: 5443113123742094080}
-  - component: {fileID: -7233365141399119660}
-  - component: {fileID: -1058245790192362593}
+  - component: {fileID: 8476301486000879437}
+  - component: {fileID: -5470589824467594147}
+  - component: {fileID: -3084701709849979259}
+  - component: {fileID: -8594524521201363526}
+  - component: {fileID: 2155741830813282491}
+  - component: {fileID: 1825930969234443844}
   m_Layer: 0
-  m_Name: PetalPassiveDefense
+  m_Name: PetalBoostPersistentLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +86,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
-  m_Color: {r: 0.7164471, g: 0.8749513, b: 0.9433962, a: 1}
+  m_Color: {r: 0.7921748, g: 0.02158241, b: 0.9150943, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -189,7 +188,7 @@ MonoBehaviour:
   onPetalStopDraggingEvent: {fileID: 11400000, guid: b37a0d13579d74264a96cc98a689d577,
     type: 2}
   targetRotation: {x: 0, y: 0, z: 0}
---- !u!114 &-6991566407716270835
+--- !u!114 &8476301486000879437
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,24 +204,7 @@ MonoBehaviour:
     type: 2}
   onPetalUnSelectionEvent: {fileID: 11400000, guid: cab62844f3c5744e6aa5850ec832bd4e,
     type: 2}
---- !u!114 &-3343868472291355062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4867423013394408186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 431a72f7f5e84c1bbb61a7264877072e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onCommandCreationEvent: {fileID: 11400000, guid: 2b828b41b72b04d2c9284f7eb77824a3,
-    type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &-2954526586945394405
+--- !u!114 &-5470589824467594147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,30 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   descriptionText: {fileID: 0}
---- !u!114 &3453262655670657471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4867423013394408186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f091b5b43ce488bb31e027d4eeece34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  placeInHand: 0
-  PetalSo: {fileID: 11400000, guid: 58531f88838e04524900599b2c8f32ad, type: 2}
-  onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
-  onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
-    type: 2}
-  onRedrawTurnListener: {fileID: 5443113123742094080}
-  onCombatStartListener: {fileID: -7233365141399119660}
-  onDrawPetalEvent: {fileID: 11400000, guid: 9809a343c4efc4236b7e4a072182d4a4, type: 2}
-  isRedrawEnabled: 0
-  petalBoostsManager: {fileID: -1058245790192362593}
-  onTurnEndEventListener: {fileID: -3343868472291355062}
---- !u!114 &5443113123742094080
+--- !u!114 &-3084701709849979259
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -275,7 +234,7 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &-7233365141399119660
+--- !u!114 &-8594524521201363526
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -292,7 +251,33 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &-1058245790192362593
+--- !u!114 &2155741830813282491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc4c27804cb457aa132ede03fe8ecea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placeInHand: 0
+  PetalSo: {fileID: 11400000, guid: fe3cb802819b44e55bb3dcad69a13ff3, type: 2}
+  onPetalDeathEvent: {fileID: 11400000, guid: 230b90cacbbe24ff68136d8fcf50b0d0, type: 2}
+  onCommandCreationEvent: {fileID: 11400000, guid: 80c6ec92f8de74031a599bc4172cdda5,
+    type: 2}
+  onRedrawTurnListener: {fileID: -3084701709849979259}
+  onCombatStartListener: {fileID: -8594524521201363526}
+  onDrawPetalEvent: {fileID: 11400000, guid: 9809a343c4efc4236b7e4a072182d4a4, type: 2}
+  isRedrawEnabled: 0
+  petalBoostsManager: {fileID: 1825930969234443844}
+  petalBoostSo: {fileID: 11400000, guid: effc9bcf0940945f58e572405b651d99, type: 2}
+  boostLeft: 1
+  boostRight: 0
+  onBoostEvent: {fileID: 11400000, guid: af43f2037c66145779d070d0c163ffc1, type: 2}
+--- !u!114 &1825930969234443844
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,4 +289,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd70b7a9318846bcaf470eebbc3e43db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onTurnEndListener: {fileID: 0}

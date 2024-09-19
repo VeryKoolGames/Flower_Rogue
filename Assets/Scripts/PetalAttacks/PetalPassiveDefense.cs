@@ -31,7 +31,9 @@ namespace PetalAttacks
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { target });
             onCommandCreationEvent.Raise(command);
             commandPick = command;
-            command.IsPreserved = true;
+            command.IsPersistent = true;
+            petalBoostsManager.Initialize(this, commandPick);
+
         }
 
         public void InitializeWithoutAdding(Entity target)
@@ -39,7 +41,8 @@ namespace PetalAttacks
             player = target;
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { target });
             commandPick = command;
-            command.IsPreserved = true;
+            command.IsPersistent = true;
+            petalBoostsManager.Initialize(this, commandPick);
         }
 
         public void ActivatePetal()
@@ -51,7 +54,7 @@ namespace PetalAttacks
                 RemovePetal();
                 return;
             }
-            commandPick.IsPreserved = false;
+            commandPick.IsPersistent = false;
         }
 
         public void RemovePetal()

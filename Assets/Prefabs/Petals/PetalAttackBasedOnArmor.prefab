@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: -19735880663693287}
   - component: {fileID: 6877864174478203476}
   - component: {fileID: 2395388938551227639}
+  - component: {fileID: 2671819804364825920}
   m_Layer: 0
   m_Name: PetalAttackBasedOnArmor
   m_TagString: Untagged
@@ -333,10 +334,24 @@ MonoBehaviour:
   onCombatStartListener: {fileID: 6877864174478203476}
   onDrawPetalEvent: {fileID: 11400000, guid: 9809a343c4efc4236b7e4a072182d4a4, type: 2}
   isRedrawEnabled: 0
+  petalBoostsManager: {fileID: 2671819804364825920}
   passiveValue: 0
   activeValue: 0
   boostCount: 0
   petalBoostUI: {fileID: -5683594335065809402}
+--- !u!114 &2671819804364825920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867423013394408186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd70b7a9318846bcaf470eebbc3e43db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTurnEndListener: {fileID: 0}
 --- !u!1 &8856153210107612949
 GameObject:
   m_ObjectHideFlags: 0

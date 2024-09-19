@@ -19,8 +19,10 @@ MonoBehaviour:
   defensePetals:
   - {fileID: 4867423013394408186, guid: 6efdfed3ac2564b9dad9aa1b2c90ac79, type: 3}
   - {fileID: 4867423013394408186, guid: 10b85cb7a904b4c4e8cfe6cbb1db1d54, type: 3}
+  - {fileID: 4867423013394408186, guid: 450a080750b124c449876507247c0a2f, type: 3}
   utilityPetals:
   - {fileID: 4867423013394408186, guid: caa98c74715234baf874c3007ab1392b, type: 3}
   - {fileID: 4867423013394408186, guid: a081d61b6b6dd48e1b49c797c66ca720, type: 3}
   - {fileID: 4867423013394408186, guid: 794e3aa271e6f483a8edd1a5610763ff, type: 3}
   - {fileID: 4867423013394408186, guid: b7dd06772db1c4f2b8a011b885946551, type: 3}
+  - {fileID: 4867423013394408186, guid: afcc8a22515bf482d832409840316c47, type: 3}

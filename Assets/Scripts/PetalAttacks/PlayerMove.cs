@@ -4,6 +4,7 @@ using DG.Tweening;
 using Events;
 using Events.PlayerMoveEvents;
 using KBCore.Refs;
+using Player;
 using ScriptableObjectScripts;
 using UI;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace PetalAttacks
         public OnTurnEndListener onCombatStartListener;
         public OnDrawPetalEvent onDrawPetalEvent;
         public bool isRedrawEnabled = false;
+        public PetalBoostsManager petalBoostsManager;
 
         protected virtual void Awake()
         {
@@ -27,6 +29,7 @@ namespace PetalAttacks
             onRedrawTurnListener.Response.AddListener(OnRedrawTurnEnd);
             transform.localScale = Vector3.zero;
             transform.DOScale(1, 0.25f);
+            petalBoostsManager = GetComponent<PetalBoostsManager>();
         }
 
         private void OnCombatStart()
@@ -46,6 +49,7 @@ namespace PetalAttacks
             onCombatStartListener.Response.RemoveListener(OnCombatStart);
             onRedrawTurnListener.Response.RemoveListener(OnRedrawTurnEnd);
         }
+        
     }
 
     public abstract class PlayerAttackMove : PlayerMove
@@ -65,7 +69,10 @@ namespace PetalAttacks
     
     public abstract class PlayerBoostMove : PlayerMove
     {
-        public int boostAmount;
+        public PetalBoostSO petalBoostSo;
+        public bool boostLeft = true;
+        public bool boostRight = true;
+        public virtual void ApplyBoostEffect(PlayerMove target){}
     }
     
     public abstract class PlayerPassiveMove : PlayerMove

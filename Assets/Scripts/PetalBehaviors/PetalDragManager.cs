@@ -128,27 +128,19 @@ namespace PetalBehaviors
             foreach (var petal in petals)
             {
                 PlayerMove playerMove = petal.gameObject.GetComponent<PlayerMove>();
-                if (playerMove is PlayerAttackMove petalAttack)
-                {
-                    petalAttack.petalBoostUI.RemoveBoostingEffect();
-                    petalAttack.boostCount = 0;
-                }
+                playerMove.petalBoostsManager.ClearBoosts();
             }
             foreach (var petal in petals)
             {
                 PlayerMove playerMove = petal.gameObject.GetComponent<PlayerMove>();
-                if (playerMove is PetalBoost boost)
+                if (playerMove is PlayerBoostMove boost)
                 {
                     if (boost.boostLeft)
                     {
                         if (petals.IndexOf(petal) > 0)
                         {
                             PlayerMove petalToBoost = petals[petals.IndexOf(petal) - 1].gameObject.GetComponent<PlayerMove>();
-                            if (petalToBoost is PlayerAttackMove petalAttack)
-                            {
-                                petalAttack.petalBoostUI.ApplyBoostingEffect();
-                                petalAttack.boostCount += boost.boostAmount;
-                            }
+                            boost.ApplyBoostEffect(petalToBoost);
                         }
                     }
                     if (boost.boostRight)
@@ -156,11 +148,7 @@ namespace PetalBehaviors
                         if (petals.IndexOf(petal) < petals.Count - 1)
                         {
                             PlayerMove petalToBoost = petals[petals.IndexOf(petal) + 1].gameObject.GetComponent<PlayerMove>();
-                            if (petalToBoost is PlayerAttackMove petalAttack)
-                            {
-                                petalAttack.petalBoostUI.ApplyBoostingEffect();
-                                petalAttack.boostCount += boost.boostAmount;
-                            }
+                            boost.ApplyBoostEffect(petalToBoost);
                         }
                     }
                 }

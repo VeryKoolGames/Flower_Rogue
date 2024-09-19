@@ -11,22 +11,26 @@ namespace Command.PlayerCommands
 
         public override async Task Execute()
         {
-            if (targets.Count > 0)
+            if (!player.commandPick.IsPersistent)
             {
-                foreach (var target in targets)
+                if (targets.Count > 0)
                 {
-                    if (target != null)
-                        player.Execute(target);
-                    else
+                    foreach (var target in targets)
                     {
-                        player.RemovePetal();
+                        if (target != null)
+                            player.Execute(target);
+                        else
+                        {
+                            player.RemovePetal();
+                        }
                     }
                 }
+                else
+                {
+                    Debug.LogError("No target found");
+                }
             }
-            else
-            {
-                Debug.LogError("No target found");
-            }
+
             await Awaitable.WaitForSecondsAsync(2f);
         }
     }

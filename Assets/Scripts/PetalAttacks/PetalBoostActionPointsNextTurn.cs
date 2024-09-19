@@ -29,12 +29,16 @@ namespace PetalAttacks
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
             onCommandCreationEvent.Raise(command);
             commandPick = command;
+            petalBoostsManager.Initialize(this, commandPick);
+
         }
 
         public void InitializeWithoutAdding(Entity player)
         {
             ICommand command = CommandFactory.CreateCommand(GetComponent<IFightingEntity>(), new Entity[] { player });
             commandPick = command;
+            petalBoostsManager.Initialize(this, commandPick);
+
         }
 
         public void ActivatePetal()
