@@ -1,4 +1,3 @@
-using System;
 using DefaultNamespace.Combat;
 using ScriptableObjectScripts;
 using TMPro;

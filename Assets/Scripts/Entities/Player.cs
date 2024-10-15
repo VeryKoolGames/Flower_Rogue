@@ -2,6 +2,7 @@ using DefaultNamespace;
 using DefaultNamespace.Events;
 using KBCore.Refs;
 using Player.States;
+using ScriptableObjectScripts;
 using UI;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ namespace Entities
         private void Start()
         {
             InitStates();
-            _attributes = new EntityAttribute(entitySo.Attribute.Name, entitySo.Attribute.Health, entitySo.Attribute.maxHealth);
+            _attributes = new EntityAttribute(entitySo.Attribute.name, entitySo.Attribute.health, entitySo.Attribute.maxHealth);
         }
 
         private void Update()
@@ -62,27 +63,27 @@ namespace Entities
             {
                 return;
             }
-            _attributes.Health -= amount;
-            if (_attributes.Health <= 0)
+            _attributes.health -= amount;
+            if (_attributes.health <= 0)
             {
-                _attributes.Health = 0;
+                _attributes.health = 0;
                 onCombatLoseEvent.Raise();
             }
-            healthUI.UpdateHealth(_attributes.Health, entitySo.Attribute.Health);
+            healthUI.UpdateHealth(_attributes.health, entitySo.Attribute.health);
             UpdateState();
         }
         
         private void UpdateState()
         {
-            if (_attributes.Health <= 0)
+            if (_attributes.health <= 0)
             {
                 stateMachine.ChangeState(deadState);
             }
-            else if (_attributes.Health <= entitySo.Attribute.Health * 0.3)
+            else if (_attributes.health <= entitySo.Attribute.health * 0.3)
             {
                 stateMachine.ChangeState(lowHealthState);
             }
-            else if (_attributes.Health <= entitySo.Attribute.Health * 0.6)
+            else if (_attributes.health <= entitySo.Attribute.health * 0.6)
             {
                 stateMachine.ChangeState(midHealthState);
             }
@@ -109,7 +110,7 @@ namespace Entities
         public void UpdateMaxHealth(int amount)
         {
             _attributes.maxHealth += amount;
-            healthUI.UpdateHealth(_attributes.Health, _attributes.maxHealth);
+            healthUI.UpdateHealth(_attributes.health, _attributes.maxHealth);
         }
     }
 }

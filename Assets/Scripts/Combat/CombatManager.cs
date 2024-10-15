@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using DefaultNamespace;
 using DefaultNamespace.Events;
 using DG.Tweening;
 using Entities;

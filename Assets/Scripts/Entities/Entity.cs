@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using ScriptableObjectScripts;
 using UI;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ namespace Entities
         
         public int GetHealth()
         {
-            return _attributes.Health;
+            return _attributes.health;
         }
     }
 }

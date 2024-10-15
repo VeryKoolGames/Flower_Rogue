@@ -1,20 +1,20 @@
 using System;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace ScriptableObjectScripts
 {
     [Serializable]
     public class EntityAttribute
     {
-        public string Name;
-        public int Health;
+        public string name;
+        public int health;
         public int armor;
         public int maxHealth;
 
         public EntityAttribute(string name, int health, int maxHealth)
         {
-            Name = name;
-            Health = health;
+            this.name = name;
+            this.health = health;
             this.maxHealth = maxHealth;
         }
     }

@@ -2,6 +2,7 @@ using DefaultNamespace;
 using DefaultNamespace.Events;
 using DG.Tweening;
 using Events;
+using ScriptableObjectScripts;
 using UI;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace Entities
         private void Start()
         {
             entityGameObject = gameObject;
-            _attributes = new EntityAttribute(entitySo.Attribute.Name, entitySo.Attribute.Health, entitySo.Attribute.maxHealth);
+            _attributes = new EntityAttribute(entitySo.Attribute.name, entitySo.Attribute.health, entitySo.Attribute.maxHealth);
             onEnemySpawnEvent.Raise(this);
             armorUI = GetComponent<ArmorUI>();
         }
@@ -30,9 +31,9 @@ namespace Entities
             {
                 return;
             }
-            _attributes.Health -= amount;
-            healthUI.UpdateHealth(_attributes.Health, entitySo.Attribute.Health);
-            if (_attributes.Health <= 0)
+            _attributes.health -= amount;
+            healthUI.UpdateHealth(_attributes.health, entitySo.Attribute.health);
+            if (_attributes.health <= 0)
             {
                 Die();
             }
