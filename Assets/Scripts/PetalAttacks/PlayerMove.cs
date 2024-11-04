@@ -8,6 +8,7 @@ using Player;
 using ScriptableObjectScripts;
 using UI;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace PetalAttacks
 {
@@ -30,7 +31,43 @@ namespace PetalAttacks
             transform.localScale = Vector3.zero;
             transform.DOScale(1, 0.25f);
             petalBoostsManager = GetComponent<PetalBoostsManager>();
+            // SetRandomColorToSpriteTexture();
         }
+        
+        private void SetRandomColorToSpriteTexture()
+        {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer == null || spriteRenderer.sprite == null)
+            {
+                Debug.LogWarning("SpriteRenderer or Sprite is missing.");
+                return;
+            }
+
+            Texture2D originalTexture = spriteRenderer.sprite.texture;
+            Texture2D newTexture = new Texture2D(originalTexture.width, originalTexture.height);
+            newTexture.filterMode = originalTexture.filterMode;
+            newTexture.wrapMode = originalTexture.wrapMode;
+
+            newTexture.SetPixels(originalTexture.GetPixels());
+            Color randomColor = new Color(Random.value, Random.value, Random.value);
+
+            // Change each pixel color to a random color in the new texture
+            Color[] pixels = newTexture.GetPixels();
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                if (pixels[i].a == 0) continue;
+                pixels[i] = randomColor;
+            }
+
+            // Apply the changes to the new texture
+            newTexture.SetPixels(pixels);
+            newTexture.Apply();
+
+            // Assign the new texture to the sprite without affecting the original
+            spriteRenderer.sprite = Sprite.Create(newTexture, spriteRenderer.sprite.rect, new Vector2(0.5f, 0.5f));
+        }
+
+
 
         private void OnCombatStart()
         {

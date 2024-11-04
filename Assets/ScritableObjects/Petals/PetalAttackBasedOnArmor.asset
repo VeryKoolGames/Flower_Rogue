@@ -15,7 +15,7 @@ MonoBehaviour:
   petalAttributes:
     activeValue: 0
     passiveValue: 0
-    cost: 0
+    cost: 1
     name: Petal Attack Based On Armor
     description: Deals damage to an enemy based on your armor
     warningDescription: 

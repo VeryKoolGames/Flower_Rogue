@@ -15,6 +15,8 @@ namespace Player
         [SerializeField] private OnTurnEndListener onEnemyTurnEndListener;
         [SerializeField] private OnPetalSelectionListener onPetalSelectionListener;
         [SerializeField] private OnPetalUnSelectionListener onPetalUnSelectionListener;
+        [SerializeField] private Sprite actionPointFullSprite;
+        [SerializeField] private Sprite actionPointEmptySprite;
         private int _actionPoints;
         private int _maxActionPoints;
         
@@ -86,7 +88,7 @@ namespace Player
         {
             for (int i = 0; i < actionPointsGo.Count; i++)
             {
-                actionPointsGo[i].GetComponent<RawImage>().color = i < currentPoints ? Color.green : Color.red;
+                actionPointsGo[i].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = i < currentPoints ? actionPointFullSprite : actionPointEmptySprite;
             }
         }
         
