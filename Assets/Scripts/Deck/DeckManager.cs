@@ -32,7 +32,7 @@ namespace Deck
         {
             onDrawPetalListener.Response.AddListener(ReplacePetal);
             onTurnEndListener.Response.AddListener(SpawnPetals);
-            // petals.AddRange(deckSO.attackPetals);
+            petals.AddRange(deckSO.attackPetals);
             petals.AddRange(deckSO.defensePetals);
             petals.AddRange(deckSO.utilityPetals);
         }

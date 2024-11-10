@@ -21,15 +21,14 @@ namespace Map
                 MapNode newNode = new MapNode(mapNodeType);
 
                 previousNode.Connections.Add(newNode);
+                if (i > 1 && Random.value > 0.7f)
+                {
+                    MapNode branchNode = new MapNode(GetRandomNodeTypeExcept(previousNode.Connections[0].Type));
+                    previousNode.Connections.Add(branchNode);
+                }
                 mapNodes.Add(newNode);
                 previousNode = newNode;
 
-                if (i > 1 && Random.value > 0.7f)
-                {
-                    MapNode branchNode = new MapNode(GetRandomNodeType());
-                    mapNodes.Add(branchNode);
-                    previousNode.Connections.Add(branchNode);
-                }
             }
         }
 
@@ -38,6 +37,14 @@ namespace Map
             float randomValue = Random.value;
             if (randomValue < 0.6f) return MapNodeType.Fight;
             if (randomValue < 0.8f) return MapNodeType.Shop;
+            return MapNodeType.Encounter;
+        }
+        
+        private MapNodeType GetRandomNodeTypeExcept(MapNodeType exceptType)
+        {
+            float randomValue = Random.value;
+            if (randomValue < 0.6f && exceptType != MapNodeType.Fight) return MapNodeType.Fight;
+            if (randomValue < 0.8f && exceptType != MapNodeType.Shop) return MapNodeType.Shop;
             return MapNodeType.Encounter;
         }
     
